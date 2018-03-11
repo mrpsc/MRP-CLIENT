@@ -1,48 +1,39 @@
-import { Component, ContentChildren, QueryList, AfterContentInit, forwardRef, Output, EventEmitter } from '@angular/core';
-import { TabComponent } from './tab.component';
+import { Component, ContentChildren, QueryList, forwardRef, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
+// import { TabComponent } from './tab.component';
 
 @Component({
   selector: 'tabs',
   styles: [' li{ cursor: pointer; }'],
   template:`
     <ul class="nav nav-tabs">
-      <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active">
-        <a>{{tab.title}}</a>
+      <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [ngClass]="{'active': tab === activeTab}">
+        <a>{{tab[displayKey]}}</a>
       </li>
     </ul>
     <ng-content></ng-content>
    `
 })
-export class TabsComponent implements AfterContentInit {
-  //@ContentChildren(TabComponent) tabs: QueryList<TabComponent>;
-  tabs: TabComponent[] = [];
-  
-  // contentChildren are set
-  ngAfterContentInit() {
-    // get all active tabs
-    //let activeTabs = this.tabs.filter((tab)=>tab.active);
-    
-    // if there is no active tab set, activate the first
-    // if(this.tabs.length > 0 && activeTabs.length === 0) {
-    //   this.selectTab(this.tabs[0]);
-    // }
-  }
+export class TabsComponent implements OnChanges {
+  @Input() tabs: any[];
+  @Input() displayKey: string;
+  @Input() valueKey: string;
 
-  addTab(tab: TabComponent) {
-    if (this.tabs.length === 0) {
-      tab.active = true;
+  @Output() onSelectTab = new EventEmitter<any>();
+
+  activeTab: any = null;
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes["tabs"] && changes["tabs"].currentValue && 
+    changes["tabs"].currentValue !== changes["tabs"].previousValue && 
+    changes["tabs"].currentValue.length > 0) {
+      this.activeTab = this.tabs[0];
     }
-    this.tabs.push(tab);
   }
-  
-  selectTab(tab: TabComponent){
-    // deactivate all tabs
-    this.tabs.forEach(tab => {
-      tab.active = false;
-    });
-    
-    // activate the tab the user has clicked on.
-    tab.active = true;
+ 
+  selectTab(tab){
+    this.activeTab = tab;
+
+    this.onSelectTab.emit(tab[this.valueKey]);
   }
 
 }

@@ -76,23 +76,30 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
         Observable.zip(this.$navigationLoadResponse,
             this.$patientResponse).subscribe(data => {
                 if (this.headers && this.headers.length > 0) {
-                    this.selectMenu(this.headers[0]);
+                    this.selectMenu(this.headers[0].id);
                 }
             })
     }
 
-    selectMenu(menu: NavigationMenuItem) {
-        this.selectedMenu = menu;
-        if (menu && menu.subMenus && menu.subMenus.length > 0) {
-            const subMenu = menu.subMenus[0];
-            this.selectSubMenu(subMenu.tabId);
+    selectMenu(id: string) {
+        const menu = this.headers.find(header => header.id === id);
+        if (menu) {
+            this.selectedMenu = menu;
+            if (menu && menu.subMenus && menu.subMenus.length > 0) {
+                const subMenu = menu.subMenus[0];
+                this.selectSubMenu(subMenu.tabId);
+            }
+        } else {
+            this.selectedMenu = null;
         }
     }
 
-    selectSubMenu(id) {
+    selectSubMenu(id: string) {
         const menu = this.formModel.find(group => group.id === id)
         if (menu) {
             this.group = menu;
+        } else {
+            this.group = null;
         }
     }
 
@@ -140,9 +147,6 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     onChange($event: any) {
         this.diagnosis.Symptoms[$event.model.id] = $event.model._value;
     }
-
-
-
 
     // add() {
     //     this.formsService.addFormArrayGroup(this.arrayControl, this.arrayModel);

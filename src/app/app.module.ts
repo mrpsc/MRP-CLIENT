@@ -14,7 +14,6 @@ import { LogoutComponent } from './login-register/logout.component';
 import { EnumToOptionsFilter } from './shared/components/enum-to-options-filter.pipe';
 import { EqualValidator } from './login-register/shared/equal-validator.directive';
 import { PatientEditInfoComponent } from './patient-info/patient-info-edit.component';
-import { TabComponent } from './shared/components/tabs/tab.component';
 import { TabsComponent } from './shared/components/tabs/tabs.component';
 import { PatientDiagnosisDetailsComponent } from './patient-info/patient-diagnosis-details.component';
 import { CanActivateOAuthGuard } from './shared/services/can-activate-oath-guard';
@@ -42,7 +41,6 @@ const routes: Routes = [
     PatientEditInfoComponent,
     PatientDiagnosisDetailsComponent,
     FindPatientComponent,
-    TabComponent,
     TabsComponent,
     EnumToOptionsFilter,
     DataFilterPipe

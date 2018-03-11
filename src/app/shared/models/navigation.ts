@@ -5,6 +5,7 @@ export class NavigationModel {
 export class NavigationMenuItem {
     title: string;
     isForm: boolean;
+    id: string;
     subMenus: NavigationSubmenuItem[]
 }
 

@@ -3,6 +3,7 @@
         {
             "title": "Baseline",
             "isForm": true,
+            "id": "1",
             "subMenus": [ {
                 "title": "Baseline",
                 "tabId": "58d3cebb9c87bc2d787b9109"
@@ -14,8 +15,14 @@
         },
         {
             "title": "Diagnosis",
-            "isForm": true,            
-            "subMenus": [ {
+            "isForm": true,        
+            "id": "2",    
+            "subMenus": [
+                {
+                "title": "Diagnosis",
+                "tabId": "5a8429f0f36d2873fccea073"
+            }, 
+            {
                 "title": "Symptoms",
                 "tabId": "5a9550f3734d1d3655e8a2eb"
             }, 
@@ -35,6 +42,7 @@
         {
             "title": "Risk Factors",
             "isForm": true,
+            "id": "3",
             "subMenus": [ {
                 "title": "Risk Factors",
                 "tabId": "5a9571db734d1d3655e8c183"
@@ -43,6 +51,7 @@
         {
             "title": "Laboratory",
             "isForm": true,
+            "id": "4",
             "subMenus": [ {
                 "title": "Lab at the time of diagnosis",
                 "tabId": "5a95944b734d1d3655e8e533"
@@ -55,6 +64,7 @@
         {
             "title": "Treatment",
             "isForm": false,
+            "id": "5",
             "subMenus": [  {
                 "title": "Acute Treatment",
                 "tabId": ""
@@ -87,6 +97,7 @@
         {
             "title": "Follow-up",
             "isForm": true,
+            "id": "6",
             "subMenus": [  {
                 "title": "Follow-up",
                 "tabId": "5a955d82734d1d3655e8ad88"
@@ -128,6 +139,7 @@
         {
             "title": "Sequelae",
             "isForm": true,
+            "id": "7",
             "subMenus": [ 
             {
                 "title": "Echocardiogram and CT-Scan during follow-up",
