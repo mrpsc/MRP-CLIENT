@@ -1,0 +1,51 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+
+import { Patient } from '../shared/models/patient';
+import { User } from '../shared/models/user';
+import { PatientsService } from '../../app/shared/services/patients.service';
+import { FindPatientModel } from './find-patientModel';
+
+@Component({
+  selector: 'app-find-patient',
+  templateUrl: './find-patient.component.html',
+  styleUrls: ['./find-patient.component.css']
+})
+
+//@Component({
+ // moduleId:module.id,
+ // templateUrl:'./findPatient.component.html',
+//  styleUrls:['./findPatient.component.css']
+//})
+export class FindPatientComponent {
+    patient:FindPatientModel = new FindPatientModel();
+    loggedInUser:User;
+    pageTitle:string = "Find Patient";
+    error:string;
+    
+    constructor(private patientsService:PatientsService, private router:Router){
+        this.patient.PatientId = '026606657';
+    }
+
+    find():void{
+        this.patientsService.getPatients(this.patient)
+            .subscribe(response => {
+                if(response[0]){
+                    let patient = new Patient().fromJSON(response[0]);
+                    this.patientsService.emitChange(patient);
+                    this.router.navigate(['./'+this.navigationAddress(patient)]);
+                }
+            },error => {
+                console.log(error);
+                this.error = "server error!"
+            } );
+    }
+    
+    private navigationAddress(patients:Patient):string{
+        if(patients)
+            return 'patientInfo';
+        else
+            this.error = "no patients found!";
+    }
+}

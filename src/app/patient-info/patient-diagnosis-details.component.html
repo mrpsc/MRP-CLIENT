@@ -1,0 +1,35 @@
+<h1>{{pageTitle}}</h1>
+<tabs>
+    <div class="container">
+        <div class="col-md-12 col-md-offset-1">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form [formGroup]="formGroup" (ngSubmit)="submit()">
+                        <tabs>
+                            <tab (click)="selectMenu(menuItem)" class="external-tab" *ngFor="let menuItem of headers" [tabTitle]="menuItem.title">                                
+                            </tab>
+                            <!-- <tab *ngFor="let group of formModel" [tabTitle]="group['legend']">
+                                
+                            </tab> -->                            
+                            <div *ngIf="selectedMenu">
+                                <tab class="internal-tab" *ngFor="let submenu of selectedMenu.subMenus" [tabTitle]="submenu.title">
+                                    <ng-container *ngIf="group">
+                                        <dynamic-form-bootstrap-control *ngFor="let controlModel of [group]" [group]="formGroup" [model]="controlModel" (change)="onChange($event)">
+                                        </dynamic-form-bootstrap-control>
+                                    </ng-container>                                    
+                                </tab>
+                            </div>
+                            
+                        </tabs>
+                        <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a class="btn btn-primary" style="width:auto;margin-left:10px" [routerLink]="['./patientInfo']">
+                            <i class="glyphicon glyphicon-edit"></i> Cancel
+                        </a>
+                        <!--<button type="button" class="btn btn-primary" (click)='goBack()'>Cancel</button>-->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>     
+</tabs>
