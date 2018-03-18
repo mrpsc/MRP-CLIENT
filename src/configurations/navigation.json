@@ -1,0 +1,158 @@
+{
+    "headers": [
+        {
+            "title": "Baseline",
+            "isForm": true,
+            "id": "1",
+            "subMenus": [ {
+                "title": "Baseline",
+                "tabId": "58d3cebb9c87bc2d787b9109"
+            }, 
+            {
+                "title": "Concomitant Diseases",
+                "tabId": "58d3ce969c87bc2d787b9108"
+            }]
+        },
+        {
+            "title": "Diagnosis",
+            "isForm": true,        
+            "id": "2",    
+            "subMenus": [
+                {
+                "title": "Diagnosis",
+                "tabId": "5a8429f0f36d2873fccea073"
+            }, 
+            {
+                "title": "Symptoms",
+                "tabId": "5a9550f3734d1d3655e8a2eb"
+            }, 
+            {
+                "title": "PE Char.",
+                "tabId": "5a955312734d1d3655e8a48d"
+            },  
+            {
+                "title": "DVT Char.",
+                "tabId": "5a955a51734d1d3655e8aabb"
+            }, 
+            {
+                "title": "SVT Char.",
+                "tabId": "5a95525f734d1d3655e8a3eb"
+            }]            
+        },
+        {
+            "title": "Risk Factors",
+            "isForm": true,
+            "id": "3",
+            "subMenus": [ {
+                "title": "Risk Factors",
+                "tabId": "5a9571db734d1d3655e8c183"
+            }]
+        },
+        {
+            "title": "Laboratory",
+            "isForm": true,
+            "id": "4",
+            "subMenus": [ {
+                "title": "Lab at the time of diagnosis",
+                "tabId": "5a95944b734d1d3655e8e533"
+            },
+            {
+                "title": "Lab during follow-up",
+                "tabId": "5a9595e0734d1d3655e8e684"
+            }]
+        },
+        {
+            "title": "Treatment",
+            "isForm": false,
+            "id": "5",
+            "subMenus": [  {
+                "title": "Acute Treatment",
+                "tabId": ""
+            },
+            {
+                "title": "Long-term Treatment",
+                "tabId": ""
+            },
+            {
+                "title": "Treatment after Complications",
+                "tabId": ""
+            },
+            {
+                "title": "IVC Filter",
+                "tabId": ""
+            }, {
+                "title": "INR Control",
+                "tabId": ""
+            },
+            {
+                "title": "Non-Anticoagulent Therapy",
+                "tabId": ""
+            },
+            {
+                "title": "Antiplatelet Treatment",
+                "tabId": ""
+            }
+            ]
+        },
+        {
+            "title": "Follow-up",
+            "isForm": true,
+            "id": "6",
+            "subMenus": [  {
+                "title": "Follow-up",
+                "tabId": "5a955d82734d1d3655e8ad88"
+            },
+            {
+                "title": "Death",
+                "tabId": "5a959940734d1d3655e8e989"
+            },
+            {
+                "title": "Thromboembolic Reccurence",
+                "tabId": "5a957feb734d1d3655e8cf1b"
+            },
+            {
+                "title": "Bleeding",
+                "tabId": "5a958ba8734d1d3655e8dc93"
+            },
+            {
+                "title": "Thrombocytopenia",
+                "tabId": "5a958c72734d1d3655e8dd98"
+            },
+            {
+                "title": "Fractures",
+                "tabId": "5a9591ed734d1d3655e8e333"
+            },
+            {
+                "title": "Adverse reactions",
+                "tabId": "5a958fdb734d1d3655e8e0df"
+            },
+            {
+                "title": "Arterial Ischemia",
+                "tabId": "5a959197734d1d3655e8e2e7"
+            },
+            {
+                "title": "Pregnancy",
+                "tabId": "5a9592db734d1d3655e8e409"
+            }
+            ]
+        },
+        {
+            "title": "Sequelae",
+            "isForm": true,
+            "id": "7",
+            "subMenus": [ 
+            {
+                "title": "Echocardiogram and CT-Scan during follow-up",
+                "tabId": "5a959718734d1d3655e8e7b5"
+            },
+            {
+                "title": "Residual Thrombosis",
+                "tabId": "5a9597c9734d1d3655e8e875"
+            },
+            {
+                "title": "Posthrombotic syndrome",
+                "tabId": "5a95979c734d1d3655e8e83f"
+            }]
+        }
+    ]
+}

@@ -1,0 +1,151 @@
+<div class="panel panel-primary" *ngIf="patient">
+  <div class="panel-heading" style="font-size:large">
+     <!--   {{pageTitle + ": " + patient.Name}}-->
+  </div>
+
+  <div class="panel-body">
+      <div class="row">
+          <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-3">ID:</div>
+                  <div class="col-md-6">{{patient.PatientId}}</div>
+              </div>
+            <!--   <div class="row">
+                  <div class="col-md-3">Name:</div>
+                  <div class="col-md-6">{{patient.Name}}</div>
+              </div>
+              <div class="row">
+                  <div class="col-md-3">Date of Birth:</div>
+                  <div class="col-md-6">{{patient.DateOfBirth | date:'dd/MM/yyyy'}}</div>
+              </div>
+              <div class="row">
+                  <div class="col-md-3">Race:</div>
+                  <div class="col-md-6">{{races[patient.Race]}}</div>
+              </div>
+              <div class="row">
+                  <div class="col-md-3">Gender:</div>
+                  <div class="col-md-6">{{genders[patient.Gender]}}</div>
+              </div>
+              <div class="row">
+                  <div class="col-md-3">Inclusion Date:</div>
+                  <div class="col-md-6">{{patient.InclusionDate | date:'dd/MM/yyyy'}}</div>
+              </div>
+              <div class="row">
+                  <div class="col-md-3">General Info:</div>
+                  <div class="col-md-6">{{patient.General}}</div>
+              </div> -->
+              
+          </div>
+      </div>
+      <!-- <div class="alert alert-danger" *ngIf="error">{{error}}</div> -->
+  </div>
+  <div class="panel-footer">
+    <!--  <a class="btn btn-default" style="width:auto" [routerLink]="['/findPatient']">
+          <i class="glyphicon glyphicon-chevron-left"></i> Back
+      </a>-->
+      <a class="btn btn-primary" style="width:auto;margin-left:10px" [routerLink]="['/patientEdit/1']">
+          <i class="glyphicon glyphicon-edit"></i> Edit
+      </a>
+      <a class="btn btn-primary" style="width:auto;margin-left:10px" [routerLink]="['/patientDiagnosisDetails/0']">
+          <i class="glyphicon glyphicon-plus"></i> Add Diagnosis
+      </a>
+  </div>
+</div>
+<!--<div class="panel panel-primary" *ngIf="patient">
+  <div class="panel-heading" style="font-size:large">Diagnosis List </div>
+
+  <div class="panel-body">
+      <div class="row">
+          <!-- <div class="col-xs-2">
+              <label class="label-control">Rows on page</label>
+              <input type='number' class="form-control input-sm" [(ngModel)]="rowsOnPage"/>
+          </div>
+          <div class="col-xs-4">
+              <div class="row">
+                  <label class="col-xs-12 label-control">Sort by</label>
+              </div>
+              <div class="col-xs-6">
+                  <div class="row">
+                      <select class="form-control input-sm" [(ngModel)]="sortBy">
+                          <option ngValue="doctorName">Doctor's Name</option>
+                          <option ngValue="diagnosisDate">Date of Diagnosis</option>
+                          <option ngValue="medicalInstitution">Medical Institution</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="col-xs-6">
+                  <div class="row">
+                      <select class="form-control input-sm" [(ngModel)]="sortOrder">
+                          <option ngValue="asc">Ascending</option>
+                          <option ngValue="desc">Descending</option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+      </div> -->
+      <!-- <table class="table table-striped" [mfData]="patient.Diagnosis | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+          <thead>
+              <tr>
+                  <th style="width: 15%"></th>
+                  <th style="width: 30%">
+                      <mfDefaultSorter by="doctorName">Doctore Name</mfDefaultSorter>
+                  </th>
+                  <th style="width: 25%">
+                      <mfDefaultSorter by="diagnosisDate">Date of Diagnosis</mfDefaultSorter>
+                  </th>
+                  <th style="width: 30%">
+                      <mfDefaultSorter by="medicalInstitution">Medical Institution</mfDefaultSorter>
+                  </th>
+              </tr>
+              <tr>
+                  <th colspan="5">
+                      Filter by name:
+                      <input class="form-control" [(ngModel)]="filterQuery"/>
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let diag of patient.Diagnosis;let i=index">
+                  <td>
+                      <button (click)="openDetails(i+1)" class="btn btn-primary">Details</button>
+                  </td>
+                  <td>{{diag.DoctorName}}</td>
+                  <td>{{diag.DiagnosisDate}}</td>
+                  <td>{{diag.MedicalInstitution.Name}}</td>
+              </tr>
+          </tbody>
+          <tfoot>
+              <tr>
+                  <td colspan="4">
+                      <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                  </td>
+              </tr>
+          </tfoot>
+      </table> -->
+
+
+      <!-- <div class="example-container mat-elevation-z8">
+        <mat-table #table [dataSource]="patient.Diagnosis" matSort>
+              <ng-container matColumnDef="DateofDiagnosis">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Date of Diagnosis </mat-header-cell>
+                    <mat-cell *matCellDef="let diag"> {{diag.DiagnosisDate}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="DoctorName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Doctor Name </mat-header-cell>
+                    <mat-cell *matCellDef="let diag"> {{diag.DoctorName}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="MedicalInstitution">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Medical Institution </mat-header-cell>
+                        <mat-cell *matCellDef="let diag"> {{diag.MedicalInstitution.Name}} </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>  
+                      <mat-paginator #paginator
+                      [pageSize]="10"
+                      [pageSizeOptions]="[5, 10, 20]">
+       </mat-paginator>
+        </div>
+    </div>
+        </div>
+      -->
