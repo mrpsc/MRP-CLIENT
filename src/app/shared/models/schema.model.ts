@@ -21,7 +21,7 @@ export const MY_DYNAMIC_FORM_MODEL = [
                     id: "InclusionDate",
                     label: "Inclusion date",
                     placeholder: "25/2/2017",
-                    readOnly:true
+                    
                 },
                 {
                     element: {

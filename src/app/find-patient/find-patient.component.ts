@@ -25,7 +25,7 @@ export class FindPatientComponent {
     error:string;
     
     constructor(private patientsService:PatientsService, private router:Router){
-        this.patient.PatientId = '026606657';
+        this.patient.PatientId = '';
     }
 
     find():void{
@@ -44,7 +44,7 @@ export class FindPatientComponent {
     
     private navigationAddress(patients:Patient):string{
         if(patients)
-            return 'patientInfo';
+            return 'patientDiagnosisDetails/0';
         else
             this.error = "no patients found!";
     }

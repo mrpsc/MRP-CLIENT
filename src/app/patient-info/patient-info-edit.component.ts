@@ -45,7 +45,7 @@ export class PatientEditInfoComponent implements OnInit,OnDestroy {
                 .subscribe((res: Response) => {
                     if(res.ok){
                         this.patientService.emitChange(this.patient);
-                        this.router.navigate(['./patientInfo']);
+                        this.router.navigate(['./patientDiagnosisDetails/0']);
                     }
                     else
                         this.error = "we're sorry, something is wrong with the information you entered!";
@@ -57,7 +57,7 @@ export class PatientEditInfoComponent implements OnInit,OnDestroy {
                     if(res.ok){
                         let patient = new Patient().fromJSON(res.json());
                         this.patientService.emitChange(patient);
-                        this.router.navigate(['./patientInfo']);
+                       this.router.navigate(['./patientDiagnosisDetails/0']);
                     }
                     else
                         this.error = "we're sorry, something is wrong with the information you entered!";

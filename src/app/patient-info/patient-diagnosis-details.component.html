@@ -1,12 +1,15 @@
 <h1>{{pageTitle}}</h1>
+<a class="btn btn-primary" style="width:auto;margin-left:10px" [routerLink]="['/patientEdit/1']">
+    <i class="glyphicon glyphicon-edit"></i> Edit
+</a>
 <tabs>
     <div class="container">
         <div class="col-md-12 col-md-offset-1">
             <div class="row">
                 <div class="col-lg-12">
                     <form [formGroup]="formGroup" (ngSubmit)="submit()">
-                        <tabs [tabs]="headers" displayKey="title" valueKey="id" (onSelectTab)='selectMenu($event)'>                                                         
-                            <tabs *ngIf="selectedMenu" [tabs]='selectedMenu.subMenus' displayKey='title' valueKey='tabId' (onSelectTab)='selectSubMenu($event)'>
+                        <tabs class="tab" [tabs]="headers" displayKey="title" valueKey="id" (onSelectTab)='selectMenu($event)'>                                                         
+                            <tabs class="sub-tab" *ngIf="selectedMenu" [tabs]='selectedMenu.subMenus' displayKey='title' valueKey='tabId' (onSelectTab)='selectSubMenu($event)'>
                                 <ng-container *ngIf="group">
                                     <dynamic-form-bootstrap-control *ngFor="let controlModel of [group]" [group]="formGroup" [model]="controlModel" (change)="onChange($event)">
                                     </dynamic-form-bootstrap-control>

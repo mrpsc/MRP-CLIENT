@@ -18,7 +18,7 @@ import 'rxjs/add/observable/zip';
     selector: 'mrp-patient-diagnosis-details',
     moduleId: module.id,
     templateUrl: './patient-diagnosis-details.component.html',
-    styleUrls: ["../../../node_modules/bootstrap/dist/css/bootstrap.min.css"],
+    styleUrls: ["../../../node_modules/bootstrap/dist/css/bootstrap.min.css",'./patient-info-edit.component.css'],
 })
 export class PatientDiagnosisDetailsComponent implements OnInit {
     disable: string = "";
@@ -133,7 +133,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
         let id = +this.route.snapshot.params['id'];
         if (id <= 0 || !(this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length >= id)) {
             this.diagnosis = new PatientDiagnosis(this.patient.PatientId);
-            this.pageTitle = 'new Diagnosis for ' + this.patient.Name;
+            this.pageTitle = 'new Diagnosis for ' + this.patient.PatientId;
             this.formType = 'A';
         }
         else {
