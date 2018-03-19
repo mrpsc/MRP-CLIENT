@@ -1,54 +1,47 @@
-<div>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar9">
+<div class="wrapper">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar9">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             </button>
-        </div>
-        <div class="brand-centered">
-            <a class="navbar-brand"><img style="margin-right: 10px; padding: 0;" src="assets/research_logo.png"></a>
-        </div>
-      
-        <div id="navbar9" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-left">
-                <li class="active">
-                    <button class="navbar-brand" *ngIf='loggedIn' (click)="start.open()">
+            </div>
+            <div class="brand-centered">
+                <a class="navbar-brand"><img style="margin-right: 10px; padding: 0;" src="assets/research_logo.png"></a>
+            </div>
+
+            <div id="navbar9" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="active">
+                        <button class="navbar-brand" (click)="start.toggle()">
                         <span class="glyphicon glyphicon-menu-hamburger"></span>
                     </button>
-                </li>
-                <li><a class="navbar-brand" id='appTitle'>{{pageTitle}}</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active" *ngIf='loggedIn'><a>{{loginTitle}}</a></li>
-                <li *ngIf='loggedIn'><a (click)='logout()'>logout</a></li>
-            </ul>
+                    </li>
+                    <li><a class="navbar-brand" id='appTitle'>{{pageTitle}}</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active" *ngIf='loggedIn'><a>{{loginTitle}}</a></li>
+                    <li *ngIf='loggedIn'><a (click)='logout()'>logout</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-  </nav>
-  <mat-sidenav-container>
-        <mat-sidenav #start mode='push' (open)="sidenavlist.focus()">
+    </nav>
+    <mat-sidenav-container class="nav-bar-container">
+        <mat-sidenav #start mode='push' (open)="sidenavlist.focus()" [fixedInViewport]="false" [fixedTopGap]="0" [fixedBottomGap]="0">
             <ul class='list-group' #sidenavlist>
                 <li class="list-group-item"><a [routerLink]="['/research']" (click)='start.close()'>Research</a></li>
-                <li class="list-group-item"><a [routerLink]="['/personalInfo']" (click)='start.close()'>Edit Personal Info</a></li>
-                <li class="list-group-item"><a [routerLink]="['/patientEdit/0']" (click)='start.close()'>Add New Patient</a></li>
                 <li class="list-group-item"><a [routerLink]="['/findPatient']" (click)='start.close()'>Find Patients</a></li>
-                <li class="list-group-item"><a [routerLink]="['/userManagment']" (click)='start.close()'>User Managment</a></li>
+                <!-- <li class="list-group-item"><a [routerLink]="['/personalInfo']" (click)='start.close()'>Edit Personal Info</a></li> -->
+                <li class="list-group-item"><a [routerLink]="['/patientEdit/0']" (click)='start.close()'>Add New Patient</a></li>
+                <li class="list-group-item"><a [routerLink]="['/userManagement']" (click)='start.close()'>User Managment</a></li>
+                <li class="list-group-item"><a [routerLink]="['/diagnosManagement']" (click)='start.close()'>Diagnos Managment</a></li>
             </ul>
         </mat-sidenav>
         <div class='container my-content'>
             <router-outlet></router-outlet>
         </div>
-        <footer class="footer">
-            <div class='container'>
-                <ul class="nav navbar-nav ">
-                    <li><a class="navbar-brand logo"><img src="assets/sela_logo.jpg" alt="Medical Research Project"></a></li>
-                    <li><a class="navbar-brand logo"><img src="assets/shiba_logo.jpg" alt="Medical Research Project"></a></li>
-                </ul>
-            </div>
-        </footer>
     </mat-sidenav-container>
 </div>

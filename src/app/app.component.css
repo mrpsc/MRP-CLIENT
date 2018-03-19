@@ -1,0 +1,22 @@
+mrp-main-app {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    overflow: hidden;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    z-index: 1;
+}
+
+.footer>a,
+.footer>a>img {
+    height: inherit;
+}
