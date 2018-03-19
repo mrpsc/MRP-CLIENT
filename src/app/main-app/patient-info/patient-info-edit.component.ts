@@ -2,8 +2,8 @@ import { Observable } from 'rxjs/Observable';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
-import { PatientsService } from '../shared/services/patients.service';
-import { Patient, Gender, Race } from '../shared/models/patient';
+import { PatientsService } from '../../shared/services/patients.service';
+import { Patient, Gender, Race } from '../../shared/models/patient';
 import { Subscription } from "rxjs/Subscription";
 
 @Component({

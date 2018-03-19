@@ -1,42 +1,73 @@
-html, body, material-app, md-sidenav-container, .my-content {
+html,
+body,
+material-app,
+md-sidenav-container,
+.my-content {
     margin: 0;
     width: 100%;
-    height: 100%;
-  }
-  .glyphicon-menu-hamburger {
+    height: stretch;
+    overflow: overlay;
+}
+
+.glyphicon-menu-hamburger {
     font-size: 25px;
     margin: 8px;
-  }
-  li button{
+}
+
+li button {
     background-color: transparent;
     border: 1px solid transparent;
     border-radius: 4px;
-  }
-  .navbar-brand {
+}
+
+.navbar-brand {
     padding: 0px;
-  }
-  #appTitle{
+}
+
+#appTitle {
     padding-top: 16px;
-    margin-left:1px;
-  }
-  .navbar-brand>img {
+    margin-left: 1px;
+}
+
+.navbar-brand>img {
     height: 100%;
     padding: 3px;
     width: auto;
-  }
-  .brand-centered {
+}
+
+.brand-centered {
     display: flex;
     justify-content: center;
     position: absolute;
     width: 100%;
     left: 0;
     top: 0;
-  }
-  .brand-centered .navbar-brand {
+}
+
+.brand-centered .navbar-brand {
     display: flex;
     align-items: center;
-  }
-  .navbar-toggle {
-      z-index: 1;
-  }
-  
+}
+
+.navbar-toggle {
+    z-index: 1;
+}
+
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    overflow: hidden;
+}
+
+
+/* 
+.nav-bar-container {
+    position: absolute;
+    top: 70px;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+} */

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 import { PatientDiagnosis } from '../models/patient-diagnosis';
-import { FindPatientModel } from '../../find-patient/find-patientModel';
+import { FindPatientModel } from '../../main-app/find-patient/find-patientModel';
 import { CONFIG } from '../../shared/config';
 import { Patient } from '../models/patient';
 

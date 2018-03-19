@@ -1,6 +1,6 @@
-import { PatientEditInfoComponent } from './../../patient-info/patient-info-edit.component';
+import { PatientEditInfoComponent } from './../../main-app/patient-info/patient-info-edit.component';
 
-import { PatientDiagnosisDetailsComponent } from './../../patient-info/patient-diagnosis-details.component';
+import { PatientDiagnosisDetailsComponent } from './../../main-app/patient-info/patient-diagnosis-details.component';
 import { Injectable } from '@angular/core';
 import { CanDeactivate } from "@angular/router";
 
