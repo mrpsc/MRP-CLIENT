@@ -64,7 +64,7 @@
     </div>
 </div>
 
-<div class="panel panel-primary panel-add-new-patient" *ngIf="patient">
+<div class="panel panel-primary panel-add-new-patient" *ngIf="patient && isFieldDisabled">
     <div class="panel-heading" style="font-size:large">
         Diagnosis
     </div>
@@ -77,7 +77,8 @@
                     <div *ngIf="patient.Diagnosis">
                         <ul *ngFor="let diag of patient.Diagnosis">
                             <li>
-                                <button type="button" class="btn btn-link">{{diag.DiagnosisDate | date: 'dd/MM/yyyy'}}</button>
+                               <button type="button" (click)="clickOnDiag(diag)" class="btn btn-link"><span>Diagnosis from date </span>{{diag.DiagnosisDate | date: 'dd/MM/yyyy'}}
+                            </button>
                             </li>
                         </ul>
                     </div>
@@ -86,3 +87,5 @@
         </div>
     </div>
 </div>
+<app-diag-modal *ngIf="showModal" [(visible)]="showModal" [diagnosis]="diagnosis">
+</app-diag-modal>

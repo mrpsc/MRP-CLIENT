@@ -3,7 +3,7 @@ import { FormArray, FormGroup, FormControl } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DynamicFormService, DynamicFormControlModel, DynamicFormGroupModel, DynamicFormArrayModel, DynamicInputModel } from "@ng-dynamic-forms/core";
-
+import { MedicalInstitution } from '../../shared/models/medical-institution';
 import { PatientsFormSchemaService } from './../../shared/services/patients-form-schema';
 import { PatientsService } from './../../shared/services/patients.service';
 import { Patient } from './../../shared/models/patient';
@@ -34,12 +34,14 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     arrayControl: FormArray;
     arrayModel: DynamicFormArrayModel;
     headers: NavigationMenuItem[] = [];
-    navigationSubscription: Subscription;  
-    patientResponseSubscription: Subscription;  
+    navigationSubscription: Subscription;
+    patientResponseSubscription: Subscription;
     selectedMenu: NavigationMenuItem;
     group: DynamicFormControlModel;
     $patientResponse: Observable<any>;
     $navigationLoadResponse: Observable<any>;
+
+    datePickers: any[] = [];
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -52,7 +54,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     ngOnInit(): void {
         this.$patientResponse = this.formsSchemaService.GetFirstSchema();
         this.patientResponseSubscription = this.$patientResponse.subscribe(res => {
-            if (res) {                
+            if (res) {
                 this.formModel = this.formsService.fromJSON(res);
                 this.formGroup = this.formsService.createFormGroup(this.formModel);
                 this.patientsService.changeEmitted$.subscribe(patient => {
@@ -63,14 +65,15 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                             this.formGroup.controls[key].patchValue(this.diagnosis.Symptoms);
                         }
                     }
-                })                
+                })
             }
+
         });
 
         this.$navigationLoadResponse = this.navigationService.getNavigation();
         this.navigationSubscription = this.$navigationLoadResponse.subscribe(res => {
             const navigationModel = res.json();
-            this.headers = navigationModel.headers;     
+            this.headers = navigationModel.headers;
         });
 
         Observable.zip(this.$navigationLoadResponse,
@@ -117,6 +120,14 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
         }
         else {
             this.diagnosis.Id = this.patient.Diagnosis.length;
+            this.diagnosis.DoctorName = !this.diagnosis.DoctorName ? 'Dr. Levy' : this.diagnosis.DoctorName;
+            if (Object.getOwnPropertyNames(this.diagnosis.MedicalInstitution).length === 0) {
+                var institution = new MedicalInstitution();
+                institution.Name = "Tel Hashomer";
+                institution.Id = 1;
+                this.diagnosis.MedicalInstitution = institution;
+            }
+            debugger;
             this.patient.Diagnosis.push(this.diagnosis);
             this.patientsService.addDiagnosis(this.diagnosis).subscribe((res: Response) => {
                 res.ok ? this.onSuccessfulSave() : this.error = "we're sorry, something is wrong with the information you entered!";
@@ -145,6 +156,10 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     onChange($event: any) {
-        this.diagnosis.Symptoms[$event.model.id] = $event.model._value;
+        // this.diagnosis.Symptoms[$event.model.id] = $event.model._value;
+        var arr = $event.target.value.split(":");
+
+        this.diagnosis.Symptoms[$event.target.labels[0].innerText] = arr[arr.length - 1].trim();
+        debugger;
     }
 }

@@ -42,6 +42,7 @@ export class PatientsService{
     }
 
     addDiagnosis(diagnosis:PatientDiagnosis):any{
+        debugger;
         let accessToken:string = JSON.parse(sessionStorage.getItem('token')).token;
         let headers: Headers = new Headers({'Authorization':'Bearer '+accessToken});
         let options: RequestOptions = new RequestOptions({headers: headers});
