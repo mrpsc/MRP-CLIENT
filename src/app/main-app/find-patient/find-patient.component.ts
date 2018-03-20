@@ -35,8 +35,9 @@ export class FindPatientComponent {
     }
 
     private navigationAddress(patients: Patient): string {
-        if (patients)
-            return 'patientDiagnosisDetails/0';
+        if (patients) {
+            return 'patientEdit/1';
+        }
         else
             this.error = "no patients found!";
     }

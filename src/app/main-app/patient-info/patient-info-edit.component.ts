@@ -6,6 +6,8 @@ import { PatientsService } from '../../shared/services/patients.service';
 import { Patient, Gender, Race } from '../../shared/models/patient';
 import { Subscription } from "rxjs/Subscription";
 
+/*ADD Patient Diagnosis */
+
 @Component({
     selector: 'mrp-patient-edit',
     moduleId: module.id,
@@ -23,11 +25,13 @@ export class PatientEditInfoComponent implements OnInit,OnDestroy {
     isFieldDisabled: boolean;
     sub:Subscription;
 
+
     constructor(private router: Router, private route: ActivatedRoute, private patientService: PatientsService) { }
 
     ngOnInit(){
         this.patientService.changeEmitted$.subscribe(patient => this.patient = patient);
         this.sub = this.route.params.subscribe(params => this.determineFormType());
+        console.log(this.patient);
     }
 
     ngOnDestroy(){

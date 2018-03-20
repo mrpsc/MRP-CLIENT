@@ -1,6 +1,8 @@
 .panel-add-new-patient{
     width:50%;
-    margin: auto;
+    /* margin: auto;
+    margin-bottom: 20px; */
+    margin-right: 20px;
 }
 .sub-tab
 {
@@ -9,4 +11,7 @@
 .tab
 {
     font-weight: bold;
+}
+.info-container{
+    display: flex;
 }
