@@ -98,11 +98,13 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     selectSubMenu(id: string) {
-        const menu = this.formModel.find(group => group.id === id)
-        if (menu) {
-            this.group = menu;
-        } else {
-            this.group = null;
+        if (this.formModel) {
+            const menu = this.formModel.find(group => group.id === id)
+            if (menu) {
+                this.group = menu;
+            } else {
+                this.group = null;
+            }
         }
     }
 
@@ -137,15 +139,19 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
 
     onSuccessfulSave(): void {
         this.formGroup.reset();
-        this.router.navigate(['./patientInfo']);
+        this.router.navigate(['./patientEdit/1']);
     }
 
     private determineFormType(): void {
         let id = +this.route.snapshot.params['id'];
         if (id <= 0 || !(this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length >= id)) {
-            this.diagnosis = new PatientDiagnosis(this.patient.PatientId);
-            this.pageTitle = 'new Diagnosis for ' + this.patient.PatientId;
-            this.formType = 'A';
+            if (!(this.patient && this.patient.PatientId)) {
+                this.router.navigate(['/findPatient']);
+            } else {
+                this.diagnosis = new PatientDiagnosis(this.patient.PatientId);
+                this.pageTitle = 'new Diagnosis for ' + this.patient.PatientId;
+                this.formType = 'A';
+            }
         }
         else {
             this.diagnosis = this.patient.Diagnosis[id - 1];
@@ -160,6 +166,5 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
         var arr = $event.target.value.split(":");
 
         this.diagnosis.Symptoms[$event.target.labels[0].innerText] = arr[arr.length - 1].trim();
-        debugger;
     }
 }

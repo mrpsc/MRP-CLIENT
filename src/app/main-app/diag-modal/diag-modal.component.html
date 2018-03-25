@@ -1,6 +1,9 @@
 <div [@dialog] *ngIf="visible" class="dialog">
   <ng-content></ng-content>
   <button (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+  <button type="button" class="btn btn-default btn-sm delete-btn" (click)="deleteDiagnosis()">
+          <span class="glyphicon glyphicon-trash"></span> Delete 
+  </button>
   <div>
     <div>
       <label for="date">Date</label>

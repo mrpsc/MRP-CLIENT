@@ -27,6 +27,7 @@
 @media (min-width: 768px) {
   .dialog {
     top: 40px;
+    background-color: #ececec;
   }
 }
 
@@ -42,4 +43,12 @@
 
 #symptoms > span:first-child{
   text-decoration: underline;
+}
+
+.delete-btn{
+   background-color: #d9534f;
+    position: absolute;
+    top: 36px;
+    right: 8px;
+    color:  white;
 }

@@ -30,6 +30,7 @@ import { UserManagementComponent } from './main-app/user-management/user-managem
 import { DiagnosManagementComponent } from './main-app/diagnos-management/diagnos-management.component';
 import { ResearchComponent } from './main-app/research/research.component';
 import { DiagModalComponent } from './main-app/diag-modal/diag-modal.component';
+import {PopupComponent} from './shared/components/popup/popup.component';
 import { AppRoutingModule } from './app.routes.module';
 import { PatientsService } from './shared/services/patients.service';
 import { UsersService } from './shared/services/users.service';
@@ -56,7 +57,8 @@ const routes: Routes = [
     UserManagementComponent,
     DiagnosManagementComponent,
     ResearchComponent,
-    DiagModalComponent
+    DiagModalComponent,
+    PopupComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,7 @@
-.panel-add-new-patient{
+.panel-add-new-patient, .diagnosis-container{
     width:50%;
-    /* margin: auto;
-    margin-bottom: 20px; */
     margin-right: 20px;
+    position: relative;
 }
 .sub-tab
 {
@@ -14,4 +13,29 @@
 }
 .info-container{
     display: flex;
+}
+
+.panel-footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+textarea#general {
+    margin-bottom: 4em;
+}
+
+.diagnosis-container{
+    height: 19em;
+    width: 35%;
+}
+
+.delete-btn{
+    background-color: #d9534f;
+    color: white;
+    font-size: 14px;
+}
+
+.invalid-field{
+    background-color: #e7adad;
 }
