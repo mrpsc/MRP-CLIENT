@@ -1,0 +1,27 @@
+<div style="border: 1px solid green; margin: 25px;">
+    <div>
+      <table>
+          <tr>
+              <td> <span><button (click)='onExpandClick()'>{{expanded? ' - ': ' + '}}</button></span></td>
+              <td style="width: 100%; padding-left: 37px;" > <span>{{ControlObject.label}}</span></td>
+              <td> <span><button >DEL</button></span></td>
+          </tr>
+      </table>
+       
+       
+       
+    </div>
+    <div style="border: 1px solid green; padding-left: 10px; padding-right: 50px;" *ngIf='expanded'>
+    
+        <app-cp [labelName]="'id'" [controlObject]='ControlObject'></app-cp>
+    
+        <app-cp [labelName]="'label'" [controlObject]='ControlObject'></app-cp>
+        <app-cp [labelName]="'name'" [controlObject]='ControlObject'></app-cp>
+    
+        <app-cp [labelName]="'type'" [controlObject]='ControlObject'></app-cp>
+
+        <app-cp [labelName]="'required'" [controlObject]='ControlObject'></app-cp>        
+      
+        <app-cp [labelName]="'relation'" [controlObject]='ControlObject'></app-cp>        
+    </div>
+</div> 

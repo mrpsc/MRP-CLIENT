@@ -1,3 +1,32 @@
 <p>
   diagnos-management works!
 </p>
+<h1></h1>
+<div class="container">
+  <div class="col-md-12 col-md-offset-1">
+      <div class="row">
+          <div class="col-lg-12">
+              <!-- <form [formGroup]="formGroup" (ngSubmit)="submit()"> -->
+                  <tabs class="tab" [tabs]="headers" displayKey="title" valueKey="id" (onSelectTab)='selectMenu($event)'>                                                         
+                      <tabs class="sub-tab" *ngIf="selectedMenu" [tabs]='selectedMenu.subMenus' displayKey='title' valueKey='tabId' (onSelectTab)='selectSubMenu($event)'>
+                          <ng-container *ngIf="group">
+                           <div *ngFor='let controlModel of group'>
+                             <!-- <span>{{controlModel.label}}</span> -->
+                             <app-fc-editor [ControlObject] = 'controlModel'></app-fc-editor>
+                           </div>
+                            <!-- <dynamic-form-bootstrap-control *ngFor="let controlModel of formModel" [group]="formGroup" [model]="controlModel" (change)="onChange($event)">
+                              </dynamic-form-bootstrap-control> -->
+                          </ng-container> 
+                      </tabs>
+                  </tabs>
+                  <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+                  <button type="submit" class="btn btn-primary">Save</button>
+                  <a class="btn btn-primary" style="width:auto;margin-left:10px" [routerLink]="['./patientInfo']">
+                      <i class="glyphicon glyphicon-edit"></i> Cancel
+                  </a>
+                  <!--<button type="button" class="btn btn-primary" (click)='goBack()'>Cancel</button>-->
+              <!-- </form> -->
+          </div>
+      </div>
+  </div>
+</div>     

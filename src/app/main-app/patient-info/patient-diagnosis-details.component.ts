@@ -13,6 +13,7 @@ import { NavigationModel, NavigationMenuItem, NavigationSubmenuItem } from '../.
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/zip';
+import { ApiService } from '../../shared/services/api-service';
 
 @Component({
     selector: 'mrp-patient-diagnosis-details',
@@ -44,13 +45,12 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     constructor(private router: Router,
         private route: ActivatedRoute,
         private patientsService: PatientsService,
-        private formsSchemaService: PatientsFormSchemaService,
-        private formsService: DynamicFormService,
-        private navigationService: NavigationService
+        private apiService: ApiService,
+        private formsService: DynamicFormService
     ) { }
 
     ngOnInit(): void {
-        this.$patientResponse = this.formsSchemaService.GetFirstSchema();
+        this.$patientResponse = this.apiService.GetFirstSchema();
         this.patientResponseSubscription = this.$patientResponse.subscribe(res => {
             if (res) {                
                 this.formModel = this.formsService.fromJSON(res);
@@ -67,7 +67,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
             }
         });
 
-        this.$navigationLoadResponse = this.navigationService.getNavigation();
+        this.$navigationLoadResponse = this.apiService.getNavigation();
         this.navigationSubscription = this.$navigationLoadResponse.subscribe(res => {
             const navigationModel = res.json();
             this.headers = navigationModel.headers;     

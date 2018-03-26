@@ -33,6 +33,9 @@ import { AppRoutingModule } from './app.routes.module';
 import { PatientsService } from './shared/services/patients.service';
 import { UsersService } from './shared/services/users.service';
 import { CONFIG } from './shared/config';
+import { FormControlEditorComponent } from './main-app/diagnos-management/form-control-editor.component';
+import { ApiService } from './shared/services/api-service';
+import { ControlProperty } from './main-app/diagnos-management/control-property.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginRegisterComponent }
@@ -54,7 +57,9 @@ const routes: Routes = [
     DataFilterPipe,
     UserManagementComponent,
     DiagnosManagementComponent,
-    ResearchComponent
+    ResearchComponent,
+    FormControlEditorComponent,
+    ControlProperty
   ],
   imports: [
     BrowserModule,
@@ -70,6 +75,7 @@ const routes: Routes = [
     DynamicFormsBootstrapUIModule,
     BsDatepickerModule,
     AppRoutingModule,
+    
     // RouterModule.forRoot([
     //   { path: 'login', component: LoginRegisterComponent },
     //   { path: 'login/:form', component: LoginRegisterComponent },
@@ -95,6 +101,7 @@ const routes: Routes = [
     CanDeactivateDiagnosisFormGuard,
     PatientsService,
     UsersService,
+    ApiService,
     CONFIG
   ],
   bootstrap: [AppComponent]

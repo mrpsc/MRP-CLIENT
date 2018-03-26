@@ -1,0 +1,86 @@
+<div style="margin: 25px;">
+    <span style="margin: 25px;">
+     {{labelName + ': '}}
+    </span>
+    <span style="margin: 25px;">
+        <span *ngIf="labelName == 'type'">
+            <select [(ngModel)] = 'value'>
+    <option value="SELECT">Select</option>
+    <option value="TEXT">Text</option>
+    <option value="NUMBER">Number</option>
+    <option value="DATEPICKER">Datepicker</option>
+    <option value="INPUT">Input</option>
+    <option value="TEXTAREA">Textarea</option>
+    <option value="CHECKBOX">Checkbox</option>
+</select>
+       
+      
+        <span *ngIf="'SELECT' == controlObject.type.toString()">
+                       <span>Current options:</span>
+                       <select [(ngModel)] = 'currentOpt'>
+                           <option *ngFor='let opt of controlObject.options' [value] = opt.value>{{opt.label}}</option>
+                       </select>
+                       <button (click) = 'onDelOptClick()'>Del option</button>
+                       <input type="text"  [(ngModel)] = 'newOptKey' placeholder="lable"> 
+                       <input type="text"  [(ngModel)] = 'newOptVal' placeholder="vlaue"> 
+                       <button (click) = 'onAddOptClick()'>Add option</button>
+        </span>
+        <span *ngIf="value == 'TEXT'">
+            <span>min Length:</span>
+            <span><input type="number" [(ngModel)]='controlObject.minLength'></span>
+            <span>max Length:</span>
+            <span><input type="number" [(ngModel)]='controlObject.maxLength'></span>
+        </span>
+        <span *ngIf="value == 'NUMBER'">
+                <span>min:</span>
+                <span><input type="number" [(ngModel)]='controlObject.min'></span>
+                <span>max:</span>
+                <span><input type="number" [(ngModel)]='controlObject.max'></span>
+                <span>step:</span>
+                <span><input type="number" [(ngModel)]='controlObject.step'></span>
+        </span>
+        <span *ngIf="value == 'DATEPICKER'">
+
+        </span>
+        <span *ngIf="value == 'CHECKBOX'">
+
+        </span>
+    </span>
+        <span *ngIf="labelName == 'required'">
+                <input type="checkbox" [(ngModel)] = 'controlObject.checkbox'>
+                        </span>
+                  
+    <span *ngIf="labelName == 'id'">
+            <input type="text" [(ngModel)] = 'controlObject.id'>
+    </span>
+   
+    <span *ngIf="labelName == 'label'">
+            <input type="text" [(ngModel)] = 'controlObject.label'>
+    </span>
+    
+    <span *ngIf="labelName == 'name'">
+            <input type="text" [(ngModel)] = 'controlObject.name'>
+    </span>
+
+    <span *ngIf="labelName == 'relation'">
+        <input type="checkbox" (click) = 'enableRelation()'  [(ngModel)] = '_enableRelation'> <span>Enable Relations</span> <br>
+        <span *ngIf='_enableRelation'>
+            <span>Action: </span> 
+            <select [(ngModel)] = 'controlObject.relation[0].action'>
+                <option value="ENABLE" >enable</option>
+                <option value="DISABLE" >disable</option>
+            </select> <br>
+            <span>connective: </span> 
+            <select [(ngModel)] = 'controlObject.relation[0].connective'>
+                    <option value="OR" >Or</option>
+                    <option value="AND" >And</option>
+                </select> <br>
+                <span>when: </span> 
+                <span *ngFor='let condition of controlObject.relation[0].when'>
+
+                </span>
+            <input type="text" [(ngModel)] = 'controlObject.relation'>
+        </span>
+    </span>
+</span>
+</div> 
