@@ -29,8 +29,9 @@ export class FindPatientComponent {
                     this.router.navigate(['./' + this.navigationAddress(patient)]);
                 }
             }, error => {
+                this.error="Patient is not found"
                 console.log(error);
-                this.error = JSON.parse(error.body);
+                //this.error = JSON.parse(error.body);
             });
     }
 

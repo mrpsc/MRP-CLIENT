@@ -57,22 +57,26 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
         this.$patientResponse = this.formsSchemaService.GetFirstSchema();
         this.patientResponseSubscription = this.$patientResponse.subscribe(res => {
             if (res) {
-                    debugger;
                 this.formModel = this.formsService.fromJSON(res);
                 this.formGroup = this.formsService.createFormGroup(this.formModel);
                 this.patientsService.changeEmitted$.subscribe(patient => {
                     this.patient = patient;
-                    if(!this.patient) this.router.navigate(['/findPatient']);
-                    else this.determineFormType();
-                    if (this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length != 0)
+                    this.determineFormType();
+                    if (this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length != 0) {
                         this.formType = "E";
-                    else if(this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length == 0)
+                        this.diagnosis = this.patient.Diagnosis[0];
+                        this.pageTitle = "Edit dignosis for " + this.patient.PatientId;
+                    }
+                    else {
                         this.formType = "A";
+                        this.pageTitle = "Add dignosis for " + this.patient.PatientId;
+                    }
                     if (this.formType == "E" && this.diagnosis.Symptoms) {
                         for (let key in this.formGroup.controls) {
-                            this.patient.Diagnosis.forEach(diag => {
-                                this.formGroup.controls[key].patchValue(diag.Symptoms);
-                            });
+                            // this.patient.Diagnosis.forEach(diag => {
+                            //     this.formGroup.controls[key].patchValue(diag.Symptoms);
+                            // });
+                            this.formGroup.controls[key].patchValue(this.patient.Diagnosis[0].Symptoms);
                             //this.formGroup.controls[key].patchValue(this.diagnosis.Symptoms);
                         }
                     }
@@ -118,14 +122,12 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                 this.group = null;
             }
         }
-        //this.initBasicDetails();
     }
 
     submit(): void {
-        debugger;
         if (this.formType == 'E') {
             this.patientsService.editDiagnosis(this.diagnosis).subscribe((res: Response) => {
-                if (res.ok) {
+                if (res && res.ok) {
                     let patient = new Patient().fromJSON(res.json());
                     this.patientsService.emitChange(patient);
                     this.onSuccessfulSave();
@@ -143,7 +145,6 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                 institution.Id = 1;
                 this.diagnosis.MedicalInstitution = institution;
             }
-            debugger;
             this.patient.Diagnosis.push(this.diagnosis);
             this.patientsService.addDiagnosis(this.diagnosis).subscribe((res: Response) => {
                 res.ok ? this.onSuccessfulSave() : this.error = "we're sorry, something is wrong with the information you entered!";
@@ -153,7 +154,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
 
     onSuccessfulSave(): void {
         this.formGroup.reset();
-        this.router.navigate(['./patientEdit/1']);
+        this.router.navigate(['./findPatient']);
     }
 
     private determineFormType(): void {
@@ -182,15 +183,4 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
 
         // this.diagnosis.Symptoms[$event.target.labels[0].innerText] = arr[arr.length - 1].trim();
     }
-
-    // initBasicDetails() {
-    //     this.formModel.forEach(model => {
-    //         if (model.legend === 'Baseline') {
-    //            model.group.forEach(group => {
-    //               if(group.id==='Gender')
-    //                 group.value=this.patient.Gender;
-    //            });
-    //         }
-    //     });
-    // }
 }
