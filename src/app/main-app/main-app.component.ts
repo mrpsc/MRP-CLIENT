@@ -13,33 +13,33 @@ import { NavigationService } from '../shared/services/navigation-service';
     moduleId: module.id,
     templateUrl: './main-app.component.html',
     styleUrls: ['./main-app.component.css'],
-    providers:[PatientsService,UsersService,PatientsFormSchemaService,CONFIG, NavigationService]
+    providers: [PatientsService, UsersService, PatientsFormSchemaService, CONFIG, NavigationService]
 })
-export class MainAppComponent implements OnInit{
-    loggedInUser:User;
-    pageTitle:string = 'Medical Research Project';
-    loginTitle:string;
-    loggedIn:boolean = false;
+export class MainAppComponent implements OnInit {
+    loggedInUser: User;
+    pageTitle: string = 'Medical Research Project';
+    loginTitle: string;
+    loggedIn: boolean = false;
 
-    constructor(private router:Router,private usersService:UsersService){
+    constructor(private router: Router, private usersService: UsersService) {
         this.usersService.changeEmitted$.subscribe(user => this.login(user));
     }
-    ngOnInit():void{
+    ngOnInit(): void {
         let isLogin = this.router.url.includes('login') || this.router.url === '/';
-        if(!this.loggedInUser && sessionStorage.getItem("token") && !isLogin){
-            this.usersService.getLoggedUser().subscribe(r => r,(error:any) => this.logout(1));
+        if (!this.loggedInUser && sessionStorage.getItem("token") && !isLogin) {
+            this.usersService.getLoggedUser().subscribe(r => r, (error: any) => this.logout(1));
         }
     }
-    login(user:User):void{
-        if(user){
+    login(user: User): void {
+        if (user) {
             this.loggedIn = true;
             this.loggedInUser = user;
-            this.loginTitle = 'hello '+user.FullName;
+            this.loginTitle = 'hello ' + user.FullName;
         }
     }
-    logout(id:number):void{
+    logout(id: number): void {
         this.loggedIn = false;
         this.usersService.logout();
-        this.router.navigate(['/logout/'+(id||'0')]);
+        this.router.navigate(['/logout/' + (id || '0')]);
     }
 }

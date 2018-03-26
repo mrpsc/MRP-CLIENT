@@ -4,12 +4,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DynamicFormService, DynamicFormControlModel, DynamicFormGroupModel, DynamicFormArrayModel, DynamicInputModel } from "@ng-dynamic-forms/core";
 
-import { PatientsFormSchemaService } from './../shared/services/patients-form-schema';
-import { PatientsService } from './../shared/services/patients.service';
-import { Patient } from './../shared/models/patient';
-import { PatientDiagnosis } from './../shared/models/patient-diagnosis';
-import { NavigationService } from '../shared/services/navigation-service';
-import { NavigationModel, NavigationMenuItem, NavigationSubmenuItem } from '../shared/models/navigation';
+import { PatientsFormSchemaService } from './../../shared/services/patients-form-schema';
+import { PatientsService } from './../../shared/services/patients.service';
+import { Patient } from './../../shared/models/patient';
+import { PatientDiagnosis } from './../../shared/models/patient-diagnosis';
+import { NavigationService } from '../../shared/services/navigation-service';
+import { NavigationModel, NavigationMenuItem, NavigationSubmenuItem } from '../../shared/models/navigation';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/zip';
@@ -18,7 +18,7 @@ import 'rxjs/add/observable/zip';
     selector: 'mrp-patient-diagnosis-details',
     moduleId: module.id,
     templateUrl: './patient-diagnosis-details.component.html',
-    styleUrls: ["../../../node_modules/bootstrap/dist/css/bootstrap.min.css",'./patient-info-edit.component.css'],
+    styleUrls: ['./patient-info-edit.component.css'],
 })
 export class PatientDiagnosisDetailsComponent implements OnInit {
     disable: string = "";
@@ -147,45 +147,4 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     onChange($event: any) {
         this.diagnosis.Symptoms[$event.model.id] = $event.model._value;
     }
-
-    // add() {
-    //     this.formsService.addFormArrayGroup(this.arrayControl, this.arrayModel);
-    // }
-
-    // insert(context: DynamicFormArrayModel, index: number) {
-    //     this.formsService.insertFormArrayGroup(index, this.arrayControl, context);
-    // }
-
-    // remove(context: DynamicFormArrayModel, index: number) {
-    //     this.formsService.removeFormArrayGroup(index, this.arrayControl, context);
-    // }
-
-    // move (context: DynamicFormArrayModel, index: number, step: number) {
-    //     this.formsService.moveFormArrayGroup(index, step, this.arrayControl, context);
-    // }
-
-    // clear() {
-    //     this.formsService.clearFormArray(this.arrayControl, this.arrayModel);
-    // }
-
-    // test() {
-    //     this.exampleModel.disabledUpdates.next(!this.exampleModel.disabled);
-    //     this.exampleModel.valueUpdates.next("Hello Hello");
-    //     console.log(JSON.stringify(this.exampleModel));
-    //     this.arrayModel.get(1).group[0].valueUpdates.next("This is just a test");
-    //     this.formsService.moveFormArrayGroup(2, -1, this.arrayControl, this.arrayModel);
-    //     this.formsService.removeFormGroupControl(
-    //         1,
-    //         this.formGroup.get("bootstrapFormGroup1") as FormGroup,
-    //         this.formModel[0] as DynamicFormGroupModel
-    //     );
-    // }
-
-    // onBlur($event:any) {
-    //     console.log(`BLUR event on ${$event.model.id}: `, $event);
-    // }
-
-    // onFocus($event:any) {
-    //     console.log(`FOCUS event on ${$event.model.id}: `, $event);
-    // }
 }

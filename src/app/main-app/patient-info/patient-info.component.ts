@@ -1,10 +1,10 @@
-import { MedicalInstitution } from '../shared/models/medical-Institution';
-import { PatientDiagnosis } from '../shared/models/patient-Diagnosis';
+import { MedicalInstitution } from '../../shared/models/medical-Institution';
+import { PatientDiagnosis } from '../../shared/models/patient-Diagnosis';
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PatientsService } from './../shared/services/patients.service';
-import { Patient, Race, Gender } from '../shared/models/patient';
+import { PatientsService } from './../../shared/services/patients.service';
+import { Patient, Race, Gender } from '../../shared/models/patient';
 import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
 @Component({
     moduleId: module.id,
