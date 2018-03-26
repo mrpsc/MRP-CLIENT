@@ -16,9 +16,9 @@
                             <input type="tel" class="form-control" id="id" #id='ngModel' [(ngModel)]="patient.PatientId" name="id" [ngClass]="{'invalid-field': patient.PatientId && patient.PatientId.length!=9 && formType=='A'}" required minlength="9" maxlength="9" [readonly]="isFieldDisabled">
                             <span class='help-block'  *ngIf='(id.touched || id.dirty) && id.errors'>Please enter your ID, at least 9 digits in length</span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" [ngClass]="{'has-error': name.touched && !name.valid && formType=='A'}">
                             <label for="name">Name</label>
-                            <input type="string" class="form-control" id="name" #name='ngModel' [(ngModel)]="patient.Name"  name="name" [ngClass]="{'invalid-field': patient && !patient.Name && formType=='A'}" required [readonly]='isReadOnly'>
+                            <input type="string" class="form-control" id="name" #name='ngModel' [(ngModel)]="patient.Name"  name="name"  required [readonly]='isReadOnly'>
                             <span class='help-block' *ngIf='(name.dirty || name.touched) && name.errors'>Name is required</span>
                         </div>
                         <div class="form-group">

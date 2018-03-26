@@ -42,6 +42,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     $navigationLoadResponse: Observable<any>;
 
     datePickers: any[] = [];
+    basicPatienDetails: any;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -52,17 +53,27 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        //        this.patientsService.changeEmitted$.subscribe(patient => {this.patient = patient; debugger;});
         this.$patientResponse = this.formsSchemaService.GetFirstSchema();
         this.patientResponseSubscription = this.$patientResponse.subscribe(res => {
             if (res) {
+                    debugger;
                 this.formModel = this.formsService.fromJSON(res);
                 this.formGroup = this.formsService.createFormGroup(this.formModel);
                 this.patientsService.changeEmitted$.subscribe(patient => {
                     this.patient = patient;
-                    this.determineFormType();
+                    if(!this.patient) this.router.navigate(['/findPatient']);
+                    else this.determineFormType();
+                    if (this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length != 0)
+                        this.formType = "E";
+                    else if(this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length == 0)
+                        this.formType = "A";
                     if (this.formType == "E" && this.diagnosis.Symptoms) {
                         for (let key in this.formGroup.controls) {
-                            this.formGroup.controls[key].patchValue(this.diagnosis.Symptoms);
+                            this.patient.Diagnosis.forEach(diag => {
+                                this.formGroup.controls[key].patchValue(diag.Symptoms);
+                            });
+                            //this.formGroup.controls[key].patchValue(this.diagnosis.Symptoms);
                         }
                     }
                 })
@@ -82,6 +93,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                     this.selectMenu(this.headers[0].id);
                 }
             })
+
     }
 
     selectMenu(id: string) {
@@ -106,9 +118,11 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                 this.group = null;
             }
         }
+        //this.initBasicDetails();
     }
 
     submit(): void {
+        debugger;
         if (this.formType == 'E') {
             this.patientsService.editDiagnosis(this.diagnosis).subscribe((res: Response) => {
                 if (res.ok) {
@@ -162,9 +176,21 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     onChange($event: any) {
-        // this.diagnosis.Symptoms[$event.model.id] = $event.model._value;
-        var arr = $event.target.value.split(":");
+        this.diagnosis.Symptoms[$event.target.id] = $event.target.value;
+        //this.diagnosis.Symptoms[$event.model.id] = $event.model._value;
+        // var arr = $event.target.value.split(":");
 
-        this.diagnosis.Symptoms[$event.target.labels[0].innerText] = arr[arr.length - 1].trim();
+        // this.diagnosis.Symptoms[$event.target.labels[0].innerText] = arr[arr.length - 1].trim();
     }
+
+    // initBasicDetails() {
+    //     this.formModel.forEach(model => {
+    //         if (model.legend === 'Baseline') {
+    //            model.group.forEach(group => {
+    //               if(group.id==='Gender')
+    //                 group.value=this.patient.Gender;
+    //            });
+    //         }
+    //     });
+    // }
 }
