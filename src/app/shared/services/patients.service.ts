@@ -9,7 +9,7 @@ import { CONFIG } from '../../shared/config';
 import { Patient } from '../models/patient';
 
 @Injectable()
-export class PatientsService{
+export class PatientsService {
     private _url: string;
     private emitChangeSource = new BehaviorSubject<Patient>(null);
     // Observable string streams
@@ -19,52 +19,70 @@ export class PatientsService{
         this.emitChangeSource.next(change);
     }
 
-    constructor(private _http: Http,private config:CONFIG){
-        this._url = this.config.apiUrl+"api/Patients";
+    constructor(private _http: Http, private config: CONFIG) {
+        this._url = this.config.apiUrl + "api/Patients";
     }
 
-    getPatients(findPatientModel:FindPatientModel):Observable<Patient>{
-        let accessToken:string = JSON.parse(sessionStorage.getItem('token')).token;
-        let headers: Headers = new Headers({'Authorization':'Bearer '+accessToken});
-        let options: RequestOptions = new RequestOptions({headers: headers});
-        return this._http.post(this._url+"/GetPatients",findPatientModel,options)
+    getPatients(findPatientModel: FindPatientModel): Observable<Patient> {
+        let accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
+        let headers: Headers = new Headers({ 'Authorization': 'Bearer ' + accessToken });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        return this._http.post(this._url + "/GetPatients", findPatientModel, options)
             .map((response: Response) => response.json())
             .catch(this._handleError);
     }
 
-    addPatient(patient:Patient):any{
-        let accessToken:string = JSON.parse(sessionStorage.getItem('token')).token;
-        let headers: Headers = new Headers({'Authorization':'Bearer '+accessToken});
-        let options: RequestOptions = new RequestOptions({headers: headers});
-        return this._http.post(this._url+"/AddPatient",patient,options)
-            .map((res:Response) => res)
+    addPatient(patient: Patient): any {
+        let accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
+        let headers: Headers = new Headers({ 'Authorization': 'Bearer ' + accessToken });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        return this._http.post(this._url + "/AddPatient", patient, options)
+            .map((res: Response) => res)
             .catch(this._handleError);
     }
 
-    addDiagnosis(diagnosis:PatientDiagnosis):any{
-        let accessToken:string = JSON.parse(sessionStorage.getItem('token')).token;
-        let headers: Headers = new Headers({'Authorization':'Bearer '+accessToken});
-        let options: RequestOptions = new RequestOptions({headers: headers});
-        return this._http.post(this._url+"/AddDiagnosis",diagnosis,options)
-            .map((res:Response) => res)
+    addDiagnosis(diagnosis: PatientDiagnosis): any {
+        let accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
+        let headers: Headers = new Headers({ 'Authorization': 'Bearer ' + accessToken });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        return this._http.post(this._url + "/AddDiagnosis", diagnosis, options)
+            .map((res: Response) => res)
             .catch(this._handleError);
     }
 
-    editPatient(patient:Patient):any{
-        let accessToken:string = JSON.parse(sessionStorage.getItem('token')).token;
-        let headers: Headers = new Headers({'Authorization':'Bearer '+accessToken});
-        let options: RequestOptions = new RequestOptions({headers: headers});
-        return this._http.put(this._url+"/EditPatient",patient,options)
-            .map((res:Response) => res)
+    editPatient(patient: Patient): any {
+        let accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
+        let headers: Headers = new Headers({ 'Authorization': 'Bearer ' + accessToken });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        return this._http.put(this._url + "/EditPatient", patient, options)
+            .map((res: Response) => res)
             .catch(this._handleError);
     }
 
-    editDiagnosis(diagnosis:PatientDiagnosis):any{
-        let accessToken:string = JSON.parse(sessionStorage.getItem('token')).token;
-        let headers: Headers = new Headers({'Authorization':'Bearer '+accessToken});
-        let options: RequestOptions = new RequestOptions({headers: headers});
-        return this._http.put(this._url+"/EditDiagnosis",diagnosis,options)
-            .map((res:Response) => res)
+    deletePatient(patientId: string) {
+        let accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
+        let headers: Headers = new Headers({ 'Authorization': 'Bearer ' + accessToken });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        return this._http.delete(`${this._url}/DeletePatient/?patientId=${patientId}`, options)
+            .map((res: Response) => res)
+            .catch(this._handleError);
+    }
+
+    editDiagnosis(diagnosis: PatientDiagnosis): any {
+        let accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
+        let headers: Headers = new Headers({ 'Authorization': 'Bearer ' + accessToken });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        return this._http.put(this._url + "/EditDiagnosis", diagnosis, options)
+            .map((res: Response) => res)
+            .catch(this._handleError);
+    }
+
+    deleteDiagnosis(patientId: string, diagnosisId: number): any {
+        let accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
+        let headers: Headers = new Headers({ 'Authorization': 'Bearer ' + accessToken });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        return this._http.delete(`${this._url}/DeleteDiagnosis/?patientId=${patientId}&diagnosisId=${diagnosisId}`, options)
+            .map((res: Response) => res)
             .catch(this._handleError);
     }
 
@@ -72,6 +90,4 @@ export class PatientsService{
         console.error(error);
         return Observable.throw(error.json().error || 'server error');
     }
-
-    
 }

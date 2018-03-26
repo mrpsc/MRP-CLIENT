@@ -29,6 +29,7 @@ import { MainAppComponent } from './main-app/main-app.component';
 import { UserManagementComponent } from './main-app/user-management/user-management.component';
 import { DiagnosManagementComponent } from './main-app/diagnos-management/diagnos-management.component';
 import { ResearchComponent } from './main-app/research/research.component';
+import { DiagModalComponent } from './main-app/diag-modal/diag-modal.component';
 import { AppRoutingModule } from './app.routes.module';
 import { PatientsService } from './shared/services/patients.service';
 import { UsersService } from './shared/services/users.service';
@@ -54,7 +55,8 @@ const routes: Routes = [
     DataFilterPipe,
     UserManagementComponent,
     DiagnosManagementComponent,
-    ResearchComponent
+    ResearchComponent,
+    DiagModalComponent,
   ],
   imports: [
     BrowserModule,
