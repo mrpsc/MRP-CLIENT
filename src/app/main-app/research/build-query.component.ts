@@ -26,6 +26,7 @@ export class buildQueryComponent implements OnInit {
   conditions: Array<object> = [{ category: "", subCategory: "", operator: "", value: "" }];
   groupOfConditios: any = [{ operator: "And", conditions: this.conditions }];
   operators: Array<string> = ["=", "<>", "<", "<=", ">", ">="];
+  smallOperators: Array<string> = ["=", "<>"];
   logicOpertor: Array<string> = ["And", "Or"];
   logicArray: Array<string> = [""];
 
@@ -82,9 +83,9 @@ export class buildQueryComponent implements OnInit {
           return "error";
         }
 
-        this.query = this.query + ' ( "' + condition[j].subCategory.label + '"' + condition[j].operator + condition[j].value + ') ';
+        this.query = this.query + '("' + condition[j].subCategory.label + '"' + condition[j].operator + '"' + condition[j].value + '"' + ')';
         if (condition.length - 1 != j) {
-          this.query = this.query + this.groupOfConditios[i].operator;
+          this.query = this.query + ' ' + this.groupOfConditios[i].operator + ' ';
         }
       }
       this.query = this.query + ')';
@@ -94,7 +95,7 @@ export class buildQueryComponent implements OnInit {
           this.query = "()";
           return "error";
         }
-        this.query = this.query + this.logicArray[i];
+        this.query = this.query  + ' ' + this.logicArray[i]  + ' ';
       }
 
     }

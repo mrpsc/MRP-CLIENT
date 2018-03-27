@@ -34,8 +34,12 @@
           <br>
           <label>{{condition.subCategory.label}}</label>
 
-          <select class="smallSelect" [(ngModel)]="condition.operator" required>
+          <select *ngIf="condition.subCategory != '' && (condition.subCategory.type =='TIMEPICKER' || condition.subCategory.type =='DATEPICKER' || condition.subCategory.type =='INPUT' )" class="smallSelect" [(ngModel)]="condition.operator" required>
             <option class="options" *ngFor="let item of operators" [value]="item">{{item}}</option>
+          </select>
+
+          <select *ngIf="condition.subCategory != '' && (condition.subCategory.type =='SELECT' || condition.subCategory.type =='TEXTAREA') " class="smallSelect" [(ngModel)]="condition.operator" required>
+            <option class="options" *ngFor="let item of smallOperators" [value]="item">{{item}}</option>
           </select>
 
           <select *ngIf="condition.subCategory.type =='SELECT'" [(ngModel)]="condition.value" required>
