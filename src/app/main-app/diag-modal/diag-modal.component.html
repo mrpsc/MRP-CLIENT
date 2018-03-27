@@ -1,0 +1,37 @@
+<div [@dialog] *ngIf="visible" class="dialog">
+  <ng-content></ng-content>
+  <button (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+  <button type="button" class="btn btn-default btn-sm delete-btn" (click)="deleteDiagnosis()">
+          <span class="glyphicon glyphicon-trash"></span> Delete 
+  </button>
+  <div>
+    <div>
+      <label for="date">Date</label>
+      <div id='date'>{{diagnosis.DiagnosisDate|date: 'dd/MM/yyyy'}}
+    </div>
+    <div>
+      <label for="discharge-date">Discharge Date</label>
+      <div id='discharge-date'>{{diagnosis.DischargeDate|date: 'dd/MM/yyyy'}}</div>
+    </div>
+    <div>
+      <label for="inclusion-date">Inclusion Date</label>
+      <div id='inclusion-date'>{{diagnosis.InclusionDate|date: 'dd/MM/yyyy'}}</div>
+    </div>
+    <div>
+      <label for="institution">Medical Institution</label>
+      <div id='institution'>{{diagnosis.MedicalInstitution.Name}}</div>
+    </div>
+    <div>
+      <label for="doctor">Doctor:</label>
+      <div id='doctor'>{{diagnosis.DoctorName}}</div>
+    </div>
+    <div>
+      <label for="symptoms">Symptoms:</label>
+      <div id="symptoms" *ngFor="let symptom of symptoms">
+        <span>{{symptom.key}}:</span>
+        <span> {{symptom.value}} </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="visible" class="overlay" (click)="close()"></div>

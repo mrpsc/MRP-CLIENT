@@ -3,7 +3,7 @@ import { FormArray, FormGroup, FormControl } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DynamicFormService, DynamicFormControlModel, DynamicFormGroupModel, DynamicFormArrayModel, DynamicInputModel } from "@ng-dynamic-forms/core";
-
+import { MedicalInstitution } from '../../shared/models/medical-institution';
 import { PatientsFormSchemaService } from './../../shared/services/patients-form-schema';
 import { PatientsService } from './../../shared/services/patients.service';
 import { Patient } from './../../shared/models/patient';
@@ -34,12 +34,15 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     arrayControl: FormArray;
     arrayModel: DynamicFormArrayModel;
     headers: NavigationMenuItem[] = [];
-    navigationSubscription: Subscription;  
-    patientResponseSubscription: Subscription;  
+    navigationSubscription: Subscription;
+    patientResponseSubscription: Subscription;
     selectedMenu: NavigationMenuItem;
     group: DynamicFormControlModel;
     $patientResponse: Observable<any>;
     $navigationLoadResponse: Observable<any>;
+
+    datePickers: any[] = [];
+    basicPatienDetails: any;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -50,27 +53,42 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        //        this.patientsService.changeEmitted$.subscribe(patient => {this.patient = patient; debugger;});
         this.$patientResponse = this.formsSchemaService.GetFirstSchema();
         this.patientResponseSubscription = this.$patientResponse.subscribe(res => {
-            if (res) {                
+            if (res) {
                 this.formModel = this.formsService.fromJSON(res);
                 this.formGroup = this.formsService.createFormGroup(this.formModel);
                 this.patientsService.changeEmitted$.subscribe(patient => {
                     this.patient = patient;
                     this.determineFormType();
+                    if (this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length != 0) {
+                        this.formType = "E";
+                        this.diagnosis = this.patient.Diagnosis[0];
+                        this.pageTitle = "Edit dignosis for " + this.patient.PatientId;
+                    }
+                    else {
+                        this.formType = "A";
+                        this.pageTitle = "Add dignosis for " + this.patient.PatientId;
+                    }
                     if (this.formType == "E" && this.diagnosis.Symptoms) {
                         for (let key in this.formGroup.controls) {
-                            this.formGroup.controls[key].patchValue(this.diagnosis.Symptoms);
+                            // this.patient.Diagnosis.forEach(diag => {
+                            //     this.formGroup.controls[key].patchValue(diag.Symptoms);
+                            // });
+                            this.formGroup.controls[key].patchValue(this.patient.Diagnosis[0].Symptoms);
+                            //this.formGroup.controls[key].patchValue(this.diagnosis.Symptoms);
                         }
                     }
-                })                
+                })
             }
+
         });
 
         this.$navigationLoadResponse = this.navigationService.getNavigation();
         this.navigationSubscription = this.$navigationLoadResponse.subscribe(res => {
             const navigationModel = res.json();
-            this.headers = navigationModel.headers;     
+            this.headers = navigationModel.headers;
         });
 
         Observable.zip(this.$navigationLoadResponse,
@@ -79,6 +97,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                     this.selectMenu(this.headers[0].id);
                 }
             })
+
     }
 
     selectMenu(id: string) {
@@ -95,18 +114,20 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     selectSubMenu(id: string) {
-        const menu = this.formModel.find(group => group.id === id)
-        if (menu) {
-            this.group = menu;
-        } else {
-            this.group = null;
+        if (this.formModel) {
+            const menu = this.formModel.find(group => group.id === id)
+            if (menu) {
+                this.group = menu;
+            } else {
+                this.group = null;
+            }
         }
     }
 
     submit(): void {
         if (this.formType == 'E') {
             this.patientsService.editDiagnosis(this.diagnosis).subscribe((res: Response) => {
-                if (res.ok) {
+                if (res && res.ok) {
                     let patient = new Patient().fromJSON(res.json());
                     this.patientsService.emitChange(patient);
                     this.onSuccessfulSave();
@@ -117,6 +138,13 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
         }
         else {
             this.diagnosis.Id = this.patient.Diagnosis.length;
+            this.diagnosis.DoctorName = !this.diagnosis.DoctorName ? 'Dr. Levy' : this.diagnosis.DoctorName;
+            if (Object.getOwnPropertyNames(this.diagnosis.MedicalInstitution).length === 0) {
+                var institution = new MedicalInstitution();
+                institution.Name = "Tel Hashomer";
+                institution.Id = 1;
+                this.diagnosis.MedicalInstitution = institution;
+            }
             this.patient.Diagnosis.push(this.diagnosis);
             this.patientsService.addDiagnosis(this.diagnosis).subscribe((res: Response) => {
                 res.ok ? this.onSuccessfulSave() : this.error = "we're sorry, something is wrong with the information you entered!";
@@ -126,15 +154,19 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
 
     onSuccessfulSave(): void {
         this.formGroup.reset();
-        this.router.navigate(['./patientInfo']);
+        this.router.navigate(['./findPatient']);
     }
 
     private determineFormType(): void {
         let id = +this.route.snapshot.params['id'];
         if (id <= 0 || !(this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length >= id)) {
-            this.diagnosis = new PatientDiagnosis(this.patient.PatientId);
-            this.pageTitle = 'new Diagnosis for ' + this.patient.PatientId;
-            this.formType = 'A';
+            if (!(this.patient && this.patient.PatientId)) {
+                this.router.navigate(['/findPatient']);
+            } else {
+                this.diagnosis = new PatientDiagnosis(this.patient.PatientId);
+                this.pageTitle = 'new Diagnosis for ' + this.patient.PatientId;
+                this.formType = 'A';
+            }
         }
         else {
             this.diagnosis = this.patient.Diagnosis[id - 1];
@@ -145,6 +177,10 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     onChange($event: any) {
-        this.diagnosis.Symptoms[$event.model.id] = $event.model._value;
+        this.diagnosis.Symptoms[$event.target.id] = $event.target.value;
+        //this.diagnosis.Symptoms[$event.model.id] = $event.model._value;
+        // var arr = $event.target.value.split(":");
+
+        // this.diagnosis.Symptoms[$event.target.labels[0].innerText] = arr[arr.length - 1].trim();
     }
 }
