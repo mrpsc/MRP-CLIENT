@@ -19,7 +19,7 @@ import { TabsComponent } from './shared/components/tabs/tabs.component';
 import { PatientDiagnosisDetailsComponent } from './main-app/patient-info/patient-diagnosis-details.component';
 import { CanActivateOAuthGuard } from './shared/services/can-activate-oath-guard';
 import { DataFilterPipe } from './shared/components/data-filter.pipe';
-import { CanDeactivateDiagnosisFormGuard } from "./shared/services/can-diactivate-form-edit-guard";
+import { CanDeactivateDiagnosisFormGuard } from './shared/services/can-diactivate-form-edit-guard';
 
 import { AppComponent } from './app.component';
 import { LoginRegisterComponent } from './login-register/login-register.component';
@@ -33,9 +33,9 @@ import { DiagModalComponent } from './main-app/diag-modal/diag-modal.component';
 import { AppRoutingModule } from './app.routes.module';
 import { PatientsService } from './shared/services/patients.service';
 import { UsersService } from './shared/services/users.service';
-import { patientsResultComponent } from "./main-app/research/patients-result.component";
-import { buildQueryComponent } from "./main-app/research/build-query.component";
-import { ResearchService } from "./shared/services/research.service";
+import { PatientsResultComponent } from './main-app/research/patients-result.component';
+import { BuildQueryComponent } from './main-app/research/build-query.component';
+import { ResearchService } from './shared/services/research.service';
 import { CONFIG } from './shared/config';
 
 const routes: Routes = [
@@ -59,8 +59,8 @@ const routes: Routes = [
     UserManagementComponent,
     DiagnosManagementComponent,
     ResearchComponent,
-    patientsResultComponent,
-    buildQueryComponent,
+    PatientsResultComponent,
+    BuildQueryComponent,
     DiagModalComponent
   ],
   imports: [
@@ -86,7 +86,9 @@ const routes: Routes = [
 
     //   { path: 'patientInfo', component: PatientInfoComponent, canActivate: [CanActivateOAuthGuard] },
     //   { path: 'patientEdit/:id', component: PatientEditInfoComponent, canActivate: [CanActivateOAuthGuard] },
-    //   { path: 'patientDiagnosisDetails/:id', component: PatientDiagnosisDetailsComponent, canActivate: [CanActivateOAuthGuard], canDeactivate: [CanDeactivateDiagnosisFormGuard] },
+    //   { path: 'patientDiagnosisDetails/:id',
+    // component: PatientDiagnosisDetailsComponent, canActivate: [CanActivateOAuthGuard],
+    // canDeactivate: [CanDeactivateDiagnosisFormGuard] },
     //   { path: 'findPatient', component: FindPatientComponent, canActivate: [CanActivateOAuthGuard] },
     //   // {path: 'userManagment', component: UnderConstructionComponent, canActivate : [CanActivateOAuthGuard]},
     //   // {path: 'research', component: UnderConstructionComponent, canActivate : [CanActivateOAuthGuard]},

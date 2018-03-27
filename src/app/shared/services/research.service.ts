@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Http, Response, RequestOptions, Headers, ResponseContentType } from '@angular/http';
 import { CONFIG } from '../config';
-import { ResearchModel } from "../../main-app/research/researchModel";
+import { ResearchModel } from '../../main-app/research/researchModel';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -14,43 +14,46 @@ export class ResearchService {
   currentQuery: string;
   currentPatients: any;
 
-  patientsData = {patients : [
-    {Diagnosis : { Symptoms : { 'Cough':"Yes"}},PatientId:"222222222",Name:"Dima"},
-    {Diagnosis : { Symptoms : { 'Abdominal Pain':"Yes"}},PatientId:"124",Name:"daniel"},
-    {Diagnosis : { Symptoms : { 'Angiography':"Yes"}},PatientId:"222222222",Name:"Dima"},
-    {Diagnosis : { Symptoms : { 'Lung Scan' :"Yes"}},PatientId:"124",Name:"daniel"},
-    
-    {Diagnosis : { Symptoms : {  'Height(cm)':"180"}},PatientId:"222222222",Name:"Dima"},
-    {Diagnosis : { Symptoms : { 'Abdominal Pain':"Yes", 'Angiography':"Yes", 'Cough':"Yes", 'Height(cm)':"180",'Helican CT Scan':"No",'Lung Scan' :"Yes"}},PatientId:"124",Name:"daniel"},
-    {Diagnosis : { Symptoms : { 'Abdominal Pain':"Yes", 'Angiography':"Yes", 'Cough':"Yes", 'Height(cm)':"180",'Helican CT Scan':"No",'Lung Scan' :"Yes"}},PatientId:"124",Name:"daniel"},
-    {Diagnosis : { Symptoms : { 'Abdominal Pain':"Yes", 'Angiography':"Yes", 'Cough':"Yes", 'Height(cm)':"180",'Helican CT Scan':"No",'Lung Scan' :"Yes"}},PatientId:"124",Name:"daniel"},
+  patientsData = {
+    patients: [
+      { Diagnosis: { Symptoms: { 'Cough': 'Yes' } }, PatientId: '222222222', Name: 'Dima' },
+      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes' } }, PatientId: '124', Name: 'daniel' },
+      { Diagnosis: { Symptoms: { 'Angiography': 'Yes' } }, PatientId: '222222222', Name: 'Dima' },
+      { Diagnosis: { Symptoms: { 'Lung Scan': 'Yes' } }, PatientId: '124', Name: 'daniel' },
 
-    {Diagnosis : { Symptoms : { 'Height(cm)':"180"}},PatientId:"222222222",Name:"Dima"},
-    {Diagnosis : { Symptoms : { 'Abdominal Pain':"Yes", 'Angiography':"Yes", 'Cough':"Yes", 'Height(cm)':"180",'Helican CT Scan':"No",'Lung Scan' :"Yes"}},PatientId:"124",Name:"daniel"},
-    {Diagnosis : { Symptoms : { 'Abdominal Pain':"Yes"}},PatientId:"124",Name:"daniel"},
-    {Diagnosis : { Symptoms : { 'Cough':"Yes"}},PatientId:"124",Name:"daniel"},
+      { Diagnosis: { Symptoms: { 'Height(cm)': '180' } }, PatientId: '222222222', Name: 'Dima' },
+      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes', 'Angiography': 'Yes', 'Cough': 'Yes', 'Height(cm)': '180', 'Helican CT Scan': 'No', 'Lung Scan': 'Yes' } }, PatientId: '124', Name: 'daniel' },
+      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes', 'Angiography': 'Yes', 'Cough': 'Yes', 'Height(cm)': '180', 'Helican CT Scan': 'No', 'Lung Scan': 'Yes' } }, PatientId: '124', Name: 'daniel' },
+      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes', 'Angiography': 'Yes', 'Cough': 'Yes', 'Height(cm)': '180', 'Helican CT Scan': 'No', 'Lung Scan': 'Yes' } }, PatientId: '124', Name: 'daniel' },
 
-    {Diagnosis : { Symptoms : { 'Height(cm)':"180"}},PatientId:"222222222",Name:"Dima"},
-    {Diagnosis : { Symptoms : { 'Abdominal Pain':"Yes"}},PatientId:"124",Name:"daniel"},
-    {Diagnosis : { Symptoms : { 'Cough':"Yes"}},PatientId:"124",Name:"daniel"},
-    {Diagnosis : { Symptoms : { 'Cough':"Yes"}},PatientId:"124",Name:"daniel"},
+      { Diagnosis: { Symptoms: { 'Height(cm)': '180' } }, PatientId: '222222222', Name: 'Dima' },
+      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes', 'Angiography': 'Yes', 'Cough': 'Yes', 'Height(cm)': '180', 'Helican CT Scan': 'No', 'Lung Scan': 'Yes' } }, PatientId: '124', Name: 'daniel' },
+      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes' } }, PatientId: '124', Name: 'daniel' },
+      { Diagnosis: { Symptoms: { 'Cough': 'Yes' } }, PatientId: '124', Name: 'daniel' },
 
-  ], count: 16 };
+      { Diagnosis: { Symptoms: { 'Height(cm)': '180' } }, PatientId: '222222222', Name: 'Dima' },
+      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes' } }, PatientId: '124', Name: 'daniel' },
+      { Diagnosis: { Symptoms: { 'Cough': 'Yes' } }, PatientId: '124', Name: 'daniel' },
+      { Diagnosis: { Symptoms: { 'Cough': 'Yes' } }, PatientId: '124', Name: 'daniel' },
+
+    ], count: 16
+  };
 
   constructor(private _http: Http, private config: CONFIG) {
-    this._url = this.config.apiUrl + "api/Accounts";
+    this._url = this.config.apiUrl + 'api/Patients';
     this.query2 = {
       id: 144,
-      title: "young",
-      description: "All the young patients", query: "'age' < 20 "
+      title: 'young',
+      description: 'All the young patients', query: '\'age\' < 20 '
     };
     this.query1 = {
       id: 122,
-      title: "pregnancy",
-      description: "All pregnant girls", query: "'Is the patient pregnant?' = Yes "
+      title: 'pregnancy',
+      description: 'All pregnant girls',
+      query: '\'Is the patient pregnant?\' = Yes '
     };
     this.queries = [this.query1, this.query2];
-    this.currentQuery = "";
+    this.currentQuery = '';
 
   }
 
@@ -72,31 +75,57 @@ export class ResearchService {
 
 
   getPatients(query, limit, skip): any {
-    if(query){
+    if (query) {
       this.currentQuery = query;
     }
-    let accessToken:string = JSON.parse(sessionStorage.getItem('token')).token;
-    let headers: Headers = new Headers({'Authorization':'Bearer '+accessToken});
-    let options: RequestOptions = new RequestOptions({headers: headers});
-    let body = {query:this.currentQuery};
+    const accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
+    const headers: Headers = new Headers({ 'Authorization': 'Bearer ' + accessToken });
+    const options: RequestOptions = new RequestOptions({ headers: headers });
+    const body = { query: this.currentQuery };
     // const url = `${this._url}/GetPatients?limit=${limit}&skip=${skip}`;
     // return this._http.post(url,body,options)
     //     .map((response: Response) => response.json())
     //     .catch(this._handleError);
 
-    let patients = this.patientsData.patients.slice(skip, skip + limit);
-    let dataReturn = {patients : patients,count: this.patientsData.count};
+    const patients = this.patientsData.patients.slice(skip, skip + limit);
+    const dataReturn = { patients: patients, count: this.patientsData.count };
     this.setCurrentPatients(dataReturn);
-}
-  
+  }
+
   getPatientsToExcel() {
-    alert(this.currentPatients.result);
+    const accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
+    const headers: Headers = new Headers({
+      'Authorization': 'Bearer ' + accessToken,
+      'responseType': 'blob',
+      'Content-Type': 'application/json'
+    });
+    const options: RequestOptions = new RequestOptions({ headers: headers, responseType: ResponseContentType.Blob });
+    // const body = { query: this.currentQuery };
+    const body = '"{}"';
+    const url = `${this._url}/ExportPatients`;
+    this._http.post(url, body, options)
+      // .map(res => new Blob([res._body],{ type: 'application/vnd.ms-excel' }));
+      .subscribe((data: any) => {
+        console.log(data);
+        const blob = data._body;
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'Patients.csv';
+        document.body.appendChild(a);
+        a.click();
+        // const dataUrl = window.URL.createObjectURL(data._body, {});
+        // const link = document.createElement('a');
+        // link.href = dataUrl;
+        // link.download = 'ExportedPatients.xlsx';
+        // link.click();
+        // window.URL.revokeObjectURL(url);
+      });
   }
 
   private _handleError(error: Response) {
     console.error(error);
     return Observable.throw(error.json().error || 'server error');
-}
+  }
 
 
   // saveQuery(query: ResearchModel): boolean {
