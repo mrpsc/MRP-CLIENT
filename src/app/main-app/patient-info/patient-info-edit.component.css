@@ -10,3 +10,18 @@
 {
     font-weight: bold;
 }
+.headers
+{
+    font-size: 21px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.headers-top
+{
+    order: -1;
+    font-size: 21px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
