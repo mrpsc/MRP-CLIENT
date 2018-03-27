@@ -24,11 +24,20 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
   title: string = '';
   description: string = '';
 
+<<<<<<< HEAD
   conditions: Array<object> = [{ category: '', subCategory: '', operator: '', value: '' }];
   groupOfConditios: any = [{ operator: 'And', conditions: this.conditions }];
   operators: Array<string> = ['=', '<>', '<', '<=', '>', '>='];
   logicOpertor: Array<string> = ['And', 'Or'];
   logicArray: Array<string> = [''];
+=======
+  conditions: Array<object> = [{ category: "", subCategory: "", operator: "", value: "" }];
+  groupOfConditios: any = [{ operator: "And", conditions: this.conditions }];
+  operators: Array<string> = ["=", "<>", "<", "<=", ">", ">="];
+  smallOperators: Array<string> = ["=", "<>"];
+  logicOpertor: Array<string> = ["And", "Or"];
+  logicArray: Array<string> = [""];
+>>>>>>> Research
 
   constructor(private formsSchemaService: PatientsFormSchemaService,
     private formsService: DynamicFormService,
@@ -87,9 +96,15 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
           return false;
         }
 
+<<<<<<< HEAD
         this.query = this.query + ' ( "' + condition[j].subCategory.label + '"' + condition[j].operator + condition[j].value + ') ';
         if (condition.length - 1 !== j) {
           this.query = this.query + this.groupOfConditios[i].operator;
+=======
+        this.query = this.query + '("' + condition[j].subCategory.label + '"' + condition[j].operator + '"' + condition[j].value + '"' + ')';
+        if (condition.length - 1 != j) {
+          this.query = this.query + ' ' + this.groupOfConditios[i].operator + ' ';
+>>>>>>> Research
         }
       }
       this.query = this.query + ')';
@@ -99,7 +114,7 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
           this.query = '()';
           return false;
         }
-        this.query = this.query + this.logicArray[i];
+        this.query = this.query  + ' ' + this.logicArray[i]  + ' ';
       }
     }
     return true;
