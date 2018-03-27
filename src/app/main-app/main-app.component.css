@@ -62,6 +62,10 @@ li button {
     overflow: hidden;
 }
 
+.mat-drawer-container{
+    max-height: calc(100vh - 172px);
+}
+
 
 /* 
 .nav-bar-container {

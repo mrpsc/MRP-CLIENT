@@ -11,6 +11,8 @@ import { CanDeactivateDiagnosisFormGuard } from './shared/services/can-diactivat
 import { ResearchComponent } from './main-app/research/research.component';
 import { UserManagementComponent } from './main-app/user-management/user-management.component';
 import { DiagnosManagementComponent } from './main-app/diagnos-management/diagnos-management.component';
+import { patientsResultComponent } from "./main-app/research/patients-result.component";
+import { buildQueryComponent } from "./main-app/research/build-query.component";
 
 
 const routes: Routes = [
@@ -27,6 +29,8 @@ const routes: Routes = [
             { path: 'userManagement', component: UserManagementComponent, canActivate: [CanActivateOAuthGuard] },
             { path: 'diagnosManagement', component: DiagnosManagementComponent, canActivate: [CanActivateOAuthGuard] },
             { path: 'patientEdit/:id', component: PatientEditInfoComponent, canActivate: [CanActivateOAuthGuard] },
+            { path: 'patientsResult', component: patientsResultComponent},
+            { path: 'buildQuery', component: buildQueryComponent},
             { path: 'patientDiagnosisDetails/:id', component: PatientDiagnosisDetailsComponent, canActivate: [CanActivateOAuthGuard], canDeactivate: [CanDeactivateDiagnosisFormGuard] },
             { path: '**', redirectTo: '' }
         ]

@@ -32,6 +32,9 @@ import { ResearchComponent } from './main-app/research/research.component';
 import { AppRoutingModule } from './app.routes.module';
 import { PatientsService } from './shared/services/patients.service';
 import { UsersService } from './shared/services/users.service';
+import { patientsResultComponent } from "./main-app/research/patients-result.component";
+import { buildQueryComponent } from "./main-app/research/build-query.component";
+import { ResearchService } from "./shared/services/research.service";
 import { CONFIG } from './shared/config';
 
 const routes: Routes = [
@@ -54,7 +57,9 @@ const routes: Routes = [
     DataFilterPipe,
     UserManagementComponent,
     DiagnosManagementComponent,
-    ResearchComponent
+    ResearchComponent,
+    patientsResultComponent,
+    buildQueryComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +100,8 @@ const routes: Routes = [
     CanDeactivateDiagnosisFormGuard,
     PatientsService,
     UsersService,
-    CONFIG
+    CONFIG,
+    ResearchService
   ],
   bootstrap: [AppComponent]
 })
