@@ -23,6 +23,10 @@
                         </a>
                         <!--<button type="button" class="btn btn-primary" (click)='goBack()'>Cancel</button>-->
                     </form>
+                    <div *ngIf="showPopup" class="message">
+                        <div>Patient Edited Successfuly</div>
+                        <div><button class="btn btn-link" (click)="showPopup=false">X</button></div>
+                    </div>
                 </div>
             </div>
         </div>

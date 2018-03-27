@@ -60,6 +60,8 @@ export class PatientEditInfoComponent implements OnInit, OnDestroy {
                         else
                             this.error = "we're sorry, something is wrong with the information you entered!";
                     }, (error: any) => this.error = "Server Error, Patient wasn't saved!");
+            } else {
+                this.error = "Fields are not full"
             }
         }
         else
@@ -123,7 +125,7 @@ export class PatientEditInfoComponent implements OnInit, OnDestroy {
     }
 
     checkIfValid() {
-        this.isAddNewPatient = this.patient.PatientId.length === 9 && this.patient.Name != null && this.patient.DateOfBirth != null;
+        this.isAddNewPatient = this.patient && this.patient.PatientId && this.patient.PatientId.length === 9 && this.patient.Name != null && this.patient.DateOfBirth != null;
     }
 
     clickOnDiag(diag) {

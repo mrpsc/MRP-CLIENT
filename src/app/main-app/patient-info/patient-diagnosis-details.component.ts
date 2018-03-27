@@ -43,6 +43,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
 
     datePickers: any[] = [];
     basicPatienDetails: any;
+    showPopup: boolean = false;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -64,8 +65,8 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                     this.determineFormType();
                     if (this.patient && this.patient.Diagnose) {
                         this.formType = "E";
-                        this.diagnosis = this.patient.Diagnose;                        
-                        this.pageTitle = "Edit diagnosis for " + this.patient.PatientId;
+                        this.diagnosis = this.patient.Diagnose;
+                        this.pageTitle = "Edit Diagnosis For " + this.patient.Name;
                     }
                     else {
                         this.formType = "A";
@@ -124,8 +125,9 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
         if (this.formType == 'E') {
             this.patientsService.editDiagnosis(this.diagnosis).subscribe((res: Response) => {
                 if (res && res.ok) {
-                    let patient = new Patient().fromJSON(res.json());
-                    this.patientsService.emitChange(patient);
+                    debugger;
+                    //let patient = new Patient().fromJSON(res.json());
+                    this.patientsService.emitChange(this.patient);
                     this.onSuccessfulSave();
                 }
                 else
@@ -149,26 +151,31 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     onSuccessfulSave(): void {
-        this.formGroup.reset();
-        this.router.navigate(['./findPatient']);
+        //this.formGroup.reset();
+        // this.router.navigate(['./patientDiagnosisDetails/0']);
+        this.showPopup = true;
+        this.determineFormType();
     }
 
     private determineFormType(): void {
+        debugger;
         let id = +this.route.snapshot.params['id'];
         if (id <= 0 || !(this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length >= id)) {
             if (!(this.patient && this.patient.PatientId)) {
                 this.router.navigate(['/findPatient']);
-            } else {
+            } else if (!this.patient.Diagnose) {
                 this.diagnosis = new PatientDiagnosis(this.patient.PatientId);
                 this.pageTitle = 'new Diagnosis for ' + this.patient.PatientId;
                 this.formType = 'A';
             }
-        }
-        else {
-            this.diagnosis = this.patient.Diagnosis[id - 1];
-            this.pageTitle = 'Edit Diagnosis for ' + this.patient.Name;
-            this.disable = 'disabled';
-            this.formType = 'E';
+
+            else {
+                //this.diagnosis = this.patient.Diagnosis[id - 1];
+                this.diagnosis = this.patient.Diagnose;
+                this.pageTitle = 'Edit Diagnosis For ' + this.patient.Name;
+                this.disable = 'disabled';
+                this.formType = 'E';
+            }
         }
     }
 
