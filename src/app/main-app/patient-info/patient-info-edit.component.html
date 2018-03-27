@@ -26,18 +26,18 @@
                             <input *ngIf='formType == "A"' type="date" class="form-control" id="dateOfBirth" [(ngModel)]="patient.DateOfBirth" [ngClass]="{'invalid-field':!patient.DateOfBirth && formType=='A'}" name="dateOfBirth" required>
                             <input *ngIf='formType == "E"' type="text" class="form-control" id="dateOfBirth" [value]="patient.DateOfBirth | date:'dd/MM/yyyy'" name="dateOfBirth" readonly>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="gender">Gender</label>
                             <select class="form-control" id="gender" [(ngModel)]="patient.Gender" [ngClass]="{'invalid-field':!patient.Gender && formType=='A'}" name="gender" required [disabled]="isReadOnly">
                                 <option *ngFor="let gen of genders | enumToOptions" [value]="gen" [label]="genders[gen]"></option>
                             </select>
-                        </div>
-                        <div class="form-group">
+                        </div> -->
+                        <!-- <div class="form-group">
                             <label for="race">Race</label>
                             <select class="form-control" id="race"  [(ngModel)]="patient.Race" [ngClass]="{'invalid-field':!patient.Race && formType=='A'}" name="race" required [disabled]="isReadOnly">
                                 <option *ngFor="let race of races | enumToOptions" [value]="race" [label]="races[race]"></option>
                             </select>
-                        </div>
+                        </div> -->
                         <div class="form-group" *ngIf='formType == "E"'>
                             <label for="inclusionDate">Inclusion Date</label>
                             <input type="text" class="form-control" id="inclusionDate" [value]="patient.InclusionDate | date:'dd/MM/yyyy'" name="inclusionDate" readonly>
@@ -65,13 +65,13 @@
         <button class="btn btn-primary" *ngIf='formType == "E"' (click)="isReadOnly = !isReadOnly; isEditDisabled = !isEditDisabled" style="width:auto" [disabled]="isEditDisabled">
             <i class="glyphicon glyphicon-edit"></i> Edit Patient Info
         </button>
-        <button type="button" class="btn btn-default btn-sm delete-btn" *ngIf='formType == "E"' (click)="deleteDiagnosis()">
-          <span class="glyphicon glyphicon-trash"></span> Delete 
-  </button>
+        <a type="button" class="btn btn-primary" [routerLink]="['/patientDiagnosisDetails/0']">
+          <i class="glyphicon glyphicon-trash"></i> Back 
+  </a>
     </div>
 </div>
 
-<div class="panel panel-primary diagnosis-container" *ngIf="patient && isFieldDisabled">
+<!-- <div class="panel panel-primary diagnosis-container" *ngIf="patient && isFieldDisabled">
     <div class="panel-heading" style="font-size:large">
         Diagnosis
     </div>
@@ -100,4 +100,4 @@
     </div>
 </div>
 <app-diag-modal *ngIf="showModal" [(visible)]="showModal" [diagnosis]="diagnosis">
-</app-diag-modal>
+</app-diag-modal> -->

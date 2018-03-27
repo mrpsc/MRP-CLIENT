@@ -68,7 +68,7 @@ export class PatientEditInfoComponent implements OnInit, OnDestroy {
                     if (res.ok) {
                         //let patient = new Patient().fromJSON(res.json());
                         this.patientService.emitChange(this.patient);
-                        this.router.navigate(['./patientEdit/1']);
+                        this.router.navigate(['./patientDiagnosisDetails/0']);
                     }
                     else
                         this.error = "we're sorry, something is wrong with the information you entered!";
@@ -91,7 +91,7 @@ export class PatientEditInfoComponent implements OnInit, OnDestroy {
         if (this.formType == "A")
             this.router.navigate(['./findPatient']);
         else
-            this.router.navigate(['./patientInfo']);
+            this.router.navigate(['./patientEdit']);
     }
 
     private determineFormType(): void {
@@ -123,8 +123,7 @@ export class PatientEditInfoComponent implements OnInit, OnDestroy {
     }
 
     checkIfValid() {
-        this.isAddNewPatient = this.patient.PatientId.length === 9 && this.patient.Name != null && this.patient.Gender != null
-            && this.patient.DateOfBirth != null && this.patient.Race != null;
+        this.isAddNewPatient = this.patient.PatientId.length === 9 && this.patient.Name != null && this.patient.DateOfBirth != null;
     }
 
     clickOnDiag(diag) {
