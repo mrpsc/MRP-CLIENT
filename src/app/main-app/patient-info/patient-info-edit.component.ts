@@ -49,7 +49,6 @@ export class PatientEditInfoComponent implements OnInit, OnDestroy {
     submit(): void {
         if (this.formType == "A") {
             this.checkIfValid();
-            debugger;
             this.patient.InclusionDate = new Date();
             if (this.isAddNewPatient) {
                 this.patientService.addPatient(this.patient)
@@ -96,7 +95,6 @@ export class PatientEditInfoComponent implements OnInit, OnDestroy {
     }
 
     private determineFormType(): void {
-        debugger;
         if (this.route.snapshot.params['id'] == 1 && this.patient && this.patient.PatientId) {
             this.formType = "E";
             this.addOrSave = 'Save Changes';

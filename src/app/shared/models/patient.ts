@@ -8,6 +8,7 @@ export class Patient{
     Race: Race;
     InclusionDate: Date = null;
     General: string;
+    Diagnose:PatientDiagnosis;
     Diagnosis:PatientDiagnosis[] = new Array<PatientDiagnosis>();
 
     fromJSON(json:Object) {

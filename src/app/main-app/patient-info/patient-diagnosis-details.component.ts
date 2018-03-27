@@ -62,22 +62,18 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                 this.patientsService.changeEmitted$.subscribe(patient => {
                     this.patient = patient;
                     this.determineFormType();
-                    if (this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length != 0) {
+                    if (this.patient && this.patient.Diagnose) {
                         this.formType = "E";
-                        this.diagnosis = this.patient.Diagnosis[0];
-                        this.pageTitle = "Edit dignosis for " + this.patient.PatientId;
+                        this.diagnosis = this.patient.Diagnose;                        
+                        this.pageTitle = "Edit diagnosis for " + this.patient.PatientId;
                     }
                     else {
                         this.formType = "A";
-                        this.pageTitle = "Add dignosis for " + this.patient.PatientId;
+                        this.pageTitle = "Add diagnosis";
                     }
                     if (this.formType == "E" && this.diagnosis.Symptoms) {
                         for (let key in this.formGroup.controls) {
-                            // this.patient.Diagnosis.forEach(diag => {
-                            //     this.formGroup.controls[key].patchValue(diag.Symptoms);
-                            // });
-                            this.formGroup.controls[key].patchValue(this.patient.Diagnosis[0].Symptoms);
-                            //this.formGroup.controls[key].patchValue(this.diagnosis.Symptoms);
+                            this.formGroup.controls[key].patchValue(this.diagnosis.Symptoms);
                         }
                     }
                 })
@@ -146,7 +142,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                 this.diagnosis.MedicalInstitution = institution;
             }
             this.patient.Diagnosis.push(this.diagnosis);
-            this.patientsService.addDiagnosis(this.diagnosis).subscribe((res: Response) => {
+            this.patientsService.editDiagnosis(this.diagnosis).subscribe((res: Response) => {
                 res.ok ? this.onSuccessfulSave() : this.error = "we're sorry, something is wrong with the information you entered!";
             }, (error: any) => this.error = "server error!");
         }
