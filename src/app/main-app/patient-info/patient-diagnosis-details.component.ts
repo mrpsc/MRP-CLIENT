@@ -122,10 +122,10 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     submit(): void {
+
         if (this.formType == 'E') {
             this.patientsService.editDiagnosis(this.diagnosis).subscribe((res: Response) => {
                 if (res && res.ok) {
-                    debugger;
                     //let patient = new Patient().fromJSON(res.json());
                     this.patientsService.emitChange(this.patient);
                     this.onSuccessfulSave();
@@ -158,7 +158,6 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     private determineFormType(): void {
-        debugger;
         let id = +this.route.snapshot.params['id'];
         if (id <= 0 || !(this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length >= id)) {
             if (!(this.patient && this.patient.PatientId)) {
@@ -180,10 +179,12 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     onChange($event: any) {
-        this.diagnosis.Symptoms[$event.target.id] = $event.target.value;
+        var symptom=$event.target.value.split(': ');
+        this.diagnosis.Symptoms[$event.target.id] = symptom[1] ? symptom[1] : symptom[0];
+        //this.diagnosis.Symptoms[$event.target.id] = $event.target.value;
         //this.diagnosis.Symptoms[$event.model.id] = $event.model._value;
-        // var arr = $event.target.value.split(":");
+        //var arr = $event.target.value.split(":");
 
-        // this.diagnosis.Symptoms[$event.target.labels[0].innerText] = arr[arr.length - 1].trim();
+        //this.diagnosis.Symptoms[$event.target.labels[0].innerText] = arr[arr.length - 1].trim();
     }
 }
