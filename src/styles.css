@@ -39,4 +39,6 @@ label.control-label.col-sm-3.ng-star-inserted
 {
     display: flex;
     flex-direction: column;
+.container.my-content {
+    overflow: overlay;
 }

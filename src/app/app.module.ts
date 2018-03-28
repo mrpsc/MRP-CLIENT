@@ -19,7 +19,7 @@ import { TabsComponent } from './shared/components/tabs/tabs.component';
 import { PatientDiagnosisDetailsComponent } from './main-app/patient-info/patient-diagnosis-details.component';
 import { CanActivateOAuthGuard } from './shared/services/can-activate-oath-guard';
 import { DataFilterPipe } from './shared/components/data-filter.pipe';
-import { CanDeactivateDiagnosisFormGuard } from "./shared/services/can-diactivate-form-edit-guard";
+import { CanDeactivateDiagnosisFormGuard } from './shared/services/can-diactivate-form-edit-guard';
 
 import { AppComponent } from './app.component';
 import { LoginRegisterComponent } from './login-register/login-register.component';
@@ -29,10 +29,15 @@ import { MainAppComponent } from './main-app/main-app.component';
 import { UserManagementComponent } from './main-app/user-management/user-management.component';
 import { DiagnosManagementComponent } from './main-app/diagnos-management/diagnos-management.component';
 import { ResearchComponent } from './main-app/research/research.component';
+import { DiagModalComponent } from './main-app/diag-modal/diag-modal.component';
 import { AppRoutingModule } from './app.routes.module';
 import { PatientsService } from './shared/services/patients.service';
 import { UsersService } from './shared/services/users.service';
+import { PatientsResultComponent } from './main-app/research/patients-result.component';
+import { BuildQueryComponent } from './main-app/research/build-query.component';
+import { ResearchService } from './shared/services/research.service';
 import { CONFIG } from './shared/config';
+import { QueryBuilderModule } from 'angular2-query-builder';
 
 const routes: Routes = [
   { path: 'login', component: LoginRegisterComponent }
@@ -54,7 +59,10 @@ const routes: Routes = [
     DataFilterPipe,
     UserManagementComponent,
     DiagnosManagementComponent,
-    ResearchComponent
+    ResearchComponent,
+    PatientsResultComponent,
+    BuildQueryComponent,
+    DiagModalComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +78,7 @@ const routes: Routes = [
     DynamicFormsBootstrapUIModule,
     BsDatepickerModule,
     AppRoutingModule,
+    QueryBuilderModule,
     // RouterModule.forRoot([
     //   { path: 'login', component: LoginRegisterComponent },
     //   { path: 'login/:form', component: LoginRegisterComponent },
@@ -79,7 +88,9 @@ const routes: Routes = [
 
     //   { path: 'patientInfo', component: PatientInfoComponent, canActivate: [CanActivateOAuthGuard] },
     //   { path: 'patientEdit/:id', component: PatientEditInfoComponent, canActivate: [CanActivateOAuthGuard] },
-    //   { path: 'patientDiagnosisDetails/:id', component: PatientDiagnosisDetailsComponent, canActivate: [CanActivateOAuthGuard], canDeactivate: [CanDeactivateDiagnosisFormGuard] },
+    //   { path: 'patientDiagnosisDetails/:id',
+    // component: PatientDiagnosisDetailsComponent, canActivate: [CanActivateOAuthGuard],
+    // canDeactivate: [CanDeactivateDiagnosisFormGuard] },
     //   { path: 'findPatient', component: FindPatientComponent, canActivate: [CanActivateOAuthGuard] },
     //   // {path: 'userManagment', component: UnderConstructionComponent, canActivate : [CanActivateOAuthGuard]},
     //   // {path: 'research', component: UnderConstructionComponent, canActivate : [CanActivateOAuthGuard]},
@@ -95,7 +106,8 @@ const routes: Routes = [
     CanDeactivateDiagnosisFormGuard,
     PatientsService,
     UsersService,
-    CONFIG
+    CONFIG,
+    ResearchService
   ],
   bootstrap: [AppComponent]
 })
