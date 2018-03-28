@@ -64,20 +64,19 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                     this.patient = patient;
                     this.determineFormType();
                     if (this.patient && this.patient.Diagnose) {
-                        this.formType = "E";
+                        this.formType = 'E';
                         this.diagnosis = this.patient.Diagnose;
-                        this.pageTitle = "Edit Diagnosis For " + this.patient.Name;
+                        this.pageTitle = 'Edit Diagnosis For ' + this.patient.Name;
+                    } else {
+                        this.formType = 'A';
+                        this.pageTitle = 'Add diagnosis';
                     }
-                    else {
-                        this.formType = "A";
-                        this.pageTitle = "Add diagnosis";
-                    }
-                    if (this.formType == "E" && this.diagnosis.Symptoms) {
-                        for (let key in this.formGroup.controls) {
+                    if (this.formType == 'E' && this.diagnosis.Symptoms) {
+                        for (const key in this.formGroup.controls) {
                             this.formGroup.controls[key].patchValue(this.diagnosis.Symptoms);
                         }
                     }
-                })
+                });
             }
 
         });
@@ -131,35 +130,35 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                     this.onSuccessfulSave();
                 }
                 else
-                    this.error = "we're sorry, something is wrong with the information you entered!";
-            }, (error: any) => this.error = "server error!");
+                    this.error = 'we\'re sorry, something is wrong with the information you entered!';
+            }, (error: any) => this.error = 'server error!');
         }
         else {
             this.diagnosis.Id = this.patient.Diagnosis.length;
             this.diagnosis.DoctorName = !this.diagnosis.DoctorName ? 'Dr. Levy' : this.diagnosis.DoctorName;
             if (Object.getOwnPropertyNames(this.diagnosis.MedicalInstitution).length === 0) {
                 var institution = new MedicalInstitution();
-                institution.Name = "Tel Hashomer";
+                institution.Name = 'Tel Hashomer';
                 institution.Id = 1;
                 this.diagnosis.MedicalInstitution = institution;
             }
             this.patient.Diagnosis.push(this.diagnosis);
             this.patientsService.editDiagnosis(this.diagnosis).subscribe((res: Response) => {
-                res.ok ? this.onSuccessfulSave() : this.error = "we're sorry, something is wrong with the information you entered!";
-            }, (error: any) => this.error = "server error!");
+                res.ok ? this.onSuccessfulSave() : this.error = 'we\'re sorry, something is wrong with the information you entered!';
+            }, (error: any) => this.error = 'server error!');
         }
     }
 
     onSuccessfulSave(): void {
-        //this.formGroup.reset();
+        // this.formGroup.reset();
         // this.router.navigate(['./patientDiagnosisDetails/0']);
         this.showPopup = true;
         this.determineFormType();
     }
 
     private determineFormType(): void {
-        let id = +this.route.snapshot.params['id'];
-        if (id <= 0 || !(this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length >= id)) {
+        const id = +this.route.snapshot.params['id'];
+        if (id <= 0 || !(this.patient && this.patient.Diagnose)) {
             if (!(this.patient && this.patient.PatientId)) {
                 this.router.navigate(['/findPatient']);
             } else if (!this.patient.Diagnose) {
@@ -179,7 +178,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     onChange($event: any) {
-        var symptom=$event.target.value.split(': ');
+        var symptom = $event.target.value.split(': ');
         this.diagnosis.Symptoms[$event.target.id] = symptom[1] ? symptom[1] : symptom[0];
         //this.diagnosis.Symptoms[$event.target.id] = $event.target.value;
         //this.diagnosis.Symptoms[$event.model.id] = $event.model._value;

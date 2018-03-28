@@ -13,7 +13,7 @@
                 <td>{{patient.Name}}</td>
 
                 <ng-container *ngFor="let column of columns; let columnIndex = index">
-                    <td>{{patient.Diagnosis.Symptoms[columns[columnIndex]]}}</td>
+                    <td>{{patient.Diagnose?patient.Diagnose.Symptoms?patient.Diagnose.Symptoms[column]:null:null}}</td>
                 </ng-container>
             </tr>
         </tbody>

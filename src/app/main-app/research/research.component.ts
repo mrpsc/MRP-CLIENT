@@ -10,7 +10,7 @@ import { ResearchService } from "../../shared/services/research.service";
   styleUrls: ['./research.component.css']
 })
 export class ResearchComponent implements OnInit {
-  queries : Array<ResearchModel>;
+  queries: Array<ResearchModel>;
 
 
   constructor(private _ResearchService: ResearchService,  private router: Router){

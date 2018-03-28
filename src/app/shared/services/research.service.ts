@@ -85,14 +85,16 @@ export class ResearchService {
         'Content-Type': 'application/json'
       });
       const options: RequestOptions = new RequestOptions({ headers: headers });
-      const body = this.currentQuery ? this.currentQuery : '{}';
+      console.log(this.currentQuery);
+      console.log(JSON.stringify(this.currentQuery));
+      const body = JSON.stringify(this.currentQuery);
       options.body = body;
       const url = `${this._url}/GetPatients?limit=${limit}&skip=${skip}`;
       this._http.post(url, body, options).subscribe((data: any) => {
         if (data) {
-          res(data);
+          res(data.json());
         } else {
-          rej(data);
+          rej('Could not get patients.');
         }
       });
     });
@@ -106,13 +108,12 @@ export class ResearchService {
       'Content-Type': 'application/json'
     });
     const options: RequestOptions = new RequestOptions({ headers: headers, responseType: ResponseContentType.Blob });
-    const body = this.currentQuery;
+    const body = JSON.stringify(this.currentQuery);
     // const body = '"{}"';
     const url = `${this._url}/ExportPatients`;
     this._http.post(url, body, options)
       // .map(res => new Blob([res._body],{ type: 'application/vnd.ms-excel' }));
       .subscribe((data: any) => {
-        console.log(data);
         const blob = data._body;
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);

@@ -17,7 +17,6 @@ export class PatientsResultComponent implements OnInit {
   count: number;
   skip: number;
   requestIndex: number;
-  results: { patients, count } = { patients: [], count: 0 };
 
   constructor(private router: Router, private _researchService: ResearchService) {
     this.requestIndex = 1;
@@ -42,28 +41,30 @@ export class PatientsResultComponent implements OnInit {
 
   getPatients(limit, skip) {
     this._researchService.getPatients(limit, skip)
-      .then(success => {
-        console.log(success);
-        // this.setResult(this._researchService.getCurrentPatients());
+      .then((data: any) => {
+        this.patients = data.Patients;
+        this.count = data.Count;
+        this.setResult();
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-  setResult(result) {
-    this.patients = result.patients;
-    this.count = result.count;
+  setResult() {
     this.columns = [];
     for (let i = 0; i < this.patients.length; i++) {
-      const patient = this.patients[i].Diagnosis.Symptoms;
-      const keys = Object.keys(patient);
-      for (let j = 0; j < keys.length; j++) {
-        if (this.columns.indexOf(keys[j]) === -1) {
-          this.columns.push(keys[j]);
+      if (this.patients[i].Diagnose) {
+        const patient = this.patients[i].Diagnose.Symptoms;
+        const keys = Object.keys(patient);
+        for (let j = 0; j < keys.length; j++) {
+          if (this.columns.indexOf(keys[j]) === -1) {
+            this.columns.push(keys[j]);
+          }
         }
       }
     }
+    console.log(this.columns);
   }
 
 
