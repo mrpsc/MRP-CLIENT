@@ -1,0 +1,77 @@
+<query-builder [(ngModel)]='query' [config]='config'></query-builder>
+<!-- 
+
+<div class="result">
+  <label>Result : </label>
+  <label>{{query}}</label>
+</div>
+
+<div *ngFor="let groupCondition of groupOfConditios; let groupIndex = index">
+  <div class="conditon">
+
+    <select class="smallSelect" [(ngModel)]="groupCondition.operator" *ngIf="groupCondition.conditions.length > 1">
+      <option *ngFor="let operator of logicOpertor" [ngValue]="operator">{{operator}}</option>
+    </select>
+
+    <div *ngFor="let condition of groupCondition.conditions; let conditionIndex = index">
+
+      <label class="delete" (click)="deleteCondition(groupIndex,conditionIndex)" title="delete condition">X</label>
+      <div>
+        <div>
+          <label>category</label>
+          <label class="subCategory">subCategory</label>
+        </div>
+
+        <div>
+          <select [(ngModel)]="condition.category" required>
+            <option *ngFor="let item of catrgory; let i = index" [ngValue]="i">{{item}}</option>
+          </select>
+
+          <select [(ngModel)]="condition.subCategory" required>
+            <option class="options" *ngFor="let item of group[condition.category]; let i = index" [ngValue]="item">{{item.label}}</option>
+          </select>
+
+        </div>
+
+        <div *ngIf="condition.subCategory != ''">
+          <br>
+          <label>{{condition.subCategory.label}}</label>
+
+          <select *ngIf="condition.subCategory != '' && (condition.subCategory.type =='TIMEPICKER' || condition.subCategory.type =='DATEPICKER' || condition.subCategory.type =='INPUT' )" class="smallSelect" [(ngModel)]="condition.operator" required>
+            <option class="options" *ngFor="let item of operators" [value]="item">{{item}}</option>
+          </select>
+
+          <select *ngIf="condition.subCategory != '' && (condition.subCategory.type =='SELECT' || condition.subCategory.type =='TEXTAREA') " class="smallSelect" [(ngModel)]="condition.operator" required>
+            <option class="options" *ngFor="let item of smallOperators" [value]="item">{{item}}</option>
+          </select>
+
+          <select *ngIf="condition.subCategory.type =='SELECT'" [(ngModel)]="condition.value" required>
+            <option class="options" *ngFor="let option of condition.subCategory.options" [value]="option.label">{{option.label}}</option>
+          </select>
+
+          <input *ngIf="condition.subCategory.type =='TEXTAREA'" type="text" placeholder="value" [(ngModel)]="condition.value" required>
+          <input *ngIf="condition.subCategory.type =='TIMEPICKER' || condition.subCategory.type =='DATEPICKER'" type="date" [(ngModel)]="condition.value"
+            required>
+          <input *ngIf="condition.subCategory.type =='INPUT'" type="number" placeholder="value" [(ngModel)]="condition.value" required>
+
+        </div>
+        <div class="buttons">
+          <button class="conditionsButtons btn btn-primary " (click)="addCondition(groupIndex)">add condition</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <select class="logicArray" [(ngModel)]="logicArray[groupIndex]" *ngIf="groupOfConditios[groupIndex+1] != null">
+    <option *ngFor="let operator of logicOpertor" [ngValue]="operator">{{operator}}</option>
+  </select>
+</div> -->
+
+<div class="downButtons">
+    <!-- <button class="btn btn-primary" (click)="save()">save</button>
+    <button class="btn btn-primary" (click)="saveAndRun()">save and run</button> -->
+    <button class="btn btn-primary" (click)='run()'>Run</button>
+    <!-- <button class="btn btn-primary" (click)='addGroup()'>add group</button>
+    <button class="btn btn-primary" (click)="checkQuery()">check query</button> -->
+    <!-- <button class="btn btn-primary" (click)="backToResearch()"> Back To Research </button> -->
+</div>

@@ -1,21 +1,23 @@
-.panel-add-new-patient, .diagnosis-container{
-    width:50%;
+.panel-add-new-patient,
+.diagnosis-container {
+    width: 50%;
     margin-right: 20px;
     position: relative;
 }
-.sub-tab
-{
+
+.sub-tab {
     font-weight: normal;
 }
-.tab
-{
+
+.tab {
     font-weight: bold;
 }
-.info-container{
+
+.info-container {
     display: flex;
 }
 
-.panel-footer{
+.panel-footer {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -25,20 +27,20 @@ textarea#general {
     margin-bottom: 4em;
 }
 
-.diagnosis-container{
+.diagnosis-container {
     height: 19em;
     width: 35%;
 }
 
-.invalid-field{
+.invalid-field {
     background-color: #e7adad;
 }
 
-.alert-danger{
+.alert-danger {
     margin-bottom: 80px;
 }
 
-.message{
+.message {
     border: 1px solid cadetblue;
     border-radius: 10px;
     width: 50%;
@@ -46,22 +48,25 @@ textarea#general {
     position: absolute;
     top: 133px;
     left: 25%;
-    background: rgba(198, 222, 175,0.8);
+    background: rgba(198, 222, 175, 0.8);
     text-align: center;
     z-index: 100;
 }
-.message > div:nth-child(1) {
+
+.message>div:nth-child(1) {
     top: 50%;
     position: relative;
     transform: translateY(-50%);
     font-size: 35px;
 }
-.message > div:nth-child(2){
+
+.message>div:nth-child(2) {
     position: absolute;
     top: 0;
     right: 0;
 }
-.message > div:nth-child(2) > button{
+
+.message>div:nth-child(2)>button {
     position: relative;
     top: 0;
     right: 0;
