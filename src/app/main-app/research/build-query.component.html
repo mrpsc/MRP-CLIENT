@@ -1,3 +1,6 @@
+<query-builder [(ngModel)]='query' [config]='config'></query-builder>
+<!-- 
+
 <div class="result">
   <label>Result : </label>
   <label>{{query}}</label>
@@ -62,13 +65,13 @@
   <select class="logicArray" [(ngModel)]="logicArray[groupIndex]" *ngIf="groupOfConditios[groupIndex+1] != null">
     <option *ngFor="let operator of logicOpertor" [ngValue]="operator">{{operator}}</option>
   </select>
-</div>
+</div> -->
 
 <div class="downButtons">
-  <!-- <button class="btn btn-primary" (click)="save()">save</button>
+    <!-- <button class="btn btn-primary" (click)="save()">save</button>
     <button class="btn btn-primary" (click)="saveAndRun()">save and run</button> -->
-  <button class="btn btn-primary" (click)='run()'>Run</button>
-  <button class="btn btn-primary" (click)='addGroup()'>add group</button>
-  <button class="btn btn-primary" (click)="checkQuery()">check query</button>
-  <!-- <button class="btn btn-primary" (click)="backToResearch()"> Back To Research </button> -->
+    <button class="btn btn-primary" (click)='run()'>Run</button>
+    <!-- <button class="btn btn-primary" (click)='addGroup()'>add group</button>
+    <button class="btn btn-primary" (click)="checkQuery()">check query</button> -->
+    <!-- <button class="btn btn-primary" (click)="backToResearch()"> Back To Research </button> -->
 </div>

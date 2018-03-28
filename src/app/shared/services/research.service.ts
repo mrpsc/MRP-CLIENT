@@ -73,23 +73,29 @@ export class ResearchService {
     this.currentPatients = patients;
   }
 
+  setQuery(query) {
+    this.currentQuery = query;
+  }
 
-  getPatients(query, limit, skip): any {
-    if (query) {
-      this.currentQuery = query;
-    }
-    const accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
-    const headers: Headers = new Headers({ 'Authorization': 'Bearer ' + accessToken });
-    const options: RequestOptions = new RequestOptions({ headers: headers });
-    const body = { query: this.currentQuery };
-    // const url = `${this._url}/GetPatients?limit=${limit}&skip=${skip}`;
-    // return this._http.post(url,body,options)
-    //     .map((response: Response) => response.json())
-    //     .catch(this._handleError);
-
-    const patients = this.patientsData.patients.slice(skip, skip + limit);
-    const dataReturn = { patients: patients, count: this.patientsData.count };
-    this.setCurrentPatients(dataReturn);
+  async getPatients(limit, skip) {
+    return new Promise((res, rej) => {
+      const accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
+      const headers: Headers = new Headers({
+        'Authorization': 'Bearer ' + accessToken,
+        'Content-Type': 'application/json'
+      });
+      const options: RequestOptions = new RequestOptions({ headers: headers });
+      const body = this.currentQuery ? this.currentQuery : '{}';
+      options.body = body;
+      const url = `${this._url}/GetPatients?limit=${limit}&skip=${skip}`;
+      this._http.post(url, body, options).subscribe((data: any) => {
+        if (data) {
+          res(data);
+        } else {
+          rej(data);
+        }
+      });
+    });
   }
 
   getPatientsToExcel() {
@@ -100,8 +106,8 @@ export class ResearchService {
       'Content-Type': 'application/json'
     });
     const options: RequestOptions = new RequestOptions({ headers: headers, responseType: ResponseContentType.Blob });
-    // const body = { query: this.currentQuery };
-    const body = '"{}"';
+    const body = this.currentQuery;
+    // const body = '"{}"';
     const url = `${this._url}/ExportPatients`;
     this._http.post(url, body, options)
       // .map(res => new Blob([res._body],{ type: 'application/vnd.ms-excel' }));

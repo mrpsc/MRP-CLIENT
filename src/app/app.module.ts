@@ -37,6 +37,7 @@ import { PatientsResultComponent } from './main-app/research/patients-result.com
 import { BuildQueryComponent } from './main-app/research/build-query.component';
 import { ResearchService } from './shared/services/research.service';
 import { CONFIG } from './shared/config';
+import { QueryBuilderModule } from 'angular2-query-builder';
 
 const routes: Routes = [
   { path: 'login', component: LoginRegisterComponent }
@@ -77,6 +78,7 @@ const routes: Routes = [
     DynamicFormsBootstrapUIModule,
     BsDatepickerModule,
     AppRoutingModule,
+    QueryBuilderModule,
     // RouterModule.forRoot([
     //   { path: 'login', component: LoginRegisterComponent },
     //   { path: 'login/:form', component: LoginRegisterComponent },
