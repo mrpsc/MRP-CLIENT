@@ -30,12 +30,39 @@ textarea#general {
     width: 35%;
 }
 
-.delete-btn{
-    background-color: #d9534f;
-    color: white;
-    font-size: 14px;
-}
-
 .invalid-field{
     background-color: #e7adad;
+}
+
+.alert-danger{
+    margin-bottom: 80px;
+}
+
+.message{
+    border: 1px solid cadetblue;
+    border-radius: 10px;
+    width: 50%;
+    height: 230px;
+    position: absolute;
+    top: 133px;
+    left: 25%;
+    background: rgba(198, 222, 175,0.8);
+    text-align: center;
+    z-index: 100;
+}
+.message > div:nth-child(1) {
+    top: 50%;
+    position: relative;
+    transform: translateY(-50%);
+    font-size: 35px;
+}
+.message > div:nth-child(2){
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.message > div:nth-child(2) > button{
+    position: relative;
+    top: 0;
+    right: 0;
 }

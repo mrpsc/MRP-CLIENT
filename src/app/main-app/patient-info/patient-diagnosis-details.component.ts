@@ -43,6 +43,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
 
     datePickers: any[] = [];
     basicPatienDetails: any;
+    showPopup: boolean = false;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -62,22 +63,18 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                 this.patientsService.changeEmitted$.subscribe(patient => {
                     this.patient = patient;
                     this.determineFormType();
-                    if (this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length != 0) {
+                    if (this.patient && this.patient.Diagnose) {
                         this.formType = "E";
-                        this.diagnosis = this.patient.Diagnosis[0];
-                        this.pageTitle = "Edit dignosis for " + this.patient.PatientId;
+                        this.diagnosis = this.patient.Diagnose;
+                        this.pageTitle = "Edit Diagnosis For " + this.patient.Name;
                     }
                     else {
                         this.formType = "A";
-                        this.pageTitle = "Add dignosis for " + this.patient.PatientId;
+                        this.pageTitle = "Add diagnosis";
                     }
                     if (this.formType == "E" && this.diagnosis.Symptoms) {
                         for (let key in this.formGroup.controls) {
-                            // this.patient.Diagnosis.forEach(diag => {
-                            //     this.formGroup.controls[key].patchValue(diag.Symptoms);
-                            // });
-                            this.formGroup.controls[key].patchValue(this.patient.Diagnosis[0].Symptoms);
-                            //this.formGroup.controls[key].patchValue(this.diagnosis.Symptoms);
+                            this.formGroup.controls[key].patchValue(this.diagnosis.Symptoms);
                         }
                     }
                 })
@@ -125,11 +122,12 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     submit(): void {
+
         if (this.formType == 'E') {
             this.patientsService.editDiagnosis(this.diagnosis).subscribe((res: Response) => {
                 if (res && res.ok) {
-                    let patient = new Patient().fromJSON(res.json());
-                    this.patientsService.emitChange(patient);
+                    //let patient = new Patient().fromJSON(res.json());
+                    this.patientsService.emitChange(this.patient);
                     this.onSuccessfulSave();
                 }
                 else
@@ -146,15 +144,17 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                 this.diagnosis.MedicalInstitution = institution;
             }
             this.patient.Diagnosis.push(this.diagnosis);
-            this.patientsService.addDiagnosis(this.diagnosis).subscribe((res: Response) => {
+            this.patientsService.editDiagnosis(this.diagnosis).subscribe((res: Response) => {
                 res.ok ? this.onSuccessfulSave() : this.error = "we're sorry, something is wrong with the information you entered!";
             }, (error: any) => this.error = "server error!");
         }
     }
 
     onSuccessfulSave(): void {
-        this.formGroup.reset();
-        this.router.navigate(['./findPatient']);
+        //this.formGroup.reset();
+        // this.router.navigate(['./patientDiagnosisDetails/0']);
+        this.showPopup = true;
+        this.determineFormType();
     }
 
     private determineFormType(): void {
@@ -162,25 +162,29 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
         if (id <= 0 || !(this.patient && this.patient.Diagnosis && this.patient.Diagnosis.length >= id)) {
             if (!(this.patient && this.patient.PatientId)) {
                 this.router.navigate(['/findPatient']);
-            } else {
+            } else if (!this.patient.Diagnose) {
                 this.diagnosis = new PatientDiagnosis(this.patient.PatientId);
                 this.pageTitle = 'new Diagnosis for ' + this.patient.PatientId;
                 this.formType = 'A';
             }
-        }
-        else {
-            this.diagnosis = this.patient.Diagnosis[id - 1];
-            this.pageTitle = 'Edit Diagnosis for ' + this.patient.Name;
-            this.disable = 'disabled';
-            this.formType = 'E';
+
+            else {
+                //this.diagnosis = this.patient.Diagnosis[id - 1];
+                this.diagnosis = this.patient.Diagnose;
+                this.pageTitle = 'Edit Diagnosis For ' + this.patient.Name;
+                this.disable = 'disabled';
+                this.formType = 'E';
+            }
         }
     }
 
     onChange($event: any) {
-        this.diagnosis.Symptoms[$event.target.id] = $event.target.value;
+        var symptom=$event.target.value.split(': ');
+        this.diagnosis.Symptoms[$event.target.id] = symptom[1] ? symptom[1] : symptom[0];
+        //this.diagnosis.Symptoms[$event.target.id] = $event.target.value;
         //this.diagnosis.Symptoms[$event.model.id] = $event.model._value;
-        // var arr = $event.target.value.split(":");
+        //var arr = $event.target.value.split(":");
 
-        // this.diagnosis.Symptoms[$event.target.labels[0].innerText] = arr[arr.length - 1].trim();
+        //this.diagnosis.Symptoms[$event.target.labels[0].innerText] = arr[arr.length - 1].trim();
     }
 }

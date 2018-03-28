@@ -1,6 +1,6 @@
 <h1>{{pageTitle}}</h1>
-<a class="btn btn-primary" style="width:auto;margin-left:10px" [routerLink]="['/findPatient']">
-    <i class="glyphicon glyphicon-edit"></i> Back
+<a class="btn btn-primary" style="width:auto;margin-left:10px" [routerLink]="['/patientEdit/1']">
+    <i class="glyphicon glyphicon-edit"></i> Edit Patient Details
 </a>
 <tabs>
     <div class="container">
@@ -23,6 +23,10 @@
                         </a>
                         <!--<button type="button" class="btn btn-primary" (click)='goBack()'>Cancel</button>-->
                     </form>
+                    <div *ngIf="showPopup" class="message">
+                        <div>Patient Edited Successfuly</div>
+                        <div><button class="btn btn-link" (click)="showPopup=false">X</button></div>
+                    </div>
                 </div>
             </div>
         </div>
