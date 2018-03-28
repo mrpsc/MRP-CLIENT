@@ -6,7 +6,7 @@ md-sidenav-container,
     margin: 0;
     width: 100%;
     height: stretch;
-    overflow: overlay;
+    /* overflow: overlay; */
 }
 
 .glyphicon-menu-hamburger {
@@ -59,7 +59,8 @@ li button {
     left: 0;
     right: 0;
     bottom: 50px;
-    overflow: hidden;
+    /* overflow: hidden; */
+    overflow: auto;
 }
 
 
