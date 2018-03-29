@@ -16,10 +16,12 @@ export class PatientsResultComponent implements OnInit {
   columns: Array<string>;
   count: number;
   skip: number;
+  limit: number;
   requestIndex: number;
 
   constructor(private router: Router, private _researchService: ResearchService) {
     this.requestIndex = 1;
+    this.limit = PATIENT_LIMIT_PER_PAGE;
     this.skip = 0;
   }
 
@@ -66,6 +68,9 @@ export class PatientsResultComponent implements OnInit {
     }
   }
 
+  pageChanged(e) {
+    this.getPatients(e.itemsPerPage, (e.page - 1) * e.itemsPerPage);
+  }
 
   backToResearch() {
     this.router.navigate(['./buildQuery']);
