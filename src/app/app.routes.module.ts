@@ -26,18 +26,18 @@ const routes: Routes = [
             { path: 'research', component: ResearchComponent, canActivate: [CanActivateOAuthGuard] },
             { path: 'findPatient', component: FindPatientComponent, canActivate: [CanActivateOAuthGuard] },
             { path: 'patientInfo', component: PatientInfoComponent, canActivate: [CanActivateOAuthGuard] },
-            { path: 'userManagement', component: UserManagementComponent, canActivate: [CanActivateOAuthGuard] },
-            { path: 'diagnosManagement', component: DiagnosManagementComponent, canActivate: [CanActivateOAuthGuard] },
+            // { path: 'userManagement', component: UserManagementComponent, canActivate: [CanActivateOAuthGuard] },
+            // { path: 'diagnosManagement', component: DiagnosManagementComponent, canActivate: [CanActivateOAuthGuard] },
             { path: 'patientEdit/:id', component: PatientEditInfoComponent, canActivate: [CanActivateOAuthGuard] },
-            { path: 'patientsResult', component: PatientsResultComponent },
-            { path: 'buildQuery', component: BuildQueryComponent },
+            { path: 'patientsResult', component: PatientsResultComponent, canActivate: [CanActivateOAuthGuard] },
+            { path: 'buildQuery', component: BuildQueryComponent, canActivate: [CanActivateOAuthGuard] },
             {
                 path: 'patientDiagnosisDetails/:id',
                 component: PatientDiagnosisDetailsComponent,
                 canActivate: [CanActivateOAuthGuard],
                 canDeactivate: [CanDeactivateDiagnosisFormGuard]
             },
-            { path: '**', redirectTo: '' }
+            { path: '**', redirectTo: 'findPatient' }
         ]
     },
     { path: '**', redirectTo: '' }
