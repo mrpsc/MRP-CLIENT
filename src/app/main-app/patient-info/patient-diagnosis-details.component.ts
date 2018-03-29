@@ -66,7 +66,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                     if (this.patient && this.patient.Diagnose) {
                         this.formType = 'E';
                         this.diagnosis = this.patient.Diagnose;
-                        this.pageTitle = 'Edit Diagnosis For ' + this.patient.Name;
+                        this.pageTitle = 'Edit Diagnosis For ' + this.patient.PatientId;
                     } else {
                         this.formType = 'A';
                         this.pageTitle = 'Add diagnosis';
@@ -163,7 +163,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                 this.formType = 'A';
             } else {
                 this.diagnosis = this.patient.Diagnose;
-                this.pageTitle = 'Edit Diagnosis For ' + this.patient.Name;
+                this.pageTitle = 'Edit Diagnosis For ' + this.patient.PatientId;
                 this.disable = 'disabled';
                 this.formType = 'E';
             }
