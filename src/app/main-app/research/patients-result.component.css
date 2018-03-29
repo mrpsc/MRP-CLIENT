@@ -1,0 +1,15 @@
+.column-header {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-height: 1;
+    max-height: 56px;
+    min-width: 123px;
+    max-width: 150px;
+    border: solid .5px;
+}
+
+.results-table td {
+    border: solid .5px;
+}

@@ -1,10 +1,10 @@
 <div class="table-responsive">
-    <table class="table">
+    <table class="table results-table">
         <thead>
             <tr>
-                <th>PatientId</th>
-                <th>Name</th>
-                <th *ngFor='let column of columns; let columnIndex = index'>{{column}}</th>
+                <th class="column-header" title="PatientId">PatientId</th>
+                <th class="column-header" title="Name">Name</th>
+                <th class="column-header" title="{{column}}" *ngFor='let column of columns; let columnIndex = index'>{{column}}</th>
             </tr>
         </thead>
         <tbody>

@@ -29,28 +29,6 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
   config: QueryBuilderConfig = {
     fields: {}
   };
-  classNames: QueryBuilderClassNames = {
-    removeIcon: 'fa fa-minus',
-    addIcon: 'fa fa-plus',
-    button: 'btn',
-    buttonGroup: 'btn-group',
-    rightAlign: 'order-12 ml-auto',
-    switchRow: 'd-flex px-2',
-    switchGroup: 'd-flex align-items-center',
-    switchRadio: 'custom-control-input',
-    switchLabel: 'custom-control-label',
-    switchControl: 'custom-control custom-radio custom-control-inline',
-    row: 'row p-2 m-1',
-    rule: 'border',
-    ruleSet: 'border',
-    invalidRuleSet: 'alert alert-danger',
-    operatorControl: 'form-control',
-    operatorControlSize: 'col-auto px-0',
-    fieldControl: 'form-control',
-    fieldControlSize: 'col-auto',
-    inputControl: 'form-control',
-    inputControlSize: 'col-auto'
-  }
   title: string = '';
   description: string = '';
 
@@ -80,10 +58,10 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
           this.groups.forEach(group => {
             group.forEach(inputEl => {
               this.config.fields[inputEl.id] = {
-                name: String(inputEl.label),
+                name: String(inputEl.name),
                 type: inputEl.type
               };
-              if (inputEl.label.toLowerCase().includes('value')) {
+              if (inputEl.name.toLowerCase().includes('value')) {
                 this.config.fields[inputEl.id].name = String(inputEl.id);
               }
               switch (inputEl.type) {
@@ -101,7 +79,7 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
                   this.config.fields[inputEl.id].type = 'string';
                   break;
                 }
-                case 'TEXTAREA' :
+                case 'TEXTAREA':
                 case 'text': {
                   this.config.fields[inputEl.id].type = 'string';
                   break;
@@ -113,8 +91,7 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
                 case ('INPUT'): {
                   if (inputEl.inputType === 'number') {
                     this.config.fields[inputEl.id].type = 'number';
-                  }
-                  else{
+                  } else {
                     this.config.fields[inputEl.id].type = 'string';
                   }
                   break;
@@ -134,20 +111,15 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
   run() {
     const query = {};
     const result = this.convertRules(this.query.rules);
-    if(result == null || result.length === 0 ){
-      alert("you must fill all the fields");
+    if (result == null || result.length === 0) {
+      alert('you must fill all the fields');
       return;
+    } else {
+      query[`$${this.query.condition}`] = result;
+      this._researchService.setQuery(query);
+      this.router.navigate(['./patientsResult']);
     }
-    else{
-       query[`$${this.query.condition}`] = result;
-    // const isValid = this.checkQuery();
-    // if (!isValid) {
-    //   return;
-    // }
-    this._researchService.setQuery(query);
-    this.router.navigate(['./patientsResult']);
-    }
-   
+
   }
 
   convertRules(rules: any[]): any {
@@ -159,7 +131,7 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
         newRules.push(query);
       } else {
         const obj = {};
-        if( rule.value !== undefined ){
+        if (rule.value !== undefined) {
           switch (rule.operator) {
             case ('contains'): {
               obj['Diagnose.Symptoms.' + rule.field] = { $regex: `.*${rule.value}.*` };
@@ -202,11 +174,10 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
               break;
             }
           }
-        }
-        else{
+        } else {
           return null;
         }
-        
+
       }
     });
     return newRules;
