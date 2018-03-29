@@ -8,12 +8,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <form [formGroup]="formGroup" (ngSubmit)="submit()">
-                        <tabs class="tab" [tabs]="headers" displayKey="title" valueKey="id" (onSelectTab)='selectMenu($event)'>                                                         
+                        <tabs class="tab" [tabs]="headers" displayKey="title" valueKey="id" (onSelectTab)='selectMenu($event)'>
                             <tabs class="sub-tab" *ngIf="selectedMenu" [tabs]='selectedMenu.subMenus' displayKey='title' valueKey='tabId' (onSelectTab)='selectSubMenu($event)'>
                                 <ng-container *ngIf="group">
-                                    <dynamic-form-bootstrap-control *ngFor="let controlModel of [group]" [group]="formGroup" [model]="controlModel" (change)="onChange($event)">
+                                    <dynamic-form-bootstrap-control *ngFor="let controlModel of [group]" [group]="formGroup" [model]="controlModel" (dfChange)="onChange($event)">
                                     </dynamic-form-bootstrap-control>
-                                </ng-container> 
+                                </ng-container>
                             </tabs>
                         </tabs>
                         <div class="alert alert-danger" *ngIf="error">{{error}}</div>
@@ -30,5 +30,5 @@
                 </div>
             </div>
         </div>
-    </div>     
+    </div>
 </tabs>

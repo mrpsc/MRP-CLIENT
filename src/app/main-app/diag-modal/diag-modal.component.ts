@@ -37,11 +37,10 @@ export class DiagModalComponent implements OnInit {
   constructor(private _patientService: PatientsService, private _router: Router) { }
 
   ngOnInit() {
-    console.log(this.diagnosis);
     this.symptomsKeys = Object.keys(this.diagnosis.Symptoms);
     this.symptomsValues = Object.values(this.diagnosis.Symptoms);
-    for (var i = 0; i < this.symptomsKeys.length; i++) {
-      var element = { key: this.symptomsKeys[i], value: this.symptomsValues[i] };
+    for (let i = 0; i < this.symptomsKeys.length; i++) {
+      const element = { key: this.symptomsKeys[i], value: this.symptomsValues[i] };
       this.symptoms.push(element);
     }
   }
@@ -51,8 +50,9 @@ export class DiagModalComponent implements OnInit {
       .subscribe((res: Response) => {
         if (res.ok) {
           this._router.navigate(['./patientEdit/1']);
-        } else
-          this.error = "Sorry, the diagnosis could not be deleted";
-      }, (error: any) => this.error = "Server Error, Diagnosis not deleted!");
+        } else {
+          this.error = 'Sorry, the diagnosis could not be deleted';
+        }
+      }, (error: any) => this.error = 'Server Error, Diagnosis not deleted!');
   }
 }

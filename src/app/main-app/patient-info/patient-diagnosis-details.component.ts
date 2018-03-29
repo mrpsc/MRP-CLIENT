@@ -71,7 +71,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                         this.formType = 'A';
                         this.pageTitle = 'Add diagnosis';
                     }
-                    if (this.formType == 'E' && this.diagnosis.Symptoms) {
+                    if (this.formType === 'E' && this.diagnosis.Symptoms) {
                         for (const key in this.formGroup.controls) {
                             this.formGroup.controls[key].patchValue(this.diagnosis.Symptoms);
                         }
@@ -92,7 +92,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                 if (this.headers && this.headers.length > 0) {
                     this.selectMenu(this.headers[0].id);
                 }
-            })
+            });
 
     }
 
@@ -122,22 +122,20 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
 
     submit(): void {
 
-        if (this.formType == 'E') {
+        if (this.formType === 'E') {
             this.patientsService.editDiagnosis(this.diagnosis).subscribe((res: Response) => {
                 if (res && res.ok) {
-                    //let patient = new Patient().fromJSON(res.json());
                     this.patientsService.emitChange(this.patient);
                     this.onSuccessfulSave();
-                }
-                else
+                } else {
                     this.error = 'we\'re sorry, something is wrong with the information you entered!';
+                }
             }, (error: any) => this.error = 'server error!');
-        }
-        else {
+        } else {
             this.diagnosis.Id = this.patient.Diagnosis.length;
             this.diagnosis.DoctorName = !this.diagnosis.DoctorName ? 'Dr. Levy' : this.diagnosis.DoctorName;
             if (Object.getOwnPropertyNames(this.diagnosis.MedicalInstitution).length === 0) {
-                var institution = new MedicalInstitution();
+                const institution = new MedicalInstitution();
                 institution.Name = 'Tel Hashomer';
                 institution.Id = 1;
                 this.diagnosis.MedicalInstitution = institution;
@@ -150,8 +148,6 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     onSuccessfulSave(): void {
-        // this.formGroup.reset();
-        // this.router.navigate(['./patientDiagnosisDetails/0']);
         this.showPopup = true;
         this.determineFormType();
     }
@@ -165,10 +161,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                 this.diagnosis = new PatientDiagnosis(this.patient.PatientId);
                 this.pageTitle = 'new Diagnosis for ' + this.patient.PatientId;
                 this.formType = 'A';
-            }
-
-            else {
-                //this.diagnosis = this.patient.Diagnosis[id - 1];
+            } else {
                 this.diagnosis = this.patient.Diagnose;
                 this.pageTitle = 'Edit Diagnosis For ' + this.patient.Name;
                 this.disable = 'disabled';
@@ -178,12 +171,10 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     onChange($event: any) {
-        var symptom = $event.target.value.split(': ');
-        this.diagnosis.Symptoms[$event.target.id] = symptom[1] ? symptom[1] : symptom[0];
-        //this.diagnosis.Symptoms[$event.target.id] = $event.target.value;
-        //this.diagnosis.Symptoms[$event.model.id] = $event.model._value;
-        //var arr = $event.target.value.split(":");
-
-        //this.diagnosis.Symptoms[$event.target.labels[0].innerText] = arr[arr.length - 1].trim();
+        let value = $event.control.value;
+        if ($event.model.inputType === 'number') {
+            value = Number(value);
+        }
+        this.diagnosis.Symptoms[$event.model.id] = value;
     }
 }

@@ -77,9 +77,6 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
             this.groups.push(res[element].group);
             this.catrgory.push(res[element].legend);
           });
-          console.log(keys);
-          console.log(this.groups);
-          console.log(this.catrgory);
           this.groups.forEach(group => {
             group.forEach(inputEl => {
               this.config.fields[inputEl.id] = {
@@ -114,7 +111,6 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
             });
           });
           this.config = config;
-          console.log(this.config);
         }
       });
   }
@@ -142,45 +138,46 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
         query[`$${rule.condition}`] = this.convertRules(rule.rules);
         newRules.push(query);
       } else {
+        const obj = {};
         switch (rule.operator) {
           case ('contains'): {
-            newRules.push(`{${rule.field}:{$regex:".*${rule.value}.*"}}`);
+            obj['Diagnose.Symptoms.' + rule.field] = { $regex: `.*${rule.value}.*` };
+            newRules.push(obj);
             break;
           }
           case ('like'): {
-            newRules.push(`{${rule.field}:/${rule.value}/}`);
+            obj['Diagnose.Symptoms.' + rule.field] = { $eq: `/${rule.value}/` };
+            newRules.push(obj);
             break;
           }
           case ('='): {
-            if (typeof rule.value === 'string') {
-              newRules.push(`{${rule.field}:{$eq:"${rule.value}"}}`);
-            } else {
-              newRules.push(`{${rule.field}:{$eq:${rule.value}}}`);
-            }
+            obj['Diagnose.Symptoms.' + rule.field] = { $eq: rule.value };
+            newRules.push(obj);
             break;
           }
           case ('!='): {
-            if (typeof rule.value === 'string') {
-              newRules.push(`{${rule.field}:{$ne:"${rule.value}"}}`);
-            } else {
-              newRules.push(`{${rule.field}:{$ne:${rule.value}}}`);
-            }
+            obj['Diagnose.Symptoms.' + rule.field] = { $ne: rule.value };
+            newRules.push(obj);
             break;
           }
           case ('<'): {
-            newRules.push(`{${rule.field}:{$lt:${rule.value}}}`);
+            obj['Diagnose.Symptoms.' + rule.field] = { $lt: rule.value };
+            newRules.push(obj);
             break;
           }
           case ('<='): {
-            newRules.push(`{${rule.field}:{$lte:${rule.value}}}`);
+            obj['Diagnose.Symptoms.' + rule.field] = { $lte: rule.value };
+            newRules.push(obj);
             break;
           }
           case ('>'): {
-            newRules.push(`{${rule.field}:{$gt:${rule.value}}}`);
+            obj['Diagnose.Symptoms.' + rule.field] = { $gt: rule.value };
+            newRules.push(obj);
             break;
           }
           case ('>='): {
-            newRules.push(`{${rule.field}:{$gte:${rule.value}}}`);
+            obj['Diagnose.Symptoms.' + rule.field] = { $gte: rule.value };
+            newRules.push(obj);
             break;
           }
         }
