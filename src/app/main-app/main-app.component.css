@@ -63,8 +63,12 @@ li button {
     overflow: auto;
 }
 
-.mat-drawer-container{
+.mat-drawer-container {
     max-height: calc(100vh - 122px);
+}
+
+.logout-button:hover {
+    cursor: pointer;
 }
 
 

@@ -12,15 +12,15 @@
 .tab {
     font-weight: bold;
 }
-.headers
-{
+
+.headers {
     font-size: 21px;
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 20px;
 }
-.headers-top
-{
+
+.headers-top {
     order: -1;
     font-size: 21px;
     font-weight: bold;
@@ -86,7 +86,7 @@ textarea#general {
     top: 0;
     right: 0;
 }
- 
-.form-control.ng-star-inserted.ng-touched.ng-dirty.ng-valid#dateOfBirth{
+
+.form-control.ng-star-inserted.ng-touched.ng-dirty.ng-valid#dateOfBirth {
     flex-direction: inherit;
-} 
+}
