@@ -86,3 +86,7 @@ textarea#general {
     top: 0;
     right: 0;
 }
+ 
+.form-control.ng-star-inserted.ng-touched.ng-dirty.ng-valid#dateOfBirth{
+    flex-direction: inherit;
+} 
