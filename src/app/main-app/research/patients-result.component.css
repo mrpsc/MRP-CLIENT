@@ -7,9 +7,22 @@
     max-height: 56px;
     min-width: 123px;
     max-width: 150px;
-    border: solid .5px;
+    border: 1px solid #ddd;
 }
 
 .results-table td {
     border: solid .5px;
+}
+
+.results-table {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 100px;
+}
+
+.results-navigation {
+    position: absolute;
+    bottom: 0;
 }

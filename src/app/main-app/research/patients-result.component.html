@@ -1,5 +1,5 @@
-<div class="table-responsive">
-    <table class="table results-table">
+<div class="table-responsive results-table">
+    <table class="table">
         <thead>
             <tr>
                 <th class="column-header" title="PatientId">PatientId</th>
@@ -19,12 +19,19 @@
         </tbody>
     </table>
 </div>
+<div class="results-navigation">
+    <pagination [boundaryLinks]="true" [totalItems]="count" [itemsPerPage]="limit" (pageChanged)="pageChanged($event)" [maxSize]="maxSize" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+    <div>
+        <button class="btn btn-primary" (click)="backToResearch()"> Back To Research </button>
+        <button class="btn btn-primary" (click)="getPatientsToExcel()"> Patients To Excel </button>
+    </div>
+</div>
+
+
+<!-- 
 <div>
     <button class="glyphicon glyphicon-arrow-left" title="back page" [disabled]="(requestIndex-1) <= 0" (click)="moveBackPage()"></button>
     <label title="page number">{{requestIndex}}</label>
     <button class="	glyphicon glyphicon-arrow-right" [disabled]="((1+requestIndex)*8) - count >= 8 " title="next page" (click)="moveNextPage()"></button>
-</div>
-
-
-<button class="btn btn-primary" (click)="backToResearch()"> Back To Research </button>
-<button class="btn btn-primary" (click)="getPatientsToExcel()"> Patients To Excel </button>
+</div> -->

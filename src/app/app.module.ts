@@ -10,6 +10,7 @@ import { MatSidenavModule, MatPaginatorModule, MatTabsModule, MatTableModule, Ma
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsBootstrapUIModule } from '@ng-dynamic-forms/ui-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { LogoutComponent } from './login-register/logout.component';
 import { EnumToOptionsFilter } from './shared/components/enum-to-options-filter.pipe';
@@ -79,6 +80,7 @@ const routes: Routes = [
     BsDatepickerModule,
     AppRoutingModule,
     QueryBuilderModule,
+    PaginationModule.forRoot()
     // RouterModule.forRoot([
     //   { path: 'login', component: LoginRegisterComponent },
     //   { path: 'login/:form', component: LoginRegisterComponent },
