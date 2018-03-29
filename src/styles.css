@@ -2,6 +2,43 @@
 
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~bootstrap/dist/css/bootstrap.css';
+
+legend.ng-star-inserted {
+    display: none;
+}
+select.form-control
+{
+    width: 78%;
+}
+input.form-control
+{
+    width:78%;
+}
+textarea.form-control
+{
+    width: 78%;
+}
+label.control-label.col-sm-3.ng-star-inserted
+{
+    margin-top: 10px;
+    padding-left: 3px;
+    white-space: nowrap;
+    margin-bottom: 0px;
+}
+.input-group.ng-star-inserted
+{
+    width: 300px;
+    margin-top: 10px;
+}
+.ng-touched.ng-dirty.ng-valid
+{
+    display: flex;
+    flex-direction: column;
+}
+.ng-untouched.ng-pristine.ng-valid
+{
+    display: flex;
+    flex-direction: column;
 .container.my-content {
     overflow: overlay;
 }

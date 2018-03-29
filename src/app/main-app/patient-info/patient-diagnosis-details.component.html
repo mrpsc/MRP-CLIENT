@@ -8,12 +8,74 @@
             <div class="row">
                 <div class="col-lg-12">
                     <form [formGroup]="formGroup" (ngSubmit)="submit()">
-                        <tabs class="tab" [tabs]="headers" displayKey="title" valueKey="id" (onSelectTab)='selectMenu($event)'>                                                         
+                        <tabs class="tab" [tabs]="headers" displayKey="title" valueKey="id" (onSelectTab)='selectMenu($event)'>
                             <tabs class="sub-tab" *ngIf="selectedMenu" [tabs]='selectedMenu.subMenus' displayKey='title' valueKey='tabId' (onSelectTab)='selectSubMenu($event)'>
                                 <ng-container *ngIf="group">
                                     <dynamic-form-bootstrap-control *ngFor="let controlModel of [group]" [group]="formGroup" [model]="controlModel" (change)="onChange($event)">
+                                            
+                                        <ng-template modelId="History of myocardial infraction or angina" align="START">
+                                            <label class="headers-top"> Arterial disease</label>
+                                        </ng-template>
+                                        <ng-template modelId="OthersArterialDiseases">
+                                            <div class="headers"> Concomitant Diseases at the time of VTE diagnosis</div>
+                                        </ng-template>
+                                        <ng-template modelId="Side">
+                                            <div class="headers"> Thrombosis is located in:</div>
+                                        </ng-template>
+                                        <ng-template modelId="LowerLimbsLocation">
+                                            <div class="headers"> Other localizations</div>
+                                        </ng-template>
+                                        <ng-template modelId="CancerStage">
+                                            <div class="headers"> Treatment for cancer at the time of diagnosis of thrombosis</div>
+                                        </ng-template>
+                                        <ng-template modelId="OnsetOfTreatmentYear">
+                                            <div class="headers"> Ovarian stimulation Phase: Select the compound used:</div>
+                                        </ng-template>
+                                        <ng-template modelId="OthersOvarianStimulationDuration">
+                                            <div class="headers"> Ovulation induction and removal of ovules Phase: (Select use of hCG and dose)</div>
+                                        </ng-template>
+                                        <ng-template modelId="hCGGonasi">
+                                            <div class="headers"> Embryo transfer Phase</div>
+                                        </ng-template>
+                                        <ng-template modelId="PregnancyThromboprophylaxisDrugFinishingDate">
+                                            <div class="headers"> Reason for thromboprophylaxis</div>
+                                        </ng-template>
+                                        <ng-template modelId="PlaceOfFollowUp">
+                                            <div class="headers"> A minimum of 90 days is required from the diagnosis until the date of last follow-up for the patient (if still alive) to be validated.</div>
+                                        </ng-template>
+                                        <ng-template modelId="TreatmentDiscontinuedObtainedBy">
+                                            <div class="headers"> Reason/Reasons for maintaining anticoagulant therapy beyond the 3 months follow-up:</div>
+                                        </ng-template>
+                                        <ng-template modelId="AdmissionTohospitalDueOthersAnticoagulantTherapy">
+                                            <div class="headers">Occurance of any of the following events :</div>
+                                        </ng-template>
+                                        <ng-template modelId="SeverityOfBleeding">
+                                            <div class="headers">Treatment</div>
+                                        </ng-template>
+                                        <ng-template modelId="AnticoagulantTreatmentAtBleedingTime">
+                                            <div class="headers">Lab data at the time of bleeding</div>
+                                        </ng-template>
+                                        <ng-template modelId="SeverityOfBleeding2">
+                                            <div class="headers">Treatment</div>
+                                        </ng-template>
+                                        <ng-template modelId="AnticoagulantTreatmentAtBleedingTime2">
+                                            <div class="headers">Lab data at the time of bleeding</div>
+                                            </ng-template>
+                                            <ng-template modelId="SeverityOfBleeding3">
+                                                    <div class="headers">Treatment</div>
+                                                </ng-template>
+                                                <ng-template modelId="AnticoagulantTreatmentAtBleedingTime3">
+                                                    <div class="headers">Lab data at the time of bleeding</div>
+                                                    </ng-template>
+                                                    <ng-template modelId="SpecifyNewbornAbnormality">
+                                                        <div class="headers">Answer only if the patient is taking Adoxaban/Apixaban/Rivaroxoban/Enoxaparin/Heparin</div>
+                                                        </ng-template>
+                                                    <ng-template modelId="LabAtDiagnosisTimeDate" align="START">
+                                                        <div class="headers-top">Laboratory data at the time of diagnosis of DVT/PE</div>
+                                                        </ng-template>
                                     </dynamic-form-bootstrap-control>
-                                </ng-container> 
+                                    
+                                </ng-container>
                             </tabs>
                         </tabs>
                         <div class="alert alert-danger" *ngIf="error">{{error}}</div>
@@ -30,5 +92,5 @@
                 </div>
             </div>
         </div>
-    </div>     
+    </div>
 </tabs>
