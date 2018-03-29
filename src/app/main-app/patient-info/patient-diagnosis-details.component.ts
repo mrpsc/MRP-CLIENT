@@ -66,7 +66,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                     if (this.patient && this.patient.Diagnose) {
                         this.formType = 'E';
                         this.diagnosis = this.patient.Diagnose;
-                        this.pageTitle = 'Edit Diagnosis For ' + this.patient.PatientId;
+                        this.pageTitle = 'Edit Diagnosis For ' + this.patient.Name;
                     } else {
                         this.formType = 'A';
                         this.pageTitle = 'Add diagnosis';
@@ -155,15 +155,15 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     private determineFormType(): void {
         const id = +this.route.snapshot.params['id'];
         if (id <= 0 || !(this.patient && this.patient.Diagnose)) {
-            if (!(this.patient && this.patient.PatientId)) {
+            if (!(this.patient && this.patient.Name)) {
                 this.router.navigate(['/findPatient']);
             } else if (!this.patient.Diagnose) {
-                this.diagnosis = new PatientDiagnosis(this.patient.PatientId);
-                this.pageTitle = 'new Diagnosis for ' + this.patient.PatientId;
+                this.diagnosis = new PatientDiagnosis(this.patient.Name);
+                this.pageTitle = 'new Diagnosis for ' + this.patient.Name;
                 this.formType = 'A';
             } else {
                 this.diagnosis = this.patient.Diagnose;
-                this.pageTitle = 'Edit Diagnosis For ' + this.patient.PatientId;
+                this.pageTitle = 'Edit Diagnosis For ' + this.patient.Name;
                 this.disable = 'disabled';
                 this.formType = 'E';
             }
