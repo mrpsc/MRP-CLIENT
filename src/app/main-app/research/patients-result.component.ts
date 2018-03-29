@@ -64,7 +64,6 @@ export class PatientsResultComponent implements OnInit {
         }
       }
     }
-    console.log(this.columns);
   }
 
 

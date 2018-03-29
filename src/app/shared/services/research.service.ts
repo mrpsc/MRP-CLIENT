@@ -7,52 +7,13 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class ResearchService {
   private _url: string;
-  query1: ResearchModel = new ResearchModel();
-  query2: ResearchModel = new ResearchModel();
   queries: Array<ResearchModel> = [];
 
   currentQuery: string;
   currentPatients: any;
 
-  patientsData = {
-    patients: [
-      { Diagnosis: { Symptoms: { 'Cough': 'Yes' } }, PatientId: '222222222', Name: 'Dima' },
-      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes' } }, PatientId: '124', Name: 'daniel' },
-      { Diagnosis: { Symptoms: { 'Angiography': 'Yes' } }, PatientId: '222222222', Name: 'Dima' },
-      { Diagnosis: { Symptoms: { 'Lung Scan': 'Yes' } }, PatientId: '124', Name: 'daniel' },
-
-      { Diagnosis: { Symptoms: { 'Height(cm)': '180' } }, PatientId: '222222222', Name: 'Dima' },
-      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes', 'Angiography': 'Yes', 'Cough': 'Yes', 'Height(cm)': '180', 'Helican CT Scan': 'No', 'Lung Scan': 'Yes' } }, PatientId: '124', Name: 'daniel' },
-      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes', 'Angiography': 'Yes', 'Cough': 'Yes', 'Height(cm)': '180', 'Helican CT Scan': 'No', 'Lung Scan': 'Yes' } }, PatientId: '124', Name: 'daniel' },
-      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes', 'Angiography': 'Yes', 'Cough': 'Yes', 'Height(cm)': '180', 'Helican CT Scan': 'No', 'Lung Scan': 'Yes' } }, PatientId: '124', Name: 'daniel' },
-
-      { Diagnosis: { Symptoms: { 'Height(cm)': '180' } }, PatientId: '222222222', Name: 'Dima' },
-      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes', 'Angiography': 'Yes', 'Cough': 'Yes', 'Height(cm)': '180', 'Helican CT Scan': 'No', 'Lung Scan': 'Yes' } }, PatientId: '124', Name: 'daniel' },
-      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes' } }, PatientId: '124', Name: 'daniel' },
-      { Diagnosis: { Symptoms: { 'Cough': 'Yes' } }, PatientId: '124', Name: 'daniel' },
-
-      { Diagnosis: { Symptoms: { 'Height(cm)': '180' } }, PatientId: '222222222', Name: 'Dima' },
-      { Diagnosis: { Symptoms: { 'Abdominal Pain': 'Yes' } }, PatientId: '124', Name: 'daniel' },
-      { Diagnosis: { Symptoms: { 'Cough': 'Yes' } }, PatientId: '124', Name: 'daniel' },
-      { Diagnosis: { Symptoms: { 'Cough': 'Yes' } }, PatientId: '124', Name: 'daniel' },
-
-    ], count: 16
-  };
-
   constructor(private _http: Http, private config: CONFIG) {
     this._url = this.config.apiUrl + 'api/Patients';
-    this.query2 = {
-      id: 144,
-      title: 'young',
-      description: 'All the young patients', query: '\'age\' < 20 '
-    };
-    this.query1 = {
-      id: 122,
-      title: 'pregnancy',
-      description: 'All pregnant girls',
-      query: '\'Is the patient pregnant?\' = Yes '
-    };
-    this.queries = [this.query1, this.query2];
     this.currentQuery = '';
 
   }
@@ -85,8 +46,6 @@ export class ResearchService {
         'Content-Type': 'application/json'
       });
       const options: RequestOptions = new RequestOptions({ headers: headers });
-      console.log(this.currentQuery);
-      console.log(JSON.stringify(this.currentQuery));
       const body = JSON.stringify(this.currentQuery);
       options.body = body;
       const url = `${this._url}/GetPatients?limit=${limit}&skip=${skip}`;

@@ -30,7 +30,6 @@ export class FindPatientComponent {
                 }
             }, error => {
                 this.error = 'Patient is not found';
-                console.log(error);
             });
     }
 

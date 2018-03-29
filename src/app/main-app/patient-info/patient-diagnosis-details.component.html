@@ -11,8 +11,8 @@
                         <tabs class="tab" [tabs]="headers" displayKey="title" valueKey="id" (onSelectTab)='selectMenu($event)'>
                             <tabs class="sub-tab" *ngIf="selectedMenu" [tabs]='selectedMenu.subMenus' displayKey='title' valueKey='tabId' (onSelectTab)='selectSubMenu($event)'>
                                 <ng-container *ngIf="group">
-                                    <dynamic-form-bootstrap-control *ngFor="let controlModel of [group]" [group]="formGroup" [model]="controlModel" (change)="onChange($event)">
-                                            
+                                    <dynamic-form-bootstrap-control *ngFor="let controlModel of [group]" [group]="formGroup" [model]="controlModel" (dfChange)="onChange($event)">
+
                                         <ng-template modelId="History of myocardial infraction or angina" align="START">
                                             <label class="headers-top"> Arterial disease</label>
                                         </ng-template>
@@ -60,21 +60,21 @@
                                         </ng-template>
                                         <ng-template modelId="AnticoagulantTreatmentAtBleedingTime2">
                                             <div class="headers">Lab data at the time of bleeding</div>
-                                            </ng-template>
-                                            <ng-template modelId="SeverityOfBleeding3">
-                                                    <div class="headers">Treatment</div>
-                                                </ng-template>
-                                                <ng-template modelId="AnticoagulantTreatmentAtBleedingTime3">
-                                                    <div class="headers">Lab data at the time of bleeding</div>
-                                                    </ng-template>
-                                                    <ng-template modelId="SpecifyNewbornAbnormality">
-                                                        <div class="headers">Answer only if the patient is taking Adoxaban/Apixaban/Rivaroxoban/Enoxaparin/Heparin</div>
-                                                        </ng-template>
-                                                    <ng-template modelId="LabAtDiagnosisTimeDate" align="START">
-                                                        <div class="headers-top">Laboratory data at the time of diagnosis of DVT/PE</div>
-                                                        </ng-template>
+                                        </ng-template>
+                                        <ng-template modelId="SeverityOfBleeding3">
+                                            <div class="headers">Treatment</div>
+                                        </ng-template>
+                                        <ng-template modelId="AnticoagulantTreatmentAtBleedingTime3">
+                                            <div class="headers">Lab data at the time of bleeding</div>
+                                        </ng-template>
+                                        <ng-template modelId="SpecifyNewbornAbnormality">
+                                            <div class="headers">Answer only if the patient is taking Adoxaban/Apixaban/Rivaroxoban/Enoxaparin/Heparin</div>
+                                        </ng-template>
+                                        <ng-template modelId="LabAtDiagnosisTimeDate" align="START">
+                                            <div class="headers-top">Laboratory data at the time of diagnosis of DVT/PE</div>
+                                        </ng-template>
                                     </dynamic-form-bootstrap-control>
-                                    
+
                                 </ng-container>
                             </tabs>
                         </tabs>
