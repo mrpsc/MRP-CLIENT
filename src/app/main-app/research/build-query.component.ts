@@ -81,14 +81,14 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
             group.forEach(inputEl => {
               this.config.fields[inputEl.id] = {
                 name: String(inputEl.label),
-                type: 'string'
+                type: inputEl.type
               };
               if (inputEl.label.toLowerCase().includes('value')) {
                 this.config.fields[inputEl.id].name = String(inputEl.id);
               }
               switch (inputEl.type) {
                 case ('SELECT'): {
-                  this.config.fields[inputEl.id].type = 'string';
+                  this.config.fields[inputEl.id].type = 'category';
                   this.config.fields[inputEl.id].options = inputEl.options.map((option) => {
                     return {
                       name: option.label,
@@ -97,13 +97,25 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
                   });
                   break;
                 }
-                case ('CHECKBOX'): {
-                  this.config.fields[inputEl.id].type = 'boolean';
+                case ('DATEPICKER'): {
+                  this.config.fields[inputEl.id].type = 'string';
+                  break;
+                }
+                case 'TEXTAREA' :
+                case 'text': {
+                  this.config.fields[inputEl.id].type = 'string';
+                  break;
+                }
+                case ('TIMEPICKER'): {
+                  this.config.fields[inputEl.id].type = 'string';
                   break;
                 }
                 case ('INPUT'): {
                   if (inputEl.inputType === 'number') {
                     this.config.fields[inputEl.id].type = 'number';
+                  }
+                  else{
+                    this.config.fields[inputEl.id].type = 'string';
                   }
                   break;
                 }
@@ -121,13 +133,21 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
 
   run() {
     const query = {};
-    query[`$${this.query.condition}`] = this.convertRules(this.query.rules);
+    const result = this.convertRules(this.query.rules);
+    if(result == null || result.length === 0 ){
+      alert("you must fill all the fields");
+      return;
+    }
+    else{
+       query[`$${this.query.condition}`] = result;
     // const isValid = this.checkQuery();
     // if (!isValid) {
     //   return;
     // }
     this._researchService.setQuery(query);
     this.router.navigate(['./patientsResult']);
+    }
+   
   }
 
   convertRules(rules: any[]): any {
@@ -139,48 +159,54 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
         newRules.push(query);
       } else {
         const obj = {};
-        switch (rule.operator) {
-          case ('contains'): {
-            obj['Diagnose.Symptoms.' + rule.field] = { $regex: `.*${rule.value}.*` };
-            newRules.push(obj);
-            break;
-          }
-          case ('like'): {
-            obj['Diagnose.Symptoms.' + rule.field] = { $eq: `/${rule.value}/` };
-            newRules.push(obj);
-            break;
-          }
-          case ('='): {
-            obj['Diagnose.Symptoms.' + rule.field] = { $eq: rule.value };
-            newRules.push(obj);
-            break;
-          }
-          case ('!='): {
-            obj['Diagnose.Symptoms.' + rule.field] = { $ne: rule.value };
-            newRules.push(obj);
-            break;
-          }
-          case ('<'): {
-            obj['Diagnose.Symptoms.' + rule.field] = { $lt: rule.value };
-            newRules.push(obj);
-            break;
-          }
-          case ('<='): {
-            obj['Diagnose.Symptoms.' + rule.field] = { $lte: rule.value };
-            newRules.push(obj);
-            break;
-          }
-          case ('>'): {
-            obj['Diagnose.Symptoms.' + rule.field] = { $gt: rule.value };
-            newRules.push(obj);
-            break;
-          }
-          case ('>='): {
-            obj['Diagnose.Symptoms.' + rule.field] = { $gte: rule.value };
-            newRules.push(obj);
-            break;
+        if( rule.value !== undefined ){
+          switch (rule.operator) {
+            case ('contains'): {
+              obj['Diagnose.Symptoms.' + rule.field] = { $regex: `.*${rule.value}.*` };
+              newRules.push(obj);
+              break;
+            }
+            case ('like'): {
+              obj['Diagnose.Symptoms.' + rule.field] = { $eq: `/${rule.value}/` };
+              newRules.push(obj);
+              break;
+            }
+            case ('='): {
+              obj['Diagnose.Symptoms.' + rule.field] = { $eq: rule.value };
+              newRules.push(obj);
+              break;
+            }
+            case ('!='): {
+              obj['Diagnose.Symptoms.' + rule.field] = { $ne: rule.value };
+              newRules.push(obj);
+              break;
+            }
+            case ('<'): {
+              obj['Diagnose.Symptoms.' + rule.field] = { $lt: rule.value };
+              newRules.push(obj);
+              break;
+            }
+            case ('<='): {
+              obj['Diagnose.Symptoms.' + rule.field] = { $lte: rule.value };
+              newRules.push(obj);
+              break;
+            }
+            case ('>'): {
+              obj['Diagnose.Symptoms.' + rule.field] = { $gt: rule.value };
+              newRules.push(obj);
+              break;
+            }
+            case ('>='): {
+              obj['Diagnose.Symptoms.' + rule.field] = { $gte: rule.value };
+              newRules.push(obj);
+              break;
+            }
           }
         }
+        else{
+          return null;
+        }
+        
       }
     });
     return newRules;

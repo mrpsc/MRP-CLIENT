@@ -64,7 +64,7 @@ li button {
 }
 
 .mat-drawer-container {
-    max-height: calc(100vh - 172px);
+    max-height: calc(100vh - 122px);
 }
 
 .logout-button:hover {
