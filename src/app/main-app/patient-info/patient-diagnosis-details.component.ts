@@ -170,11 +170,14 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
         }
     }
 
-    onChange($event: any) {
-        let value = $event.control.value;
-        if ($event.model.inputType === 'number') {
+    onChange(e: any) {
+        let value = e.control.value;
+        if (e.model.inputType === 'number') {
             value = Number(value);
         }
-        this.diagnosis.Symptoms[$event.model.id] = value;
+       else if (e.model.type === 'DATEPICKER') {
+            value = e.$event;
+       }
+        this.diagnosis.Symptoms[e.model.id] = value;
     }
 }
