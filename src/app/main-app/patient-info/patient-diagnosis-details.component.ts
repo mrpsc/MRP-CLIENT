@@ -69,10 +69,10 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                     if (this.patient && this.patient.Diagnose) {
                         this.formType = 'E';
                         this.diagnosis = this.patient.Diagnose;
-                        this.pageTitle = 'Edit Diagnosis For ' + this.patient.Name;
+                        this.pageTitle = 'Edit Diagnosis For ' + this.patient.PatientId;
                     } else {
                         this.formType = 'A';
-                        this.pageTitle = 'Add diagnosis For ' + this.patient.Name;
+                        this.pageTitle = 'Add diagnosis For ' + this.patient.PatientId;
                     }
                     if (this.formType === 'E' && this.diagnosis.Symptoms) {
                         for (const key in this.formGroup.controls) {
