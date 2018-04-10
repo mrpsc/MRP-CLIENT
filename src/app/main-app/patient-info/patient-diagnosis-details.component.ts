@@ -2,7 +2,10 @@ import { Response } from '@angular/http';
 import { FormArray, FormGroup, FormControl } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DynamicFormService, DynamicFormControlModel, DynamicFormGroupModel, DynamicFormArrayModel, DynamicInputModel } from "@ng-dynamic-forms/core";
+import {
+    DynamicFormService, DynamicFormControlModel, DynamicFormGroupModel,
+    DynamicFormArrayModel, DynamicInputModel
+} from '@ng-dynamic-forms/core';
 import { MedicalInstitution } from '../../shared/models/medical-institution';
 import { PatientsFormSchemaService } from './../../shared/services/patients-form-schema';
 import { PatientsService } from './../../shared/services/patients.service';
@@ -21,7 +24,7 @@ import 'rxjs/add/observable/zip';
     styleUrls: ['./patient-info-edit.component.css'],
 })
 export class PatientDiagnosisDetailsComponent implements OnInit {
-    disable: string = "";
+    disable: string = '';
     pageTitle: string;
     formType: string;
     error: string;
@@ -54,7 +57,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        //        this.patientsService.changeEmitted$.subscribe(patient => {this.patient = patient; debugger;});
+        // this.patientsService.changeEmitted$.subscribe(patient => {this.patient = patient; debugger;});
         this.$patientResponse = this.formsSchemaService.GetFirstSchema();
         this.patientResponseSubscription = this.$patientResponse.subscribe(res => {
             if (res) {
@@ -69,7 +72,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                         this.pageTitle = 'Edit Diagnosis For ' + this.patient.Name;
                     } else {
                         this.formType = 'A';
-                        this.pageTitle = 'Add diagnosis';
+                        this.pageTitle = 'Add diagnosis For ' + this.patient.Name;
                     }
                     if (this.formType === 'E' && this.diagnosis.Symptoms) {
                         for (const key in this.formGroup.controls) {
@@ -93,7 +96,6 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                     this.selectMenu(this.headers[0].id);
                 }
             });
-
     }
 
     selectMenu(id: string) {
@@ -121,7 +123,6 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
     }
 
     submit(): void {
-
         if (this.formType === 'E') {
             this.patientsService.editDiagnosis(this.diagnosis).subscribe((res: Response) => {
                 if (res && res.ok) {
@@ -132,7 +133,6 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                 }
             }, (error: any) => this.error = 'server error!');
         } else {
-            this.diagnosis.Id = this.patient.Diagnosis.length;
             this.diagnosis.DoctorName = !this.diagnosis.DoctorName ? 'Dr. Levy' : this.diagnosis.DoctorName;
             if (Object.getOwnPropertyNames(this.diagnosis.MedicalInstitution).length === 0) {
                 const institution = new MedicalInstitution();
@@ -158,12 +158,12 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
             if (!(this.patient && this.patient.Name)) {
                 this.router.navigate(['/findPatient']);
             } else if (!this.patient.Diagnose) {
-                this.diagnosis = new PatientDiagnosis(this.patient.Name);
-                this.pageTitle = 'new Diagnosis for ' + this.patient.Name;
+                this.diagnosis = new PatientDiagnosis(this.patient.PatientId);
+                this.pageTitle = 'new Diagnosis for ' + this.patient.PatientId;
                 this.formType = 'A';
             } else {
                 this.diagnosis = this.patient.Diagnose;
-                this.pageTitle = 'Edit Diagnosis For ' + this.patient.Name;
+                this.pageTitle = 'Edit Diagnosis For ' + this.patient.PatientId;
                 this.disable = 'disabled';
                 this.formType = 'E';
             }
@@ -174,10 +174,9 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
         let value = e.control.value;
         if (e.model.inputType === 'number') {
             value = Number(value);
-        }
-       else if (e.model.type === 'DATEPICKER') {
+        } else if (e.model.type === 'DATEPICKER') {
             value = e.$event;
-       }
+        }
         this.diagnosis.Symptoms[e.model.id] = value;
     }
 }

@@ -56,15 +56,16 @@ textarea#general {
 }
 
 .message {
-    border: 1px solid cadetblue;
+    border: 1px solid #5689b5;
     border-radius: 10px;
     width: 50%;
     height: 230px;
-    position: absolute;
+    position: fixed;
     top: 133px;
     left: 25%;
-    background: rgba(198, 222, 175, 0.8);
+    background: rgb(51, 122, 183);
     text-align: center;
+    color: white;
     z-index: 100;
 }
 
@@ -85,6 +86,7 @@ textarea#general {
     position: relative;
     top: 0;
     right: 0;
+    color: white;
 }
 
 .form-control.ng-star-inserted.ng-touched.ng-dirty.ng-valid#dateOfBirth {
