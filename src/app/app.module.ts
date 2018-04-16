@@ -39,6 +39,7 @@ import { BuildQueryComponent } from './main-app/research/build-query.component';
 import { ResearchService } from './shared/services/research.service';
 import { CONFIG } from './shared/config';
 import { QueryBuilderModule } from 'angular2-query-builder';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 const routes: Routes = [
   { path: 'login', component: LoginRegisterComponent }
@@ -80,6 +81,7 @@ const routes: Routes = [
     BsDatepickerModule,
     AppRoutingModule,
     QueryBuilderModule,
+    MatFormFieldModule,
     PaginationModule.forRoot()
     // RouterModule.forRoot([
     //   { path: 'login', component: LoginRegisterComponent },

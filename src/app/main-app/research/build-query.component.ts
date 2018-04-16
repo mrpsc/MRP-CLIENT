@@ -12,6 +12,7 @@ import { ResearchService } from '../../shared/services/research.service';
 import { QueryBuilderConfig } from 'angular2-query-builder';
 import { QueryBuilderClassNames } from 'angular2-query-builder/dist/components';
 
+
 @Component({
   selector: 'app-build-query',
   templateUrl: './build-query.component.html',
@@ -20,12 +21,13 @@ import { QueryBuilderClassNames } from 'angular2-query-builder/dist/components';
 export class BuildQueryComponent implements OnInit, OnDestroy {
   patientResponseSubscription: Subscription;
   groups: any = [];
-  catrgory: any = [];
+  catrgories: any = [];
   // query: string = '()';
   query = {
     condition: 'and',
     rules: []
   };
+  configs: Array<QueryBuilderConfig> = [];
   config: QueryBuilderConfig = {
     fields: {}
   };
@@ -48,26 +50,34 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
     this.patientResponseSubscription = this.formsSchemaService.GetFirstSchema()
       .subscribe(Response => {
         if (Response) {
-          const config: QueryBuilderConfig = { fields: this.config.fields };
+         // const config: QueryBuilderConfig = { fields: this.config.fields };
           const res: object = JSON.parse(Response);
           const keys = Object.keys(res);
           keys.forEach(element => {
-            this.groups.push(res[element].group);
-            this.catrgory.push(res[element].legend);
-          });
-          this.groups.forEach(group => {
+            let group = res[element].group;
+            
+            this.groups.push(group);
+
+            let legend = res[element].legend;
+            this.catrgories.push(legend);
+
+            
+            this.configs[legend] = {
+              fields: {}
+            };
             group.forEach(inputEl => {
-              this.config.fields[inputEl.id] = {
+             
+              this.configs[legend].fields[inputEl.id] = {
                 name: String(inputEl.name),
                 type: inputEl.type
               };
               if (inputEl.name.toLowerCase().includes('value')) {
-                this.config.fields[inputEl.id].name = String(inputEl.id);
+                this.configs[legend].fields[inputEl.id].name = String(inputEl.id);
               }
               switch (inputEl.type) {
                 case ('SELECT'): {
-                  this.config.fields[inputEl.id].type = 'category';
-                  this.config.fields[inputEl.id].options = inputEl.options.map((option) => {
+                  this.configs[legend].fields[inputEl.id].type = 'category';
+                  this.configs[legend].fields[inputEl.id].options = inputEl.options.map((option) => {
                     return {
                       name: option.label,
                       value: option.value
@@ -76,30 +86,34 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
                   break;
                 }
                 case ('DATEPICKER'): {
-                  this.config.fields[inputEl.id].type = 'string';
+                  this.configs[legend].fields[inputEl.id].type = 'string';
                   break;
                 }
                 case 'TEXTAREA':
                 case 'text': {
-                  this.config.fields[inputEl.id].type = 'string';
+                  this.configs[legend].fields[inputEl.id].type = 'string';
                   break;
                 }
                 case ('TIMEPICKER'): {
-                  this.config.fields[inputEl.id].type = 'string';
+                  this.configs[legend].fields[inputEl.id].type = 'string';
                   break;
                 }
                 case ('INPUT'): {
                   if (inputEl.inputType === 'number') {
-                    this.config.fields[inputEl.id].type = 'number';
+                    this.configs[legend].fields[inputEl.id].type = 'number';
                   } else {
-                    this.config.fields[inputEl.id].type = 'string';
+                    this.configs[legend].fields[inputEl.id].type = 'string';
                   }
                   break;
                 }
               }
             });
           });
-          this.config = config;
+          this.groups.forEach(group => {
+      
+          });
+          
+          this.config = this.configs[this.catrgories[0]];
         }
       });
   }
