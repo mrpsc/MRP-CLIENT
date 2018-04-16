@@ -22,7 +22,7 @@
                        </select>
                        <button (click) = 'onDelOptClick()'>Del option</button>
                        <input type="text"  [(ngModel)] = 'newOptKey' placeholder="lable"> 
-                       <input type="text"  [(ngModel)] = 'newOptVal' placeholder="vlaue"> 
+                       <input type="text"  [(ngModel)] = 'newOptVal' placeholder="value"> 
                        <button (click) = 'onAddOptClick()'>Add option</button>
         </span>
         <span *ngIf="value == 'TEXT'">
@@ -76,10 +76,13 @@
                     <option value="AND" >And</option>
                 </select> <br>
                 <span>when: </span> 
-                <span *ngFor='let condition of controlObject.relation[0].when'>
-
-                </span>
-            <input type="text" [(ngModel)] = 'controlObject.relation'>
+                <table>
+                    <tr *ngFor='let condition of controlObject.relation[0].when'>
+                        <td style="font-weight:bold; padding: 5px"><span>{{condition.id}} = {{condition.value}}</span></td>
+                        <td><button (click) = 'deleteCondition(condition)'>Delete Condition</button></td>
+                    </tr>
+                </table>
+            <input type="text" [(ngModel)] = 'controlObject.relation'> <button>Add Condition</button>
         </span>
     </span>
 </span>

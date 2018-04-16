@@ -24,7 +24,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active" *ngIf='loggedIn'><a>{{loginTitle}}</a></li>
-                    <li *ngIf='loggedIn'><a (click)='logout()'>logout</a></li>
+                    <li class="logout-button" *ngIf='loggedIn'><a (click)='logout()'>logout</a></li>
                 </ul>
             </div>
         </div>
@@ -32,12 +32,12 @@
     <mat-sidenav-container class="nav-bar-container">
         <mat-sidenav #start mode='push' (open)="sidenavlist.focus()" [fixedInViewport]="false" [fixedTopGap]="0" [fixedBottomGap]="0">
             <ul class='list-group' #sidenavlist>
-                <li class="list-group-item"><a [routerLink]="['/research']" (click)='start.close()'>Research</a></li>
+                <li class="list-group-item"><a [routerLink]="['/buildQuery']" (click)='start.close()'>Research</a></li>
                 <li class="list-group-item"><a [routerLink]="['/findPatient']" (click)='start.close()'>Find Patients</a></li>
                 <!-- <li class="list-group-item"><a [routerLink]="['/personalInfo']" (click)='start.close()'>Edit Personal Info</a></li> -->
                 <li class="list-group-item"><a [routerLink]="['/patientEdit/0']" (click)='start.close()'>Add New Patient</a></li>
-                <li class="list-group-item"><a [routerLink]="['/userManagement']" (click)='start.close()'>User Managment</a></li>
-                <li class="list-group-item"><a [routerLink]="['/diagnosManagement']" (click)='start.close()'>Diagnos Managment</a></li>
+                <!-- <li class="list-group-item"><a [routerLink]="['/userManagement']" (click)='start.close()'>User Managment</a></li>
+                <li class="list-group-item"><a [routerLink]="['/diagnosManagement']" (click)='start.close()'>Diagnos Managment</a></li> -->
             </ul>
         </mat-sidenav>
         <div class='container my-content'>

@@ -13,7 +13,7 @@ import { FindPatientModel } from './find-patientModel';
 export class FindPatientComponent {
     patient: FindPatientModel = new FindPatientModel();
     loggedInUser: User;
-    pageTitle: string = "Find Patient";
+    pageTitle = 'Find Patient';
     error: string;
 
     constructor(private patientsService: PatientsService, private router: Router) {
@@ -22,22 +22,22 @@ export class FindPatientComponent {
 
     find(): void {
         this.patientsService.getPatients(this.patient)
-            .subscribe(response => {
-                if (response[0]) {
-                    let patient = new Patient().fromJSON(response[0]);
+            .subscribe((response: any) => {
+                if (response) {
+                    const patient = new Patient().fromJSON(response.Patients[0]);
                     this.patientsService.emitChange(patient);
                     this.router.navigate(['./' + this.navigationAddress(patient)]);
                 }
             }, error => {
-                console.log(error);
-                this.error = JSON.parse(error.body);
+                this.error = 'Patient is not found';
             });
     }
 
     private navigationAddress(patients: Patient): string {
-        if (patients)
+        if (patients) {
             return 'patientDiagnosisDetails/0';
-        else
-            this.error = "no patients found!";
+        } else {
+            this.error = 'no patients found!';
+        }
     }
 }

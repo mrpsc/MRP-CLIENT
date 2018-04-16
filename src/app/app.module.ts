@@ -10,6 +10,7 @@ import { MatSidenavModule, MatPaginatorModule, MatTabsModule, MatTableModule, Ma
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsBootstrapUIModule } from '@ng-dynamic-forms/ui-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { LogoutComponent } from './login-register/logout.component';
 import { EnumToOptionsFilter } from './shared/components/enum-to-options-filter.pipe';
@@ -19,7 +20,7 @@ import { TabsComponent } from './shared/components/tabs/tabs.component';
 import { PatientDiagnosisDetailsComponent } from './main-app/patient-info/patient-diagnosis-details.component';
 import { CanActivateOAuthGuard } from './shared/services/can-activate-oath-guard';
 import { DataFilterPipe } from './shared/components/data-filter.pipe';
-import { CanDeactivateDiagnosisFormGuard } from "./shared/services/can-diactivate-form-edit-guard";
+import { CanDeactivateDiagnosisFormGuard } from './shared/services/can-diactivate-form-edit-guard';
 
 import { AppComponent } from './app.component';
 import { LoginRegisterComponent } from './login-register/login-register.component';
@@ -29,13 +30,18 @@ import { MainAppComponent } from './main-app/main-app.component';
 import { UserManagementComponent } from './main-app/user-management/user-management.component';
 import { DiagnosManagementComponent } from './main-app/diagnos-management/diagnos-management.component';
 import { ResearchComponent } from './main-app/research/research.component';
+import { DiagModalComponent } from './main-app/diag-modal/diag-modal.component';
 import { AppRoutingModule } from './app.routes.module';
 import { PatientsService } from './shared/services/patients.service';
 import { UsersService } from './shared/services/users.service';
+import { PatientsResultComponent } from './main-app/research/patients-result.component';
+import { BuildQueryComponent } from './main-app/research/build-query.component';
+import { ResearchService } from './shared/services/research.service';
 import { CONFIG } from './shared/config';
 import { FormControlEditorComponent } from './main-app/diagnos-management/form-control-editor.component';
 import { ApiService } from './shared/services/api-service';
 import { ControlProperty } from './main-app/diagnos-management/control-property.component';
+import { QueryBuilderModule } from 'angular2-query-builder';
 
 const routes: Routes = [
   { path: 'login', component: LoginRegisterComponent }
@@ -59,7 +65,10 @@ const routes: Routes = [
     DiagnosManagementComponent,
     ResearchComponent,
     FormControlEditorComponent,
-    ControlProperty
+    ControlProperty,
+    PatientsResultComponent,
+    BuildQueryComponent,
+    DiagModalComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +84,8 @@ const routes: Routes = [
     DynamicFormsBootstrapUIModule,
     BsDatepickerModule,
     AppRoutingModule,
-    
+    QueryBuilderModule,
+    PaginationModule.forRoot()
     // RouterModule.forRoot([
     //   { path: 'login', component: LoginRegisterComponent },
     //   { path: 'login/:form', component: LoginRegisterComponent },
@@ -85,7 +95,9 @@ const routes: Routes = [
 
     //   { path: 'patientInfo', component: PatientInfoComponent, canActivate: [CanActivateOAuthGuard] },
     //   { path: 'patientEdit/:id', component: PatientEditInfoComponent, canActivate: [CanActivateOAuthGuard] },
-    //   { path: 'patientDiagnosisDetails/:id', component: PatientDiagnosisDetailsComponent, canActivate: [CanActivateOAuthGuard], canDeactivate: [CanDeactivateDiagnosisFormGuard] },
+    //   { path: 'patientDiagnosisDetails/:id',
+    // component: PatientDiagnosisDetailsComponent, canActivate: [CanActivateOAuthGuard],
+    // canDeactivate: [CanDeactivateDiagnosisFormGuard] },
     //   { path: 'findPatient', component: FindPatientComponent, canActivate: [CanActivateOAuthGuard] },
     //   // {path: 'userManagment', component: UnderConstructionComponent, canActivate : [CanActivateOAuthGuard]},
     //   // {path: 'research', component: UnderConstructionComponent, canActivate : [CanActivateOAuthGuard]},
@@ -102,7 +114,8 @@ const routes: Routes = [
     PatientsService,
     UsersService,
     ApiService,
-    CONFIG
+    CONFIG,
+    ResearchService
   ],
   bootstrap: [AppComponent]
 })

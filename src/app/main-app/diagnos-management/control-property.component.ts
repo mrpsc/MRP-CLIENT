@@ -11,6 +11,16 @@ import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class ControlProperty implements OnChanges {
     ngOnChanges(): void {
+      if(this.labelName == 'relation'){
+        if(this.controlObject.relation && this.controlObject.relation.length > 0
+        && this.controlObject.relation[0].when && this.controlObject.relation[0].when.length){
+          this._enableRelation = true;
+        }
+        else {
+          this._enableRelation = false;      
+        }
+        alert(this._enableRelation );
+      }
      
     }
   @Input() controlObject: any = new Object();
@@ -40,6 +50,11 @@ export class ControlProperty implements OnChanges {
          }
        }
           }
+       
+          deleteCondition(condition) : void{
+            var index = this.controlObject.relation[0].when.indexOf(condition);
+            this.controlObject.relation[0].when.splice(index,1);
+              }
 
   expanded: boolean = false;
   model: Object;
@@ -52,7 +67,7 @@ export class ControlProperty implements OnChanges {
   arrayControl: FormArray;
   
   constructor() { 
-    this._enableRelation = (this.controlObject.relation && this.controlObject.relation.length > 0);
+  
   }
 
 onExpandClick(): void {

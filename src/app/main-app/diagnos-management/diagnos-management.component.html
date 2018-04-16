@@ -12,7 +12,7 @@
                           <ng-container *ngIf="group">
                            <div *ngFor='let controlModel of group'>
                              <!-- <span>{{controlModel.label}}</span> -->
-                             <app-fc-editor [ControlObject] = 'controlModel'></app-fc-editor>
+                             <app-fc-editor [ControlObject] = 'controlModel' [group] = 'group'></app-fc-editor>
                            </div>
                             <!-- <dynamic-form-bootstrap-control *ngFor="let controlModel of formModel" [group]="formGroup" [model]="controlModel" (change)="onChange($event)">
                               </dynamic-form-bootstrap-control> -->

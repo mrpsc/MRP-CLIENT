@@ -1,4 +1,90 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import '~bootstrap/dist/css/bootstrap.css'
+@import '~bootstrap/dist/css/bootstrap.css';
+legend.ng-star-inserted {
+    display: none;
+}
+
+select.form-control {
+    width: 78%;
+}
+
+input.form-control {
+    width: 78%;
+}
+
+textarea.form-control {
+    width: 78%;
+}
+
+label.control-label.col-sm-3.ng-star-inserted {
+    margin-top: 10px;
+    padding-left: 3px;
+    white-space: nowrap;
+    margin-bottom: 0px;
+}
+
+.input-group.ng-star-inserted {
+    width: 300px;
+    margin-top: 10px;
+}
+
+.ng-touched.ng-dirty.ng-valid {
+    display: flex;
+    flex-direction: column;
+}
+
+.ng-untouched.ng-pristine.ng-valid {
+    display: flex;
+    flex-direction: column;
+}
+
+.container.my-content {
+    overflow: overlay;
+}
+
+.bs-datepicker-head {
+    background-color: #eeeeee;
+    padding: 1px;
+    border-radius: 5px 5px 0 0;
+}
+
+.bs-datepicker-body {
+    background-color: #eeeeee;
+    padding: 1px;
+    border-radius: 0 0 5px 5px;
+}
+
+.bs-datepicker-body>table td {
+    padding: 2px;
+    text-align: center;
+    border: solid 1px gainsboro;
+    border-radius: 5px;
+}
+
+.bs-datepicker-body>table td>span {
+    cursor: pointer;
+}
+
+.bs-datepicker-body>table td>span:hover {
+    cursor: pointer;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.bs-datepicker-body>table .selected {
+    font-weight: bold;
+}
+
+.bs-datepicker-body>table .week {
+    padding: 2px;
+    text-align: center;
+    border-width: 0;
+    border-radius: 5px;
+}
+
+.bs-datepicker-body>table .week>span:hover {
+    cursor: default;
+    background-color: none;
+}

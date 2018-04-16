@@ -1,0 +1,37 @@
+<div class="table-responsive results-table">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="column-header" title="PatientId">PatientId</th>
+                <th class="column-header" title="Name">Name</th>
+                <th class="column-header" title="{{column}}" *ngFor='let column of columns; let columnIndex = index'>{{column}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let patient of patients'>
+                <td>{{patient.PatientId}}</td>
+                <td>{{patient.Name}}</td>
+
+                <ng-container *ngFor="let column of columns; let columnIndex = index">
+                    <td>{{patient.Diagnose?patient.Diagnose.Symptoms?patient.Diagnose.Symptoms[column]:null:null}}</td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="results-navigation">
+    <pagination [boundaryLinks]="true" [totalItems]="count" [itemsPerPage]="limit" (pageChanged)="pageChanged($event)" [maxSize]="maxSize" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+    <div>
+        <button class="btn btn-primary" (click)="backToResearch()"> Back To Research </button>
+        <button class="btn btn-primary" (click)="getPatientsToExcel()"> Patients To Excel </button>
+    </div>
+</div>
+
+
+<!-- 
+<div>
+    <button class="glyphicon glyphicon-arrow-left" title="back page" [disabled]="(requestIndex-1) <= 0" (click)="moveBackPage()"></button>
+    <label title="page number">{{requestIndex}}</label>
+    <button class="	glyphicon glyphicon-arrow-right" [disabled]="((1+requestIndex)*8) - count >= 8 " title="next page" (click)="moveNextPage()"></button>
+</div> -->

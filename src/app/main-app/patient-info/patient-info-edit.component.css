@@ -1,12 +1,94 @@
-.panel-add-new-patient{
-    width:50%;
-    margin: auto;
+.panel-add-new-patient,
+.diagnosis-container {
+    width: 50%;
+    margin-right: 20px;
+    position: relative;
 }
-.sub-tab
-{
+
+.sub-tab {
     font-weight: normal;
 }
-.tab
-{
+
+.tab {
     font-weight: bold;
+}
+
+.headers {
+    font-size: 21px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.headers-top {
+    order: -1;
+    font-size: 21px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.info-container {
+    display: flex;
+}
+
+.panel-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+textarea#general {
+    margin-bottom: 4em;
+}
+
+.diagnosis-container {
+    height: 19em;
+    width: 35%;
+}
+
+.invalid-field {
+    background-color: #e7adad;
+}
+
+.alert-danger {
+    margin-bottom: 80px;
+}
+
+.message {
+    border: 1px solid #5689b5;
+    border-radius: 10px;
+    width: 50%;
+    height: 230px;
+    position: fixed;
+    top: 133px;
+    left: 25%;
+    background: rgb(51, 122, 183);
+    text-align: center;
+    color: white;
+    z-index: 100;
+}
+
+.message>div:nth-child(1) {
+    top: 50%;
+    position: relative;
+    transform: translateY(-50%);
+    font-size: 35px;
+}
+
+.message>div:nth-child(2) {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.message>div:nth-child(2)>button {
+    position: relative;
+    top: 0;
+    right: 0;
+    color: white;
+}
+
+.form-control.ng-star-inserted.ng-touched.ng-dirty.ng-valid#dateOfBirth {
+    flex-direction: inherit;
 }

@@ -30,20 +30,30 @@ export class LoginRegisterComponent{
      
     submit() {
         if(this.activeForm == 0){
-            this._usersService.loginSubmit(this.logInfo)
+            if(this.logInfo.Username.length == 0){
+                alert("Please enter user");
+            }
+            else  if(this.logInfo.Password.length == 0)
+            {
+                alert("Please enter password");
+            }
+            else{
+                 this._usersService.loginSubmit(this.logInfo)
                 .subscribe((res:Response) => res.ok ? this.saveLoginInfo(res.json()) : this.errorMsg = res.json().error,
                         (error:any) => this.errorMsg = error);
+            }
+           
         }
         else if(this.activeForm == 1){
             this._usersService.registrationSubmit(this.regInfo)
                 .subscribe((res:Response) => res.ok ? this.activeForm = 0 : this.errorMsg = 'Registration Failed',
                         (error:any) => this.errorMsg = error);
         }
-        else{
-            this._usersService.recoverySubmit(this.recInfo)
-                .subscribe((res:Response) => res.ok ? this.errorMsg = 'new password has been sent to your email' : this.errorMsg = 'Recovery Failed', 
-                        (error:any) => this.errorMsg = error);
-        }
+        // else{
+        //     this._usersService.recoverySubmit(this.recInfo)
+        //         .subscribe((res:Response) => res.ok ? this.errorMsg = 'new password has been sent to your email' : this.errorMsg = 'Recovery Failed', 
+        //                 (error:any) => this.errorMsg = error);
+        // }
     }
 
     saveLoginInfo(res:any): void{
