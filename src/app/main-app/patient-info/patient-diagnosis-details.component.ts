@@ -1,6 +1,6 @@
 import { Response } from '@angular/http';
 import { FormArray, FormGroup, FormControl } from '@angular/forms';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
     DynamicFormService, DynamicFormControlModel, DynamicFormGroupModel,
@@ -113,7 +113,7 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
 
     selectSubMenu(id: string) {
         if (this.formModel) {
-            const menu = this.formModel.find(group => group.id === id)
+            const menu = this.formModel.find(group => group.id === id);
             if (menu) {
                 this.group = menu;
             } else {
@@ -178,5 +178,27 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
             value = e.$event;
         }
         this.diagnosis.Symptoms[e.model.id] = value;
+    }
+
+    onTreatmentChange(e) {
+        if (!this.patient.Diagnose) {
+            this.patient.Diagnose = new PatientDiagnosis(this.patient.PatientId);
+        }
+        this.patient.Diagnose.Symptoms[e.treatmentName] = e.treatments;
+    }
+
+    getTreatments(group, subTab) {
+        if (group) {
+            if (this.patient) {
+                if (this.patient.Diagnose) {
+                    if (this.patient.Diagnose.Symptoms) {
+                        if (this.patient.Diagnose.Symptoms[subTab]) {
+                            return this.patient.Diagnose.Symptoms[subTab];
+                        }
+                    }
+                }
+            }
+        }
+        return [];
     }
 }

@@ -11,6 +11,7 @@ import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsBootstrapUIModule } from '@ng-dynamic-forms/ui-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { LogoutComponent } from './login-register/logout.component';
 import { EnumToOptionsFilter } from './shared/components/enum-to-options-filter.pipe';
@@ -39,6 +40,7 @@ import { BuildQueryComponent } from './main-app/research/build-query.component';
 import { ResearchService } from './shared/services/research.service';
 import { CONFIG } from './shared/config';
 import { QueryBuilderModule } from 'angular2-query-builder';
+import { TreatmentTableComponent } from './main-app/patient-info/treatment-table/treatment-table/treatment-table.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginRegisterComponent }
@@ -63,7 +65,8 @@ const routes: Routes = [
     ResearchComponent,
     PatientsResultComponent,
     BuildQueryComponent,
-    DiagModalComponent
+    DiagModalComponent,
+    TreatmentTableComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +83,8 @@ const routes: Routes = [
     BsDatepickerModule,
     AppRoutingModule,
     QueryBuilderModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    ModalModule.forRoot()
     // RouterModule.forRoot([
     //   { path: 'login', component: LoginRegisterComponent },
     //   { path: 'login/:form', component: LoginRegisterComponent },

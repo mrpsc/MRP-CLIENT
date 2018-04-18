@@ -1,0 +1,23 @@
+.title {
+    font-size: 21px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.treatments {
+    border: solid #e3e3e3;
+}
+
+.glyphicon {
+    margin: 2px;
+}
+
+.glyphicon:hover {
+    cursor: pointer;
+    color: #204d74;
+}
+
+.marginButton {
+    margin: 5px;
+}

@@ -1,0 +1,46 @@
+<div class="title">{{treatmentName}}</div>
+<div class="table-responsive results-table">
+    <table class="table treatments">
+        <thead>
+            <tr>
+                <th class="column-header" title="Drug">Drug</th>
+                <th class="column-header" title="Onset Date">Onset Date</th>
+                <th class="column-header" title="Finishing Date">Finishing Date</th>
+                <th class="column-header" title="Actions">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let treatment of tempTreatments; let i = index'>
+                <td>{{treatment.DrugUsedInLongTermTreatment}}</td>
+                <td>{{treatment.DrugUsedInLongTermTreatmentOnsetDate}}</td>
+                <td>{{treatment.DrugUsedInLongTermTreatmentFinishingDate}}</td>
+                <td>
+                    <i class="glyphicon glyphicon-pencil" (click)="onEdit(treatment,template,i)"></i>
+                    <i class="glyphicon glyphicon-trash" (click)="onRemove(i)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <button type="button" class="btn btn-primary marginButton" (click)="onAdd()">
+            <i class="glyphicon glyphicon-plus"></i> Add new Treatment
+        </button>
+    </div>
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{treatmentName}}</h4>
+        <button class="close pull-right" (click)="onTreatmentCancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <dynamic-form-bootstrap-control *ngFor="let controlModel of [group]" [group]="formGroup" [model]="controlModel" (dfChange)="onInputChange($event)">
+        </dynamic-form-bootstrap-control>
+    </div>
+    <div class="marginButton">
+        <button type="button" class="btn btn-primary" (click)="onTreatmentSave()">Save</button>
+        <button type="button" class="btn btn-primary" (click)="onTreatmentCancel()">Cancel</button>
+    </div>
+</ng-template>
