@@ -61,7 +61,7 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
           const res: object = JSON.parse(Response);
           const keys = Object.keys(res);
           keys.forEach(element => {
-            let group = res[element].group;
+            const group = res[element].group;
             this.catrgories.push(res[element].legend);
 
             group.forEach(inputEl => {
@@ -69,7 +69,7 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
                 name: String(inputEl.name),
                 type: inputEl.type
               };
-              this.config.fields[inputEl.id]['cat'] = res[element].legend
+              this.config.fields[inputEl.id]['cat'] = res[element].legend;
               if (inputEl.name.toLowerCase().includes('value')) {
                 this.config.fields[inputEl.id].name = String(inputEl.id);
               }

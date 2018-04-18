@@ -1,6 +1,7 @@
 .panel-add-new-patient,
 .diagnosis-container {
     width: 50%;
+    height: 500px;
     margin-right: 20px;
     position: relative;
 }

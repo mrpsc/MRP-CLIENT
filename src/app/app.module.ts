@@ -11,6 +11,7 @@ import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsBootstrapUIModule } from '@ng-dynamic-forms/ui-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { LogoutComponent } from './login-register/logout.component';
 import { EnumToOptionsFilter } from './shared/components/enum-to-options-filter.pipe';
@@ -39,10 +40,8 @@ import { BuildQueryComponent } from './main-app/research/build-query.component';
 import { ResearchService } from './shared/services/research.service';
 import { CONFIG } from './shared/config';
 import { QueryBuilderModule } from 'angular2-query-builder';
-import {MatFormFieldModule} from '@angular/material/form-field';
-
 import { FieldFilterPipe } from './field-filter.pipe';
-
+import { TreatmentTableComponent } from './main-app/patient-info/treatment-table/treatment-table/treatment-table.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginRegisterComponent }
@@ -68,8 +67,8 @@ const routes: Routes = [
     PatientsResultComponent,
     BuildQueryComponent,
     DiagModalComponent,
-    FieldFilterPipe
-    
+    FieldFilterPipe,
+    TreatmentTableComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +85,29 @@ const routes: Routes = [
     BsDatepickerModule,
     AppRoutingModule,
     QueryBuilderModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    ModalModule.forRoot()
+    // RouterModule.forRoot([
+    //   { path: 'login', component: LoginRegisterComponent },
+    //   { path: 'login/:form', component: LoginRegisterComponent },
+    //   { path: 'register', redirectTo: 'login/1', pathMatch: 'full' },
+    //   // { path: 'passwordrecovery', redirectTo: 'login/2', pathMatch: 'full' },
+    //   { path: 'logout/:id', component: LogoutComponent },
+
+    //   { path: 'patientInfo', component: PatientInfoComponent, canActivate: [CanActivateOAuthGuard] },
+    //   { path: 'patientEdit/:id', component: PatientEditInfoComponent, canActivate: [CanActivateOAuthGuard] },
+    //   { path: 'patientDiagnosisDetails/:id',
+    // component: PatientDiagnosisDetailsComponent, canActivate: [CanActivateOAuthGuard],
+    // canDeactivate: [CanDeactivateDiagnosisFormGuard] },
+    //   { path: 'findPatient', component: FindPatientComponent, canActivate: [CanActivateOAuthGuard] },
+    //   // {path: 'userManagment', component: UnderConstructionComponent, canActivate : [CanActivateOAuthGuard]},
+    //   // {path: 'research', component: UnderConstructionComponent, canActivate : [CanActivateOAuthGuard]},
+    //   // {path: 'personalInfo', component: UnderConstructionComponent, canActivate : [CanActivateOAuthGuard]},
+    //   // {path: '', redirectTo: 'findPatient', pathMatch:'full', canActivate : [CanActivateOAuthGuard]},
+    //   // {path: '**', redirectTo: 'findPatient', pathMatch:'full', canActivate : [CanActivateOAuthGuard]},
+    //   { path: '', redirectTo: 'login', pathMatch: 'full' },
+    //   { path: '**', redirectTo: 'login', pathMatch: 'full' }
+    // ])
   ],
   providers: [
     CanActivateOAuthGuard,
