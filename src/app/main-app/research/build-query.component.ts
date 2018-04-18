@@ -61,9 +61,9 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
                 name: String(inputEl.name),
                 type: inputEl.type
               };
-              if (inputEl.name.toLowerCase().includes('value')) {
-                this.config.fields[inputEl.id].name = String(inputEl.id);
-              }
+              // if (inputEl.name.toLowerCase().includes('value')) {
+              //   this.config.fields[inputEl.id].name = String(inputEl.id);
+              // }
               switch (inputEl.type) {
                 case ('SELECT'): {
                   this.config.fields[inputEl.id].type = 'category';
