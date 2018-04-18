@@ -57,11 +57,11 @@
           </form>
           <form id='register-form' #registerForm='ngForm' (ngSubmit)='submit()' action="/login" method="post" role="form" *ngIf='activeForm == 1' novalidate>
             <fieldset>
-              <div class="form-group" [ngClass]="{'has-error': userIdVar.touched && !userIdVar.valid}">
+      <!--        <div class="form-group" [ngClass]="{'has-error': userIdVar.touched && !userIdVar.valid}">
                 <label for="userId" class="control-label">ID:</label>
                 <input type="text" name="userId" id="userId" #userIdVar='ngModel' [(ngModel)]="regInfo.UserId" tabindex="1" class="form-control" placeholder="ID (required)" required minlength="9">
                 <span class='help-block'  *ngIf='(userIdVar.touched || userIdVar.dirty) && userIdVar.errors'>Please enter your ID, at least 9 digits in length</span>
-              </div>
+              </div> -->
               <div class="form-group" [ngClass]="{'has-error': usernameVar.touched && !usernameVar.valid}">
                 <label for="username" class="control-label">Username:</label>
                 <input type="text" name="username" id="username" #usernameVar='ngModel' [(ngModel)]="regInfo.Username" tabindex="2" class="form-control" placeholder="Username (required)" required minlength="4">

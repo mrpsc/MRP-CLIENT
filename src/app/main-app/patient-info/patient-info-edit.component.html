@@ -13,13 +13,13 @@
                     <form (ngSubmit)="submit()">
                         <div class="form-group" [ngClass]="{'has-error': id.touched && !id.valid && formType=='A'}">
                             <label for="id">ID</label>
-                            <input type="tel" class="form-control" id="id" #id='ngModel' [(ngModel)]="patient.PatientId" name="id" [ngClass]="{'invalid-field': patient.PatientId && patient.PatientId.length!=9 && formType=='A'}" required minlength="9" maxlength="9" [readonly]="isFieldDisabled">
-                            <span class='help-block'  *ngIf='(id.touched || id.dirty) && id.errors'>Please enter your ID, at least 9 digits in length</span>
+                            <input type="tel" class="form-control" id="id" #id='ngModel' [(ngModel)]="patient.PatientId" name="id" [ngClass]="{'invalid-field': patient.PatientId  && formType=='A'}" required  [readonly]="isFieldDisabled">
+                            <span class='help-block'  *ngIf='(id.touched || id.dirty)'>Please enter patient ID</span>
                         </div>
                         <div class="form-group" [ngClass]="{'has-error': name.touched && !name.valid && formType=='A'}">
-                            <label for="name">Name</label>
+                            <label for="name">Initials</label>
                             <input type="string" class="form-control" id="name" #name='ngModel' [(ngModel)]="patient.Name"  name="name"  required [readonly]='isReadOnly'>
-                            <span class='help-block' *ngIf='(name.dirty || name.touched) && name.errors'>Name is required</span>
+                            <span class='help-block' *ngIf='(name.dirty || name.touched) && name.errors'>Initials are required</span>
                         </div>
                         <div class="form-group">
                             <label for="dateOfBirth">Date of Birth</label>
@@ -36,16 +36,16 @@
                             <label for="race">Race</label>
                             <select class="form-control" id="race"  [(ngModel)]="patient.Race" [ngClass]="{'invalid-field':!patient.Race && formType=='A'}" name="race" required [disabled]="isReadOnly">
                                 <option *ngFor="let race of races | enumToOptions" [value]="race" [label]="races[race]"></option>
-                            </select>
+                            </select> 
                         </div> -->
                         <div class="form-group" *ngIf='formType == "E"'>
                             <label for="inclusionDate">Inclusion Date</label>
                             <input type="text" class="form-control" id="inclusionDate" [value]="patient.InclusionDate | date:'dd/MM/yyyy'" name="inclusionDate" readonly>
                         </div>
-                        <div class="form-group">
+                    <!--    <div class="form-group">
                             <label for="general">General Comments</label>
                             <textarea class="form-control" id="general" [(ngModel)]="patient.General" name="general" [readonly]="isReadOnly"></textarea>
-                        </div>
+                        </div> -->
                         <div class="alert alert-danger" *ngIf="error">{{error}}</div>
                     </form>
                 </div>
@@ -66,7 +66,7 @@
             <i class="glyphicon glyphicon-edit"></i> Edit Patient Info
         </button>
         <a type="button" class="btn btn-primary" [routerLink]="['/patientDiagnosisDetails/0']">
-          <i class="glyphicon glyphicon-trash"></i> Back 
+          <i></i> Back 
   </a>
     </div>
 </div>

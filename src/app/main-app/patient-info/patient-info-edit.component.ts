@@ -133,7 +133,6 @@ export class PatientEditInfoComponent implements OnInit, OnDestroy {
         this.isAddNewPatient =
             this.patient &&
             this.patient.PatientId &&
-            this.patient.PatientId.length === 9 &&
             this.patient.Name != null &&
             this.patient.DateOfBirth != null;
     }
