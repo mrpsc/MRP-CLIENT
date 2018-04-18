@@ -3,7 +3,7 @@ import {
   DynamicFormService, DynamicFormControlModel, DynamicFormGroupModel,
   DynamicFormArrayModel, DynamicInputModel
 } from '@ng-dynamic-forms/core';
-import { FormArray, FormGroup, FormControl } from '@angular/forms';
+import { FormArray, FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { PatientsFormSchemaService } from './../../shared/services/patients-form-schema';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -12,13 +12,14 @@ import { ResearchService } from '../../shared/services/research.service';
 import { QueryBuilderConfig } from 'angular2-query-builder';
 import { QueryBuilderClassNames } from 'angular2-query-builder/dist/components';
 
-
 @Component({
   selector: 'app-build-query',
   templateUrl: './build-query.component.html',
   styleUrls: ['./build-query.component.css']
 })
 export class BuildQueryComponent implements OnInit, OnDestroy {
+
+  public queryCtrl: FormControl;
   patientResponseSubscription: Subscription;
   groups: any = [];
   catrgories: any = [];
@@ -27,7 +28,6 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
     condition: 'and',
     rules: []
   };
-  configs: Array<QueryBuilderConfig> = [];
   config: QueryBuilderConfig = {
     fields: {}
   };
@@ -44,40 +44,39 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
   constructor(private formsSchemaService: PatientsFormSchemaService,
     private formsService: DynamicFormService,
     private router: Router,
-    private _researchService: ResearchService) { }
+    private _researchService: ResearchService,
+    private formBuilder: FormBuilder) { 
+        this.queryCtrl = this.formBuilder.control(this.query);
+    }
+
+    onChangeCategory(rule: any, cat:string){
+      rule['category'] = cat;
+    }
 
   ngOnInit() {
     this.patientResponseSubscription = this.formsSchemaService.GetFirstSchema()
       .subscribe(Response => {
         if (Response) {
-         // const config: QueryBuilderConfig = { fields: this.config.fields };
+          const config: QueryBuilderConfig = { fields: this.config.fields };
           const res: object = JSON.parse(Response);
           const keys = Object.keys(res);
           keys.forEach(element => {
             let group = res[element].group;
-            
-            this.groups.push(group);
+            this.catrgories.push(res[element].legend);
 
-            let legend = res[element].legend;
-            this.catrgories.push(legend);
-
-            
-            this.configs[legend] = {
-              fields: {}
-            };
             group.forEach(inputEl => {
-             
-              this.configs[legend].fields[inputEl.id] = {
+              this.config.fields[inputEl.id] = {
                 name: String(inputEl.name),
                 type: inputEl.type
               };
+              this.config.fields[inputEl.id]['cat'] = res[element].legend
               if (inputEl.name.toLowerCase().includes('value')) {
-                this.configs[legend].fields[inputEl.id].name = String(inputEl.id);
+                this.config.fields[inputEl.id].name = String(inputEl.id);
               }
               switch (inputEl.type) {
                 case ('SELECT'): {
-                  this.configs[legend].fields[inputEl.id].type = 'category';
-                  this.configs[legend].fields[inputEl.id].options = inputEl.options.map((option) => {
+                  this.config.fields[inputEl.id].type = 'category';
+                  this.config.fields[inputEl.id].options = inputEl.options.map((option) => {
                     return {
                       name: option.label,
                       value: option.value
@@ -86,34 +85,30 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
                   break;
                 }
                 case ('DATEPICKER'): {
-                  this.configs[legend].fields[inputEl.id].type = 'string';
+                  this.config.fields[inputEl.id].type = 'string';
                   break;
                 }
                 case 'TEXTAREA':
                 case 'text': {
-                  this.configs[legend].fields[inputEl.id].type = 'string';
+                  this.config.fields[inputEl.id].type = 'string';
                   break;
                 }
                 case ('TIMEPICKER'): {
-                  this.configs[legend].fields[inputEl.id].type = 'string';
+                  this.config.fields[inputEl.id].type = 'string';
                   break;
                 }
                 case ('INPUT'): {
                   if (inputEl.inputType === 'number') {
-                    this.configs[legend].fields[inputEl.id].type = 'number';
+                    this.config.fields[inputEl.id].type = 'number';
                   } else {
-                    this.configs[legend].fields[inputEl.id].type = 'string';
+                    this.config.fields[inputEl.id].type = 'string';
                   }
                   break;
                 }
               }
             });
           });
-          this.groups.forEach(group => {
-      
-          });
-          
-          this.config = this.configs[this.catrgories[0]];
+          this.config = config;
         }
       });
   }

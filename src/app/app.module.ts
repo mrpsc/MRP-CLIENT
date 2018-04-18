@@ -41,6 +41,9 @@ import { CONFIG } from './shared/config';
 import { QueryBuilderModule } from 'angular2-query-builder';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
+import { FieldFilterPipe } from './field-filter.pipe';
+
+
 const routes: Routes = [
   { path: 'login', component: LoginRegisterComponent }
 ];
@@ -64,7 +67,9 @@ const routes: Routes = [
     ResearchComponent,
     PatientsResultComponent,
     BuildQueryComponent,
-    DiagModalComponent
+    DiagModalComponent,
+    FieldFilterPipe
+    
   ],
   imports: [
     BrowserModule,
@@ -81,29 +86,7 @@ const routes: Routes = [
     BsDatepickerModule,
     AppRoutingModule,
     QueryBuilderModule,
-    MatFormFieldModule,
     PaginationModule.forRoot()
-    // RouterModule.forRoot([
-    //   { path: 'login', component: LoginRegisterComponent },
-    //   { path: 'login/:form', component: LoginRegisterComponent },
-    //   { path: 'register', redirectTo: 'login/1', pathMatch: 'full' },
-    //   // { path: 'passwordrecovery', redirectTo: 'login/2', pathMatch: 'full' },
-    //   { path: 'logout/:id', component: LogoutComponent },
-
-    //   { path: 'patientInfo', component: PatientInfoComponent, canActivate: [CanActivateOAuthGuard] },
-    //   { path: 'patientEdit/:id', component: PatientEditInfoComponent, canActivate: [CanActivateOAuthGuard] },
-    //   { path: 'patientDiagnosisDetails/:id',
-    // component: PatientDiagnosisDetailsComponent, canActivate: [CanActivateOAuthGuard],
-    // canDeactivate: [CanDeactivateDiagnosisFormGuard] },
-    //   { path: 'findPatient', component: FindPatientComponent, canActivate: [CanActivateOAuthGuard] },
-    //   // {path: 'userManagment', component: UnderConstructionComponent, canActivate : [CanActivateOAuthGuard]},
-    //   // {path: 'research', component: UnderConstructionComponent, canActivate : [CanActivateOAuthGuard]},
-    //   // {path: 'personalInfo', component: UnderConstructionComponent, canActivate : [CanActivateOAuthGuard]},
-    //   // {path: '', redirectTo: 'findPatient', pathMatch:'full', canActivate : [CanActivateOAuthGuard]},
-    //   // {path: '**', redirectTo: 'findPatient', pathMatch:'full', canActivate : [CanActivateOAuthGuard]},
-    //   { path: '', redirectTo: 'login', pathMatch: 'full' },
-    //   { path: '**', redirectTo: 'login', pathMatch: 'full' }
-    // ])
   ],
   providers: [
     CanActivateOAuthGuard,

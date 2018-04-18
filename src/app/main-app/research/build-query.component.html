@@ -1,18 +1,19 @@
 <query-builder [(ngModel)]='query' [config]='config'>
-  
     <ng-container *queryField="let rule; let fields=fields; let changeField=changeField">
-     
-        <mat-form-field>
-            <select >
-              <option *ngFor="let catrgory of catrgories" [value]="catrgory">{{catrgory}}</option>
-            </select>
-          </mat-form-field>
-
-        <!-- <mat-form-field>
-          <select [(ngModel)]="rule.field" (ngModelChange)="changeField($event, rule)">
-            <option *ngFor="let field of fields" [value]="field.value">{{field.name}}</option>
+         <span>
+        <select class="form-control" (change)="onChangeCategory(rule, $event.target.value)" >
+            <option disabled selected value></option>
+            <option *ngFor="let catrgory of catrgories" [value]="catrgory">
+              {{ catrgory }}
+            </option>
           </select>
-        </mat-form-field> -->
+
+        <select class="form-control" [(ngModel)]="rule.field" (ngModelChange)="changeField($event, rule)">
+            <option *ngFor="let field of fields | fieldFilter:rule['category']" [value]="field.value">
+              {{ field.name }}
+            </option>
+          </select>
+        </span>
       </ng-container>
 
 </query-builder>
