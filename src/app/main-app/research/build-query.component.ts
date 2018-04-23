@@ -12,6 +12,11 @@ import { ResearchService } from '../../shared/services/research.service';
 import { QueryBuilderConfig } from 'angular2-query-builder';
 import { QueryBuilderClassNames } from 'angular2-query-builder/dist/components';
 
+const treatments = [
+  'Antiplatelet Treatment', 'Non-Antiagulant Therapy', 'INR Control',
+  'IVC Filter', 'Treatment After Complications', 'Acute Treatment', 'Long-Term Treatment'
+];
+
 @Component({
   selector: 'app-build-query',
   templateUrl: './build-query.component.html',
@@ -45,13 +50,13 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
     private formsService: DynamicFormService,
     private router: Router,
     private _researchService: ResearchService,
-    private formBuilder: FormBuilder) { 
-        this.queryCtrl = this.formBuilder.control(this.query);
-    }
+    private formBuilder: FormBuilder) {
+    this.queryCtrl = this.formBuilder.control(this.query);
+  }
 
-    onChangeCategory(rule: any, cat:string){
-      rule['category'] = cat;
-    }
+  onChangeCategory(rule: any, cat: string) {
+    rule['category'] = cat;
+  }
 
   ngOnInit() {
     this.patientResponseSubscription = this.formsSchemaService.GetFirstSchema()
@@ -63,12 +68,13 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
           keys.forEach(element => {
             const group = res[element].group;
             this.catrgories.push(res[element].legend);
-
             group.forEach(inputEl => {
               this.config.fields[inputEl.id] = {
                 name: String(inputEl.name),
                 type: inputEl.type
               };
+              if (res[element].legend === 'Acute Treatment') {
+              }
               this.config.fields[inputEl.id]['cat'] = res[element].legend;
               if (inputEl.name.toLowerCase().includes('value')) {
                 this.config.fields[inputEl.id].name = String(inputEl.id);
@@ -126,7 +132,7 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
     } else {
       query[`$${this.query.condition}`] = result;
       this._researchService.setQuery(query);
-      this.router.navigate(['./patientsResult']);
+      // this.router.navigate(['./patientsResult']);
     }
 
   }
@@ -140,7 +146,45 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
         newRules.push(query);
       } else {
         const obj = {};
-        if (rule.value !== undefined) {
+        if (treatments.includes(rule.category)) {
+          const propMatch = {};
+          switch (rule.operator) {
+            case ('contains'): {
+              propMatch[rule.field] = { $regex: `.*${rule.value}.*` };
+              break;
+            }
+            case ('like'): {
+              propMatch[rule.field] = { $eq: `/${rule.value}/` };
+              break;
+            }
+            case ('='): {
+              propMatch[rule.field] = { $eq: rule.value };
+              break;
+            }
+            case ('!='): {
+              propMatch[rule.field] = { $ne: rule.value };
+              break;
+            }
+            case ('<'): {
+              propMatch[rule.field] = { $lt: rule.value };
+              break;
+            }
+            case ('<='): {
+              propMatch[rule.field] = { $lte: rule.value };
+              break;
+            }
+            case ('>'): {
+              propMatch[rule.field] = { $gt: rule.value };
+              break;
+            }
+            case ('>='): {
+              propMatch[rule.field] = { $gte: rule.value };
+              break;
+            }
+          }
+          obj['Diagnose.Symptoms.' + rule.category] = { '$elemMatch': propMatch };
+          newRules.push(obj);
+        } else if (rule.value !== undefined) {
           switch (rule.operator) {
             case ('contains'): {
               obj['Diagnose.Symptoms.' + rule.field] = { $regex: `.*${rule.value}.*` };
