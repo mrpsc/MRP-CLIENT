@@ -1,53 +1,53 @@
-select{
+select {
     width: 15%;
     margin-left: 0.5%;
 }
 
-.conditon{
+.conditon {
     background: #f7f7f7;
     border-style: groove;
     margin-bottom: 13px;
     position: relative;
 }
-label{
+
+label {
     margin-left: 6%;
 }
 
-.downButtons{
+.downButtons {
     margin-top: 7px;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
-.buttons{
+.buttons {
     margin-bottom: 9px;
     margin-left: 5px;
 }
 
-.conditionsButtons{ 
+.conditionsButtons {
     margin-top: 12px;
 }
 
-input{
+input {
     height: 20px;
 }
 
-.smallSelect{
+.smallSelect {
     width: 4%;
 }
 
-
-.logicArray{
+.logicArray {
     margin-bottom: 12px;
     width: 4%;
 }
 
-.header{
+.header {
     text-align: center;
     margin-top: 0px;
     margin-bottom: 8px;
 }
 
-.delete{
+.delete {
     margin-top: 2%;
     margin-right: 8px;
     position: absolute;
@@ -56,14 +56,23 @@ input{
     color: red;
 }
 
-.subCategory { 
+.subCategory {
     margin-left: 9%;
 }
 
-.result{
+.result {
     margin-bottom: 5px;
     margin-left: -71px;
     word-wrap: break-word;
     width: 97%;
 }
 
+.selectInputs {
+    display: flex;
+    margin-bottom: 0.5%;
+}
+
+.selectInputs select {
+    margin-left: 0;
+    margin-right: 0.5%;
+}

@@ -40,6 +40,7 @@ import { BuildQueryComponent } from './main-app/research/build-query.component';
 import { ResearchService } from './shared/services/research.service';
 import { CONFIG } from './shared/config';
 import { QueryBuilderModule } from 'angular2-query-builder';
+import { FieldFilterPipe } from './shared/components/field-filter.pipe';
 import { TreatmentTableComponent } from './main-app/patient-info/treatment-table/treatment-table/treatment-table.component';
 
 const routes: Routes = [
@@ -66,6 +67,7 @@ const routes: Routes = [
     PatientsResultComponent,
     BuildQueryComponent,
     DiagModalComponent,
+    FieldFilterPipe,
     TreatmentTableComponent
   ],
   imports: [

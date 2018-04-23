@@ -3,7 +3,7 @@ import {
   DynamicFormService, DynamicFormControlModel, DynamicFormGroupModel,
   DynamicFormArrayModel, DynamicInputModel
 } from '@ng-dynamic-forms/core';
-import { FormArray, FormGroup, FormControl } from '@angular/forms';
+import { FormArray, FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { PatientsFormSchemaService } from './../../shared/services/patients-form-schema';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -12,15 +12,22 @@ import { ResearchService } from '../../shared/services/research.service';
 import { QueryBuilderConfig } from 'angular2-query-builder';
 import { QueryBuilderClassNames } from 'angular2-query-builder/dist/components';
 
+const treatments = [
+  'Antiplatelet Treatment', 'Non-Antiagulant Therapy', 'INR Control',
+  'IVC Filter', 'Treatment After Complications', 'Acute Treatment', 'Long-Term Treatment'
+];
+
 @Component({
   selector: 'app-build-query',
   templateUrl: './build-query.component.html',
   styleUrls: ['./build-query.component.css']
 })
 export class BuildQueryComponent implements OnInit, OnDestroy {
+
+  public queryCtrl: FormControl;
   patientResponseSubscription: Subscription;
   groups: any = [];
-  catrgory: any = [];
+  catrgories: any = [];
   // query: string = '()';
   query = {
     condition: 'and',
@@ -42,7 +49,14 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
   constructor(private formsSchemaService: PatientsFormSchemaService,
     private formsService: DynamicFormService,
     private router: Router,
-    private _researchService: ResearchService) { }
+    private _researchService: ResearchService,
+    private formBuilder: FormBuilder) {
+    this.queryCtrl = this.formBuilder.control(this.query);
+  }
+
+  onChangeCategory(rule: any, cat: string) {
+    rule['category'] = cat;
+  }
 
   ngOnInit() {
     this.patientResponseSubscription = this.formsSchemaService.GetFirstSchema()
@@ -52,18 +66,19 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
           const res: object = JSON.parse(Response);
           const keys = Object.keys(res);
           keys.forEach(element => {
-            this.groups.push(res[element].group);
-            this.catrgory.push(res[element].legend);
-          });
-          this.groups.forEach(group => {
+            const group = res[element].group;
+            this.catrgories.push(res[element].legend);
             group.forEach(inputEl => {
               this.config.fields[inputEl.id] = {
                 name: String(inputEl.name),
                 type: inputEl.type
               };
-              // if (inputEl.name.toLowerCase().includes('value')) {
-              //   this.config.fields[inputEl.id].name = String(inputEl.id);
-              // }
+              if (res[element].legend === 'Acute Treatment') {
+              }
+              this.config.fields[inputEl.id]['cat'] = res[element].legend;
+              if (inputEl.name.toLowerCase().includes('value')) {
+                this.config.fields[inputEl.id].name = String(inputEl.id);
+              }
               switch (inputEl.type) {
                 case ('SELECT'): {
                   this.config.fields[inputEl.id].type = 'category';
@@ -117,7 +132,7 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
     } else {
       query[`$${this.query.condition}`] = result;
       this._researchService.setQuery(query);
-      this.router.navigate(['./patientsResult']);
+      // this.router.navigate(['./patientsResult']);
     }
 
   }
@@ -131,7 +146,45 @@ export class BuildQueryComponent implements OnInit, OnDestroy {
         newRules.push(query);
       } else {
         const obj = {};
-        if (rule.value !== undefined) {
+        if (treatments.includes(rule.category)) {
+          const propMatch = {};
+          switch (rule.operator) {
+            case ('contains'): {
+              propMatch[rule.field] = { $regex: `.*${rule.value}.*` };
+              break;
+            }
+            case ('like'): {
+              propMatch[rule.field] = { $eq: `/${rule.value}/` };
+              break;
+            }
+            case ('='): {
+              propMatch[rule.field] = { $eq: rule.value };
+              break;
+            }
+            case ('!='): {
+              propMatch[rule.field] = { $ne: rule.value };
+              break;
+            }
+            case ('<'): {
+              propMatch[rule.field] = { $lt: rule.value };
+              break;
+            }
+            case ('<='): {
+              propMatch[rule.field] = { $lte: rule.value };
+              break;
+            }
+            case ('>'): {
+              propMatch[rule.field] = { $gt: rule.value };
+              break;
+            }
+            case ('>='): {
+              propMatch[rule.field] = { $gte: rule.value };
+              break;
+            }
+          }
+          obj['Diagnose.Symptoms.' + rule.category] = { '$elemMatch': propMatch };
+          newRules.push(obj);
+        } else if (rule.value !== undefined) {
           switch (rule.operator) {
             case ('contains'): {
               obj['Diagnose.Symptoms.' + rule.field] = { $regex: `.*${rule.value}.*` };
