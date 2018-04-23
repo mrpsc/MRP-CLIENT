@@ -195,7 +195,11 @@ export class PatientDiagnosisDetailsComponent implements OnInit {
                         if (this.patient.Diagnose.Symptoms[subTab]) {
                             return this.patient.Diagnose.Symptoms[subTab];
                         }
+                    } else {
+                        this.patient.Diagnose.Symptoms = {};
                     }
+                } else {
+                    this.patient.Diagnose = new PatientDiagnosis(this.patient.PatientId);
                 }
             }
         }

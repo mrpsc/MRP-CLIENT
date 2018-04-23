@@ -64,12 +64,27 @@ export class TreatmentTableComponent implements OnInit {
   onTreatmentSave() {
     this.tempTreatments[this.selectedTreatmentIndex] = this.currentlyEditedTreatment;
     this.currentlyEditedTreatment = null;
-    this.tableChange.emit({ treatmentName: this.treatmentName, treatments: this.treatments });
+    this.tableChange.emit({ treatmentName: this.treatmentName, treatments: this.tempTreatments });
     this.modalRef.hide();
   }
 
   onTreatmentCancel() {
     this.currentlyEditedTreatment = null;
     this.modalRef.hide();
+  }
+
+  getDrugUsedInTreatment(treatment) {
+    if (treatment['DrugUsedInLongTermTreatment']) { return treatment['DrugUsedInLongTermTreatment']; }
+    return '';
+  }
+
+  getTreatmentOnsetDate(treatment) {
+    if (treatment['DrugUsedInLongTermTreatmentOnsetDate']) { return treatment['DrugUsedInLongTermTreatmentOnsetDate']; }
+    return '';
+  }
+
+  getTreatmentFinishedDate(treatment) {
+    if (treatment['DrugUsedInLongTermTreatmentFinishingDate']) { return treatment['DrugUsedInLongTermTreatmentFinishingDate']; }
+    return '';
   }
 }
