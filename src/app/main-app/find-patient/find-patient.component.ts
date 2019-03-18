@@ -15,15 +15,17 @@ export class FindPatientComponent {
     loggedInUser: User;
     pageTitle = 'Find Patient';
     error: string;
+    patientId:string;
 
     constructor(private patientsService: PatientsService, private router: Router) {
         this.patient.PatientId = '';
     }
 
-    find(): void {
-        this.patientsService.getPatients(this.patient)
+    find(patientId): void {
+        this.patientsService.getPatientById(patientId)
             .subscribe((response: any) => {
                 if (response) {
+                    debugger;
                     const patient = new Patient().fromJSON(response.Patients[0]);
                     this.patientsService.emitChange(patient);
                     this.router.navigate(['./' + this.navigationAddress(patient)]);

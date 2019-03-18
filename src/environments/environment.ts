@@ -5,5 +5,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://localhost:53100/"
+  apiUrl: "http://localhost:8000/",
+  tokenLocalStorageKey:'token',
+  authHeaderKey:'auth-token',
+  currentUser:'currentUser'
 };
