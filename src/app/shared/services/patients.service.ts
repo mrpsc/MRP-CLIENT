@@ -7,11 +7,16 @@ import { PatientDiagnosis } from '../models/patient-diagnosis';
 import { FindPatientModel } from '../../main-app/find-patient/find-patientModel';
 import { CONFIG } from '../../shared/config';
 import { Patient } from '../models/patient';
+import { environment } from '../../../environments/environment';
+import { HeadersService } from './headers.service';
+import { HttpHeaders } from '@angular/common/http';
+
 
 @Injectable()
 export class PatientsService {
     private _url: string;
     private emitChangeSource = new BehaviorSubject<Patient>(null);
+    
     // Observable string streams
     changeEmitted$ = this.emitChangeSource.asObservable();
     // Service message commands
@@ -20,25 +25,33 @@ export class PatientsService {
     }
 
     constructor(private _http: Http, private config: CONFIG) {
-        this._url = this.config.apiUrl + 'api/Patients';
+        this._url = this.config.apiUrl + 'api/patient';
     }
 
-    getPatients(findPatientModel: FindPatientModel): Observable<Patient> {
-        const accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
-        const headers: Headers = new Headers({ 'Authorization': 'Bearer ' + accessToken });
-        const options: RequestOptions = new RequestOptions({ headers: headers });
-        return this._http.get(this._url + '/GetPatients?patientId=' + findPatientModel.PatientId, options)
-            .map((res: Response) => res.json())
-            .catch(this._handleError);
+    getPatientById(patientId) {
+        debugger;
+        return this._http.get(this._url + '/getPatientById/' + patientId,this.setHeaders());
+            // .map((res: Response) => res.json())
+            // .catch(this._handleError);
+    }
+
+    setHeaders() :RequestOptions{
+        let headers: Headers = new Headers();
+        headers.append('Content-Type', 'application/json'); 
+        headers.append(
+            environment.authHeaderKey,
+            localStorage.getItem(environment.tokenLocalStorageKey));
+        const options: RequestOptions = new RequestOptions({headers:headers});
+            return options;
     }
 
     addPatient(patient: Patient): any {
-        const accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
-        const headers: Headers = new Headers({ 'Authorization': 'Bearer ' + accessToken });
-        const options: RequestOptions = new RequestOptions({ headers: headers });
-        return this._http.post(this._url + '/AddPatient', patient, options)
-            .map((res: Response) => res.json())
-            .catch(this._handleError);
+        // const accessToken: string = JSON.parse(sessionStorage.getItem('token')).token;
+        // const headers: Headers = new Headers({ 'Authorization': 'Bearer ' + accessToken });
+        // const options: RequestOptions = new RequestOptions({ headers: headers });
+        return this._http.post(this._url + '/addPatient', patient, this.setHeaders());
+            // .map((res: Response) => res.json())
+            // .catch(this._handleError);
     }
 
     addDiagnosis(diagnosis: PatientDiagnosis): any {
